@@ -9,7 +9,8 @@
     "dev": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@shopify/app": "3.50.0",
