@@ -1,25 +1,28 @@
 {
   "HomePage": {
-    "heading": "Nice work on building a Shopify app 🎉",
-    "learnMore": "Learn more about building out your app in <ShopifyTutorialLink>this Shopify tutorial</ShopifyTutorialLink> 📚",
-    "startPopulatingYourApp": "Ready to go? Start populating your app with some sample products to view and test in your store.",
-    "title": "App name",
-    "trophyAltText": "Nice work on building a Shopify app",
-    "yourAppIsReadyToExplore": "Your app is ready to explore! It contains everything you need to get started including the <PolarisLink>Polaris design system</PolarisLink>, <AdminApiLink>Shopify Admin API</AdminApiLink>, and <AppBridgeLink>App Bridge</AppBridgeLink> UI library and components."
+    "heading": "Welcome to Greenstand Wallet App!",
+    "title": "Greenstand Wallet App",
+    "body": "Greenstand Wallet App helps you connect your shop to Greenstand. It extends your checkout page to be able to sell clients Greenstand Tokens, a token which represents a tree."
   },
   "NavigationMenu": {
-    "pageName": "Page name"
+    "wallet": "Wallet",
+    "checkout": "Checkout"
   },
   "NotFound": {
     "description": "Check the URL and try again, or use the search bar to find what you need.",
     "heading": "There is no page at this address"
   },
-  "PageName": {
-    "body": "Body",
-    "heading": "Heading",
-    "primaryAction": "Primary action",
-    "secondaryAction": "Secondary action",
-    "title": "Page name"
+  "Wallet": {
+    "title": "Wallet",
+    "primaryAction": "Buy tokens",
+    "body": "Each token represents one of the 6 million trees planted at Greenstand. By selling these, you are helping promote a green initiative which benefits both you and the client. ",
+    "link": "<GreenstandExternalLink>Learn more about Greenstand's model</GreenstandExternalLink>",
+    "heading": "Buy tokens to sell to your clients",
+    "formHeading": "Buy tokens",
+    "modalHeading": "Are you sure you want to buy {{tokenQuantity}} tokens?",
+    "modalBody": "This action is permanent.",
+    "modalPrimaryButton": "Proceed",
+    "modalSecondaryButton": "Cancel"
   },
   "ProductsCard": {
     "description": "Sample products are created with a default title and price. You can remove them at any time.",

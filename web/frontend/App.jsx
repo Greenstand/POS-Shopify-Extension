@@ -23,8 +23,12 @@ export default function App() {
             <NavigationMenu
               navigationLinks={[
                 {
-                  label: t("NavigationMenu.pageName"),
-                  destination: "/pagename",
+                  label: t("NavigationMenu.wallet"),
+                  destination: "/wallet",
+                },
+                {
+                  label: t("NavigationMenu.checkout"),
+                  destination: "/checkout",
                 },
               ]}
             />
