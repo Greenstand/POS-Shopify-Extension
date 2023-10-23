@@ -27,5 +27,8 @@
   },
   "CreateWallet": {
     "title": "Create Wallet"
+  },
+  "Checkout": {
+    "title": "Checkout"
   }
 }
