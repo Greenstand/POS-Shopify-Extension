@@ -1,0 +1,28 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+name = "greenstand-wallet-app"
+client_id = "a51c6348b63f08247592f02c74ae1aa1"
+application_url = "https://stats-protection-excerpt-ll.trycloudflare.com"
+embedded = true
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = "write_products"
+
+[auth]
+redirect_urls = [
+  "https://stats-protection-excerpt-ll.trycloudflare.com/auth/callback",
+  "https://stats-protection-excerpt-ll.trycloudflare.com/auth/shopify/callback",
+  "https://stats-protection-excerpt-ll.trycloudflare.com/api/auth/callback",
+  "https://stats-protection-excerpt-ll.trycloudflare.com/.shopify/graphiql/auth/callback"
+]
+
+[webhooks]
+api_version = "2023-10"
+
+[pos]
+embedded = false
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "greenstand-wallet-extension.myshopify.com"
