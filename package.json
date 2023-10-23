@@ -9,11 +9,14 @@
     "dev": "shopify app dev",
     "info": "shopify app info",
     "generate": "shopify app generate",
-    "deploy": "shopify app deploy"
+    "deploy": "shopify app deploy",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@shopify/app": "3.50.0",
-    "@shopify/cli": "3.50.0"
+    "@shopify/cli": "3.50.0",
+    "commitlint": "^18.0.0",
+    "conventional-changelog-conventionalcommits": "^7.0.2"
   },
   "author": "krithinpakshootra",
   "private": true,
@@ -21,5 +24,13 @@
     "extensions/*",
     "web",
     "web/frontend"
-  ]
+  ],
+  "devDependencies": {
+    "husky": "^8.0.0",
+    "lint-staged": "^15.0.2",
+    "prettier": "^3.0.3"
+  },
+  "lint-staged": {
+    "*.{js,css,md}": "prettier --write"
+  }
 }
