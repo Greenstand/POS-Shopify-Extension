@@ -54,30 +54,33 @@ export default function CreateWallet() {
               </Text>
             </div>
           </AlphaCard>
-          <div>
-          <AlphaCard>
-            <div
-              style={{
-                width: "100%",
-                height: "60vh",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-              }}
-            >
-              <Text variant="headingLg">
-                Integrate Greenstand Wallet App with Checkout
-              </Text>
+          <div style={{ marginTop: "16px" }}>
+            <AlphaCard>
+              <div
+                style={{
+                  width: "100%",
+                  height: "calc(60vh - 16px)",
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                }}
+              >
+                <Text variant="headingLg">Customise checkout</Text>
 
-              <div style={{ padding: "64px" }}>
-                <Text tone="subdued">Insert image here</Text>
+                <div style={{ marginTop: "32px", width: "80%" }}>
+                  <FormLayout>
+                    <TextField
+                      label="Display text"
+                      helpText="The text that tells the client about buying tokens"
+                    />
+                    <TextField
+                      label="Promotion amount"
+                      helpText="What the user needs"
+                    />
+                  </FormLayout>
+                </div>
               </div>
-              <Text>
-                Greenstand Wallet App makes changes to checkout to allow users
-                to purchase tokens from you.
-              </Text>
-            </div>
-          </AlphaCard>
+            </AlphaCard>
           </div>
         </Layout.Section>
         <Layout.Section oneThird>
