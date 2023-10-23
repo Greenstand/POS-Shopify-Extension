@@ -27,19 +27,5 @@
   },
   "CreateWallet": {
     "title": "Create Wallet"
-  },
-  "ProductsCard": {
-    "description": "Sample products are created with a default title and price. You can remove them at any time.",
-    "errorCreatingProductsToast": "There was an error creating products",
-    "populateProductsButton": {
-      "one": "Populate {{count}} product",
-      "other": "Populate {{count}} products"
-    },
-    "productsCreatedToast": {
-      "one": "{{count}} product created!",
-      "other": "{{count}} products created!"
-    },
-    "title": "Product Counter",
-    "totalProductsHeading": "TOTAL PRODUCTS"
   }
 }
