@@ -2,7 +2,8 @@
   "HomePage": {
     "heading": "Welcome to Greenstand Wallet App!",
     "title": "Greenstand Wallet App",
-    "body": "Greenstand Wallet App helps you connect your shop to Greenstand. It extends your checkout page to be able to sell clients Greenstand Tokens, a token which represents a tree."
+    "body": "Greenstand Wallet App helps you connect your shop to Greenstand. It extends your checkout page to be able to sell clients Greenstand Impact Tokens, a token which represents a tree.",
+    "link": "Learn more about Greenstand here"
   },
   "NavigationMenu": {
     "wallet": "Wallet",
@@ -23,6 +24,9 @@
     "modalBody": "This action is permanent.",
     "modalPrimaryButton": "Proceed",
     "modalSecondaryButton": "Cancel"
+  },
+  "CreateWallet": {
+    "title": "Create Wallet"
   },
   "ProductsCard": {
     "description": "Sample products are created with a default title and price. You can remove them at any time.",

@@ -30,9 +30,11 @@ export default function HomePage() {
               <div style={{ padding: "64px" }}>
                 <Text>Insert image here</Text>
               </div>
-              <div style={{ marginTop: "16px" }}>
-                <Text variant="bodyMd">{t("HomePage.body")}</Text>
-              </div>
+              <Text variant="bodyMd">{t("HomePage.body")}</Text>
+              <br />
+              <Link url="https://greenstand.org/" external>
+                {t("HomePage.link")}
+              </Link>
             </div>
           </Card>
         </Layout.Section>

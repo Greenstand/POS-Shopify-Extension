@@ -10,6 +10,7 @@ import {
   TextField,
   Frame,
   Modal,
+  Link,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -227,7 +228,7 @@ export default function Wallet() {
                   <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
                     <Button primary>Connect a wallet</Button>
                   </div>
-                  <Button>Create a wallet</Button>
+                  <Button url="/create-wallet">Create a wallet</Button>
                 </div>
               </AlphaCard>
             </Layout.Section>
