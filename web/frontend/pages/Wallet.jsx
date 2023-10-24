@@ -17,6 +17,8 @@ import { useTranslation } from "react-i18next";
 import { useCallback, useRef, useEffect, useState } from "react";
 import TokenModal from "../components/Wallet/TokenModal";
 
+import Token from "../assets/Token.svg";
+
 export default function Wallet() {
   const { t } = useTranslation();
   const [tokenQuantity, setTokenQuantity] = useState("1");
@@ -57,14 +59,12 @@ export default function Wallet() {
   return (
     <Page fullWidth>
       <Frame>
-        {modal ? (
-          <TokenModal
-            activator={activator}
-            modal={modal}
-            closeModal={closeModal}
-            tokenQuantity={tokenQuantity}
-          />
-        ) : null}
+        <TokenModal
+          activator={activator}
+          modal={modal}
+          closeModal={closeModal}
+          tokenQuantity={tokenQuantity}
+        />
 
         <TitleBar title={t("Wallet.title")} />
         <Layout>
@@ -94,11 +94,12 @@ export default function Wallet() {
                   <Text variant="headingLg" as="h1">
                     {t("Wallet.heading")}
                   </Text>
+                  <div style={{ padding: "48px" }}>
+                    <img src={Token} width="100px" />
+                  </div>
                   <Text variant="bodyMd">
                     <p
                       style={{
-                        marginTop: "16px",
-                        padding: "8px",
                         textAlign: "center",
                       }}
                     >

@@ -2,11 +2,9 @@ import {
   AlphaCard,
   Page,
   Layout,
-  TextContainer,
+  Checkbox,
   Text,
   Button,
-  Form,
-  FormLayout,
   TextField,
   Frame,
   Modal,
@@ -36,6 +34,8 @@ export default function CreateWallet() {
 
   const [disabled, setDisabled] = useState(true);
 
+  const [checked, setChecked] = useState(false);
+
   // change disabled on validation
 
   useEffect(() => {
@@ -43,7 +43,8 @@ export default function CreateWallet() {
       storeNameDisabled ||
       storeEmailDisabled ||
       walletNameDisabled ||
-      walletPasswordDisabled
+      walletPasswordDisabled ||
+      !checked
     ) {
       setDisabled(true);
     } else {
@@ -57,6 +58,8 @@ export default function CreateWallet() {
   ]);
 
   // handle changes
+
+  const handleCheck = useCallback((newChecked) => setChecked(newChecked), []);
 
   const handleStoreEmailChange = useCallback(
     (value) => setStoreEmail(value),
@@ -119,7 +122,7 @@ export default function CreateWallet() {
     } else if (walletPassword.length < 8) {
       setWalletPasswordError("Wallet password must have at least 8 characters");
       setWalletPasswordDisabled(true);
-    } else if (!/[a-z]+[A-Z]+[0-9]+/.test(walletPassword)) {
+    } else if (!/[a-z]+[A-Z]+[0-9]+[^a-zA-Z0-9]+/.test(walletPassword)) {
       setWalletPasswordError(
         "Wallet password must have lowercase, uppercase, numeric and special characters"
       );
@@ -133,7 +136,7 @@ export default function CreateWallet() {
   return (
     <Page>
       <TitleBar
-        title={t("CreateWallet.title")}
+        title={t("CreateWallet.title",)}
         secondaryActions={[
           {
             content: "Back",
@@ -200,9 +203,16 @@ export default function CreateWallet() {
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
-          <Button primary fullWidth size="large" disabled={disabled}>
-            Create wallet
-          </Button>
+          <Checkbox
+            label="I agree to the terms and conditions"
+            checked={checked}
+            onChange={handleCheck}
+          />
+          <div style={{ marginTop: "32px", width: "100%" }}>
+            <Button primary fullWidth size="large" disabled={disabled}>
+              Create wallet
+            </Button>
+          </div>
         </div>
       </Layout>
     </Page>

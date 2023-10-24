@@ -8,8 +8,10 @@ import {
   Form,
   FormLayout,
   TextField,
+  Link,
   Frame,
   Modal,
+  Select,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -17,6 +19,21 @@ import { useState, useCallback } from "react";
 
 export default function CreateWallet() {
   const { t } = useTranslation();
+
+  const [tokens, setTokens] = useState("1");
+  const [per, setPer] = useState("1");
+  const [item, setItem] = useState("$");
+
+  const values = [
+    { label: "dollars", value: "$" },
+    { label: "items", value: "items" },
+  ];
+
+  // handle changes
+
+  const handleTokenChange = useCallback((newValue) => setTokens(newValue), []);
+  const handlePerChange = useCallback((newValue) => setPer(newValue), []);
+  const handleItemChange = useCallback((newValue) => setItem(newValue), []);
 
   return (
     <Page fullWidth>
@@ -54,50 +71,82 @@ export default function CreateWallet() {
               </Text>
             </div>
           </AlphaCard>
-          <div style={{ marginTop: "16px" }}>
-            <AlphaCard>
-              <div
-                style={{
-                  width: "100%",
-                  height: "calc(60vh - 16px)",
-                  display: "flex",
-                  flexDirection: "column",
-                  alignItems: "center",
-                }}
-              >
-                <Text variant="headingLg">Customise checkout</Text>
+        </Layout.Section>
+        <Layout.Section>
+          <AlphaCard>
+            <div
+              style={{
+                width: "100%",
+                height: "calc(60vh - 16px)",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Text variant="headingLg">Customise checkout</Text>
 
-                <div style={{ marginTop: "32px", width: "80%" }}>
-                  <FormLayout>
-                    <TextField
-                      label="Display text"
-                      helpText="The text that tells the client about buying tokens"
-                    />
-                    <TextField
-                      label="Promotion amount"
-                      helpText="What the user needs"
-                    />
-                  </FormLayout>
-                </div>
+              <div style={{ marginTop: "32px", width: "80%" }}>
+                <FormLayout>
+                  <TextField
+                    label="Tokens"
+                    type="number"
+                    suffix="tokens"
+                    value={tokens}
+                    onChange={handleTokenChange}
+                    min={1}
+                    autoComplete="none"
+                  />
+                  <TextField
+                    label="Per"
+                    type="number"
+                    connectedRight={
+                      <Select
+                        options={values}
+                        value={item}
+                        onChange={handleItemChange}
+                      />
+                    }
+                    onChange={handlePerChange}
+                    value={per}
+                    min={1}
+                    autoComplete="none"
+                  />
+                  <div style={{ marginTop: "32px" }}>
+                    <Button fullWidth primary>
+                      Save
+                    </Button>
+                  </div>
+                </FormLayout>
               </div>
-            </AlphaCard>
-          </div>
+            </div>
+          </AlphaCard>
         </Layout.Section>
         <Layout.Section oneThird>
           <AlphaCard>
             <div
               style={{
                 width: "100%",
-                height: "90vh",
+                height: "calc(60vh - 16px)",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
+                justifyContent: "center",
               }}
             >
               <Text variant="headingLg">Preview</Text>
 
               <div style={{ padding: "64px" }}>
-                <Text tone="subdued">Insert image here</Text>
+                <Text variant="bodyLg">
+                  <p style={{ textAlign: "center" }}>
+                    Greenstand is planting {tokens ? tokens : 0} trees in your
+                    name for every{" "}
+                    {(item == "$" ? item : per ? per : "0") +
+                      (item == "$" ? (per ? per : "0") : " items")}{" "}
+                    {item == "$" ? "worth of items you buy!" : "you buy!"}{" "}
+                    <Link>Learn more!</Link>
+                  </p>
+                </Text>
               </div>
             </div>
           </AlphaCard>
