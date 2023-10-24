@@ -23,6 +23,8 @@ export default function Wallet() {
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState(false);
 
+  const activator = useRef(null);
+
   const validate = () => {
     const num = parseInt(tokenQuantity);
 
@@ -37,8 +39,6 @@ export default function Wallet() {
       setError(false);
     }
   };
-
-  const activator = useRef(null);
 
   const handleTokenQuantityChange = useCallback(
     (newValue) => setTokenQuantity(newValue),
@@ -56,12 +56,15 @@ export default function Wallet() {
   return (
     <Page fullWidth>
       <Frame>
-        <TokenModal
-          activator={activator}
-          modal={modal}
-          closeModal={closeModal}
-          tokenQuantity={tokenQuantity}
-        />
+        {modal ? (
+          <TokenModal
+            activator={activator}
+            modal={modal}
+            closeModal={closeModal}
+            tokenQuantity={tokenQuantity}
+          />
+        ) : null}
+
         <TitleBar title={t("Wallet.title")} />
         <Layout>
           {/* first half */}
@@ -133,13 +136,13 @@ export default function Wallet() {
                 </Text>
                 <Text>Tokens</Text>
 
-                {tokenQuantity < 10 ? (
-                  <div style={{ marginTop: "16px" }}>
-                    <Text tone="subdued" variant="bodySm">
-                      Maybe it's time to stock up.
-                    </Text>
-                  </div>
-                ) : null}
+                {/* {tokenQuantity < 10 ? ( */}
+                <div style={{ marginTop: "16px" }}>
+                  <Text tone="subdued" variant="bodySm">
+                    Maybe it's time to stock up.
+                  </Text>
+                </div>
+                {/* ) : null} */}
               </div>
             </AlphaCard>
           </Layout.Section>
@@ -220,10 +223,11 @@ export default function Wallet() {
                     justifyContent: "center",
                   }}
                 >
-                  <Text variant="bodyLg">
-                    <p style={{ padding: "16px" }}>You do not have a wallet.</p>
-                  </Text>
-                  <Button primary>Connect a wallet</Button>
+                  <Text variant="bodyLg">You do not have a wallet.</Text>
+                  <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
+                    <Button primary>Connect a wallet</Button>
+                  </div>
+                  <Button>Create a wallet</Button>
                 </div>
               </AlphaCard>
             </Layout.Section>
