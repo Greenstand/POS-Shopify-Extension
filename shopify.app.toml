@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://bookmark-cameras-artistic-duty.trycloudflare.com"
+application_url = "https://educators-satellite-makeup-accessories.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://bookmark-cameras-artistic-duty.trycloudflare.com/auth/callback",
-  "https://bookmark-cameras-artistic-duty.trycloudflare.com/auth/shopify/callback",
-  "https://bookmark-cameras-artistic-duty.trycloudflare.com/api/auth/callback",
-  "https://bookmark-cameras-artistic-duty.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://educators-satellite-makeup-accessories.trycloudflare.com/auth/callback",
+  "https://educators-satellite-makeup-accessories.trycloudflare.com/auth/shopify/callback",
+  "https://educators-satellite-makeup-accessories.trycloudflare.com/api/auth/callback",
+  "https://educators-satellite-makeup-accessories.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

@@ -13,7 +13,7 @@ import {
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 export default function CreateWallet() {
   const { t } = useTranslation();
@@ -22,6 +22,41 @@ export default function CreateWallet() {
   const [storeName, setStoreName] = useState("");
   const [walletName, setWalletName] = useState("");
   const [walletPassword, setWalletPassword] = useState("");
+
+  // error state
+  const [storeEmailError, setStoreEmailError] = useState(false);
+  const [storeNameError, setStoreNameError] = useState(false);
+  const [walletNameError, setWalletNameError] = useState(false);
+  const [walletPasswordError, setWalletPasswordError] = useState(false);
+
+  const [storeEmailDisabled, setStoreEmailDisabled] = useState(false);
+  const [storeNameDisabled, setStoreNameDisabled] = useState(false);
+  const [walletNameDisabled, setWalletNameDisabled] = useState(false);
+  const [walletPasswordDisabled, setWalletPasswordDisabled] = useState(false);
+
+  const [disabled, setDisabled] = useState(true);
+
+  // change disabled on validation
+
+  useEffect(() => {
+    if (
+      storeNameDisabled ||
+      storeEmailDisabled ||
+      walletNameDisabled ||
+      walletPasswordDisabled
+    ) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [
+    storeNameDisabled,
+    storeEmailDisabled,
+    walletNameDisabled,
+    walletPasswordDisabled,
+  ]);
+
+  // handle changes
 
   const handleStoreEmailChange = useCallback(
     (value) => setStoreEmail(value),
@@ -39,6 +74,61 @@ export default function CreateWallet() {
     (value) => setWalletPassword(value),
     []
   );
+
+  // validation
+
+  const validateStoreName = () => {
+    if (storeName == "") {
+      setStoreNameError("Store name must not be empty");
+      setStoreNameDisabled(true);
+    } else {
+      setStoreNameError(false);
+      setStoreNameDisabled(false);
+    }
+  };
+
+  const validateStoreEmail = () => {
+    if (storeName == "") {
+      setStoreEmailError("Store email must not be empty");
+      setStoreEmailDisabled(true);
+    } else if (
+      !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(storeEmail)
+    ) {
+      setStoreEmailError("Store email is invalid");
+      setStoreEmailDisabled(true);
+    } else {
+      setStoreEmailError(false);
+      setStoreEmailDisabled(false);
+    }
+  };
+
+  const validateWalletName = () => {
+    if (walletName == "") {
+      setWalletNameError("Wallet name must not be empty");
+      setWalletNameDisabled(true);
+    } else {
+      setWalletNameError(false);
+      setWalletNameDisabled(false);
+    }
+  };
+
+  const validateWalletPassword = () => {
+    if (walletPassword == "") {
+      setWalletPasswordError("Wallet password must not be empty");
+      setWalletPasswordDisabled(true);
+    } else if (walletPassword.length < 8) {
+      setWalletPasswordError("Wallet password must have at least 8 characters");
+      setWalletPasswordDisabled(true);
+    } else if (!/[a-z]+[A-Z]+[0-9]+/.test(walletPassword)) {
+      setWalletPasswordError(
+        "Wallet password must have lowercase, uppercase, numeric and special characters"
+      );
+      setWalletPasswordDisabled(true);
+    } else {
+      setWalletPasswordError(false);
+      setWalletPasswordDisabled(false);
+    }
+  };
 
   return (
     <Page>
@@ -63,6 +153,8 @@ export default function CreateWallet() {
               autoComplete="none"
               value={storeName}
               onChange={handleStoreNameChange}
+              error={storeNameError}
+              onBlur={validateStoreName}
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
@@ -73,6 +165,8 @@ export default function CreateWallet() {
                 helpText="We’ll use this address if we need to contact you about your account."
                 value={storeEmail}
                 onChange={handleStoreEmailChange}
+                error={storeEmailError}
+                onBlur={validateStoreEmail}
               />
             </div>
           </AlphaCard>
@@ -88,6 +182,8 @@ export default function CreateWallet() {
               autoComplete="none"
               value={walletName}
               onChange={handleWalletNameChange}
+              error={walletNameError}
+              onBlur={validateWalletName}
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
@@ -97,12 +193,14 @@ export default function CreateWallet() {
                 autoComplete="none"
                 value={walletPassword}
                 onChange={handleWalletPasswordChange}
+                error={walletPasswordError}
+                onBlur={validateWalletPassword}
               />
             </div>
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
-          <Button primary fullWidth size="large">
+          <Button primary fullWidth size="large" disabled={disabled}>
             Create wallet
           </Button>
         </div>
