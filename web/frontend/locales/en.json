@@ -32,7 +32,10 @@
     "title": "Wallet / Create Wallet",
     "SectionHeader": "Wallet details",
     "Input1Label": "Wallet name",
-    "Input1Placeholder": "Enter wallet name here"
+    "Input1Placeholder": "Enter wallet name here",
+    "Input2Label": "Wallet password",
+    "Input2Placeholder": "Enter wallet password here",
+    "ButtonText": "Connect wallet"
   },
   "Checkout": {
     "title": "Checkout"

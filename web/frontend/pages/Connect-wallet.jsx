@@ -97,8 +97,8 @@ export default function ConnectWallet() {
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
-                label="Wallet password"
-                placeholder="Enter wallet password here"
+                label={t("ConnectWallet.Input2Label")}
+                placeholder={t("ConnectWallet.Input2Placeholder")}
                 type="password"
                 autoComplete="none"
                 value={walletPassword}
@@ -110,11 +110,9 @@ export default function ConnectWallet() {
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
-          <div style={{ marginTop: "32px", width: "100%" }}>
-            <Button primary fullWidth size="large" disabled={disabled}>
-              Create wallet
-            </Button>
-          </div>
+          <Button primary fullWidth size="large" disabled={disabled}>
+            {t("ConnectWallet.ButtonText")}
+          </Button>
         </div>
       </Layout>
     </Page>
