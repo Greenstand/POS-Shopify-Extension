@@ -26,7 +26,21 @@
     "modalSecondaryButton": "Annulez"
   },
   "CreateWallet": {
-    "title": "Créez un portefeuille"
+    "title": "Créez un portefeuille",
+    "Section1Header": "Store details",
+    "Section1Desc": "Greenstand a besoin de cette information pour contacter ton magasin",
+    "Input1Label": "Nom du magasin",
+    "Input1Placeholder": "Mettez le nom du magasin ici",
+    "Input2Label": "E-mail du magasin",
+    "Input2Placeholder": "Mettez l'e-mail du magasin ici",
+    "SectionHeader": "Détails du portefeuille",
+    "Section2Desc": "Greenstand a besoin de cette information pour créer ton portefeuille",
+    "Input3Label": "Nom du portefeuille",
+    "Input3Placeholder": "Mettez nom du portefeuille ici",
+    "Input4Label": "Nom de passe du portefeuille",
+    "Input4Placeholder": "Mettez nom de passe du portefeuille ici",
+    "TermsAndConditions": "J'accepte les termes et les conditions",
+    "ButtonText": "Créez portefeuille"
   },
   "ConnectWallet": {
     "title": "Portefeuille / Relier ton portefeuille",

@@ -136,7 +136,7 @@ export default function CreateWallet() {
   return (
     <Page>
       <TitleBar
-        title={t("CreateWallet.title",)}
+        title={t("CreateWallet.title")}
         secondaryActions={[
           {
             content: "Back",
@@ -146,13 +146,13 @@ export default function CreateWallet() {
       />
       <Layout>
         <Layout.AnnotatedSection
-          title="Store details"
-          description="Greenstand needs this information to contact your store"
+          title={t("CreateWallet.Section1Header")}
+          description={t("CreateWallet.Section1Desc")}
         >
           <AlphaCard>
             <TextField
-              label="Store name"
-              placeholder="Enter store name here"
+              label={t("CreateWallet.Input1Label")}
+              placeholder={t("CreateWallet.Input1")}
               autoComplete="none"
               value={storeName}
               onChange={handleStoreNameChange}
@@ -161,9 +161,9 @@ export default function CreateWallet() {
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
-                label="Store email"
                 type="email"
-                placeholder="Enter store email here"
+                label={t("CreateWallet.Input2Label")}
+                placeholder={t("CreateWallet.Input2Placeholder")}
                 autoComplete="email"
                 helpText="We’ll use this address if we need to contact you about your account."
                 value={storeEmail}
@@ -180,8 +180,8 @@ export default function CreateWallet() {
         >
           <AlphaCard>
             <TextField
-              label="Wallet name"
-              placeholder="Enter wallet name here"
+              label={t("CreateWallet.Input3Label")}
+              placeholder={t("CreateWallet.Input3Placeholder")}
               autoComplete="none"
               value={walletName}
               onChange={handleWalletNameChange}
@@ -190,8 +190,8 @@ export default function CreateWallet() {
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
-                label="Wallet password"
-                placeholder="Enter wallet password here"
+                label={t("CreateWallet.Input4Label")}
+                placeholder={t("CreateWallet.Input4Placeholder")}
                 type="password"
                 autoComplete="none"
                 value={walletPassword}
@@ -204,13 +204,13 @@ export default function CreateWallet() {
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
           <Checkbox
-            label="I agree to the terms and conditions"
+            label={t("CreateWallet.TermsAndConditions")}
             checked={checked}
             onChange={handleCheck}
           />
           <div style={{ marginTop: "32px", width: "100%" }}>
             <Button primary fullWidth size="large" disabled={disabled}>
-              Create wallet
+              {t("CreateWallet.ButtonText")}
             </Button>
           </div>
         </div>
