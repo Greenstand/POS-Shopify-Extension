@@ -18,7 +18,7 @@
     "primaryAction": "Acheter les jetons",
     "body": "Chaque jeton represents un des 6 million des arbres qui étaient planté à Greenstand. En les vendant, vouz aidez en promouvoir une initiative écologique qui bénéficier vous et le client. ",
     "link": "<GreenstandExternalLink>Apprendre plus sur Greenstand</GreenstandExternalLink>",
-    "heading": "Achetez les jetons pour vendre aux vos clients",
+    "heading": "Achetez les jetons pour vendre aux clients",
     "formHeading": "Achetez les jetons",
     "modalHeading": "Êtes-vous sûr qui vous voulez acheter {{tokenQuantity}} jetons?",
     "modalBody": "This action is permanent.",
@@ -27,5 +27,14 @@
   },
   "CreateWallet": {
     "title": "Créez un portefeuille"
+  },
+  "ConnectWallet": {
+    "title": "Portefeuille / Relier ton portefeuille",
+    "SectionHeader": "Détails du portefeuille",
+    "Input1Label": "Nom du portefeuille",
+    "Input1Placeholder": "Mettez nom du portefeuille ici",
+    "Input2Label": "Nom de passe du portefeuille",
+    "Input2Placeholder": "Mettez nom de passe du portefeuille ici",
+    "ButtonText": "Relier ton portefeuille"
   }
 }
