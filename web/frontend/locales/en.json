@@ -39,7 +39,8 @@
     "Input3Placeholder": "Enter wallet name here",
     "Input4Label": "Wallet password",
     "Input4Placeholder": "Enter wallet password here",
-    "ButtonText": "Connect wallet"
+    "TermsAndConditions": "I agree to the terms and conditions",
+    "ButtonText": "Create wallet"
   },
   "ConnectWallet": {
     "title": "Wallet / Connect Wallet",

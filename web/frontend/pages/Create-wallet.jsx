@@ -204,13 +204,13 @@ export default function CreateWallet() {
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
           <Checkbox
-            label="I agree to the terms and conditions"
+            label={t("CreateWallet.TermsAndConditions")}
             checked={checked}
             onChange={handleCheck}
           />
           <div style={{ marginTop: "32px", width: "100%" }}>
             <Button primary fullWidth size="large" disabled={disabled}>
-              Create wallet
+              {t("CreateWallet.ButtonText")}
             </Button>
           </div>
         </div>
