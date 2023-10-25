@@ -27,5 +27,14 @@
   },
   "CreateWallet": {
     "title": "Créez un portefeuille"
+  },
+  "ConnectWallet": {
+    "title": "Portefeuille / Relier ton portefeuille",
+    "SectionHeader": "Détails du portefeuille",
+    "Input1Label": "Nom du portefeuille",
+    "Input1Placeholder": "Mettez nom du portefeuille ici",
+    "Input2Label": "Nom de passe du portefeuille",
+    "Input2Placeholder": "Mettez nom de passe du portefeuille ici",
+    "ButtonText": "Relier ton portefeuille"
   }
 }

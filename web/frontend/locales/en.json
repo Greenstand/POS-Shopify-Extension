@@ -29,7 +29,7 @@
     "title": "Wallet / Create Wallet"
   },
   "ConnectWallet": {
-    "title": "Wallet / Create Wallet",
+    "title": "Wallet / Connect Wallet",
     "SectionHeader": "Wallet details",
     "Input1Label": "Wallet name",
     "Input1Placeholder": "Enter wallet name here",
