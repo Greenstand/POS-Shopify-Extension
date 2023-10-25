@@ -227,7 +227,9 @@ export default function Wallet() {
                 >
                   <Text variant="bodyLg">You do not have a wallet.</Text>
                   <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
-                    <Button primary>Connect a wallet</Button>
+                    <Button primary url="/connect-wallet">
+                      Connect a wallet
+                    </Button>
                   </div>
                   <Button url="/create-wallet">Create a wallet</Button>
                 </div>
