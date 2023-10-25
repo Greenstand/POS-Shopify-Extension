@@ -28,12 +28,10 @@ export default function ConnectWallet() {
 
   const [disabled, setDisabled] = useState(true);
 
-  const [checked, setChecked] = useState(false);
-
   // change disabled on validation
 
   useEffect(() => {
-    if (walletNameDisabled || walletPasswordDisabled || !checked) {
+    if (walletNameDisabled || walletPasswordDisabled) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -41,8 +39,6 @@ export default function ConnectWallet() {
   }, [walletNameDisabled, walletPasswordDisabled]);
 
   // handle changes
-
-  const handleCheck = useCallback((newChecked) => setChecked(newChecked), []);
 
   const handleWalletNameChange = useCallback(
     (value) => setWalletName(value),
@@ -70,14 +66,6 @@ export default function ConnectWallet() {
     if (walletPassword == "") {
       setWalletPasswordError("Wallet password must not be empty");
       setWalletPasswordDisabled(true);
-    } else if (walletPassword.length < 8) {
-      setWalletPasswordError("Wallet password must have at least 8 characters");
-      setWalletPasswordDisabled(true);
-    } else if (!/[a-z]+[A-Z]+[0-9]+[^a-zA-Z0-9]+/.test(walletPassword)) {
-      setWalletPasswordError(
-        "Wallet password must have lowercase, uppercase, numeric and special characters"
-      );
-      setWalletPasswordDisabled(true);
     } else {
       setWalletPasswordError(false);
       setWalletPasswordDisabled(false);
@@ -87,7 +75,7 @@ export default function ConnectWallet() {
   return (
     <Page>
       <TitleBar
-        title={t("CreateWallet.title")}
+        title={t("ConnectWallet.title")}
         secondaryActions={[
           {
             content: "Back",
@@ -96,11 +84,11 @@ export default function ConnectWallet() {
         ]}
       />
       <Layout>
-        <Layout.AnnotatedSection title="Wallet details">
+        <Layout.AnnotatedSection title={t("ConnectWallet.SectionHeader")}>
           <AlphaCard>
             <TextField
-              label="Wallet name"
-              placeholder="Enter wallet name here"
+              label={t("ConnectWallet.Input1Label")}
+              placeholder={t("ConnectWallet.Input1Placeholder")}
               autoComplete="none"
               value={walletName}
               onChange={handleWalletNameChange}
@@ -122,11 +110,6 @@ export default function ConnectWallet() {
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
-          <Checkbox
-            label="I agree to the terms and conditions"
-            checked={checked}
-            onChange={handleCheck}
-          />
           <div style={{ marginTop: "32px", width: "100%" }}>
             <Button primary fullWidth size="large" disabled={disabled}>
               Create wallet
