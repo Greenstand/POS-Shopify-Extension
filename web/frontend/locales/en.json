@@ -26,7 +26,20 @@
     "modalSecondaryButton": "Cancel"
   },
   "CreateWallet": {
-    "title": "Wallet / Create Wallet"
+    "title": "Wallet / Create Wallet",
+    "Section1Header": "Store details",
+    "Section1Desc": "Greenstand needs this information to contact your store",
+    "Input1Label": "Store name",
+    "Input1Placeholder": "Enter store name here",
+    "Input2Label": "Store email",
+    "Input2Placeholder": "Enter store email here",
+    "Section2Header": "Wallet details",
+    "Section2Desc": "Greenstand needs this information to save your wallet",
+    "Input3Label": "Wallet name",
+    "Input3Placeholder": "Enter wallet name here",
+    "Input4Label": "Wallet password",
+    "Input4Placeholder": "Enter wallet password here",
+    "ButtonText": "Connect wallet"
   },
   "ConnectWallet": {
     "title": "Wallet / Connect Wallet",
