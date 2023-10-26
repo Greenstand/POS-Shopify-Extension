@@ -13,7 +13,7 @@
 
 1. Fork this repository
 2. Clone the fork
-3. Get DATABASE_URL and other credentials from Slack
+3. Get credentials from Slack
 4. Create a new branch
 
 ### Get help
