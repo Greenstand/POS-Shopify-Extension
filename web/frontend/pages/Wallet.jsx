@@ -18,8 +18,11 @@ import { useCallback, useRef, useEffect, useState } from "react";
 import TokenModal from "../components/Wallet/TokenModal";
 
 import Token from "../assets/Token.svg";
+import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
 
 export default function Wallet() {
+  const authFetch = useAuthenticatedFetch();
+
   const { t } = useTranslation();
   const [tokenQuantity, setTokenQuantity] = useState("1");
   const [modal, setModal] = useState(false);
@@ -27,6 +30,36 @@ export default function Wallet() {
   const [error, setError] = useState(false);
 
   const activator = useRef(null);
+
+  var binArrayToJson = function (binArray) {
+    var str = "";
+    for (var i = 0; i < binArray.length; i++) {
+      str += String.fromCharCode(parseInt(binArray[i]));
+    }
+    return typeof str == "string" ? str : JSON.parse(str);
+  };
+
+  useEffect(async () => {
+    authFetch("/api/auth-wallet", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then((res) => {
+      console.log(res);
+
+      const reader = res.body.getReader();
+
+      reader.read().then(function pump({ done, value }) {
+        if (done) {
+          return;
+        }
+
+        const body = JSON.parse(binArrayToJson(value));
+
+        console.log(body.message);
+        return reader.read().then(pump);
+      });
+    });
+  }, []);
 
   const validate = () => {
     const num = parseInt(tokenQuantity);
