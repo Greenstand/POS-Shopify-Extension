@@ -9,6 +9,8 @@ import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import { authenticate_wallet } from "./routes/auth.js";
 
+import "dotenv/config";
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10,
@@ -44,10 +46,10 @@ app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", async (req, res) => {
-  console.log("auth");
+  console.log(process.env.TREETRACKER_WALLET_API_ROOT);
 
   return res.status(200).send({
-    message: "quandale dingle quandale dingle",
+    message: "hello",
   });
 });
 
