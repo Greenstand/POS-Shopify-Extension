@@ -33,7 +33,7 @@ export default function Wallet() {
   const activator = useRef(null);
 
   useEffect(() => {
-    authFetch("/api/get-shop-name", {
+    authFetch("/api/auth-wallet", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {

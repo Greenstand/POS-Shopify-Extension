@@ -7,8 +7,8 @@ embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products"
-
+scopes = "write_products read_checkout write_checkout"
+ 
 [auth]
 redirect_urls = [
   "https://digital-ones-gcc-planets.trycloudflare.com/auth/callback",
