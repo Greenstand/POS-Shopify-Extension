@@ -5,11 +5,12 @@ import express from "express";
 import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
-import productCreator from "./product-creator.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import { authenticate_wallet } from "./routes/auth.js";
 
 import "dotenv/config";
+import cors from "cors";
+import { getShopName } from "./utils/getShopDetails.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -41,15 +42,20 @@ app.post(
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 app.use(express.json());
+app.use(cors());
 
 app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
-app.get("/api/auth-wallet", async (req, res) => {
-  console.log(process.env.TREETRACKER_WALLET_API_ROOT);
+app.get("/api/auth-wallet", authenticate_wallet);
+
+app.use("/api/get-shop-name", async (_req, res, _next) => {
+  const shopName = await getShopName(res.locals.shopify.session);
 
   return res.status(200).send({
-    message: "hello",
+    error: false,
+    message: "Test completed!",
+    data: shopName,
   });
 });
 

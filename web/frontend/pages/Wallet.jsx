@@ -19,6 +19,7 @@ import TokenModal from "../components/Wallet/TokenModal";
 
 import Token from "../assets/Token.svg";
 import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
+import readResponse from "../utils/readResponse";
 
 export default function Wallet() {
   const authFetch = useAuthenticatedFetch();
@@ -31,33 +32,14 @@ export default function Wallet() {
 
   const activator = useRef(null);
 
-  var binArrayToJson = function (binArray) {
-    var str = "";
-    for (var i = 0; i < binArray.length; i++) {
-      str += String.fromCharCode(parseInt(binArray[i]));
-    }
-    return typeof str == "string" ? str : JSON.parse(str);
-  };
-
-  useEffect(async () => {
-    authFetch("/api/auth-wallet", {
+  useEffect(() => {
+    authFetch("/api/get-shop-name", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }).then((res) => {
-      console.log(res);
+    }).then(async ({ body }) => {
+      const response = await readResponse(body);
 
-      const reader = res.body.getReader();
-
-      reader.read().then(function pump({ done, value }) {
-        if (done) {
-          return;
-        }
-
-        const body = JSON.parse(binArrayToJson(value));
-
-        console.log(body.message);
-        return reader.read().then(pump);
-      });
+      console.log(response);
     });
   }, []);
 
