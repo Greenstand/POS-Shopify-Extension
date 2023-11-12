@@ -169,6 +169,18 @@ export default function CreateWallet() {
                 type="email"
                 label={t("CreateWallet.Input2Label")}
                 placeholder={t("CreateWallet.Input2Placeholder")}
+                autoComplete="none"
+                value={storeEmail}
+                onChange={handleStoreEmailChange}
+                error={storeEmailError}
+                onBlur={validateStoreEmail}
+              />
+            </div>
+            <div style={{ marginTop: "16px" }}>
+              <TextField
+                type="email"
+                label={t("CreateWallet.Input3Label")}
+                placeholder={t("CreateWallet.Input3Placeholder")}
                 autoComplete="email"
                 helpText="We’ll use this address if we need to contact you about your account."
                 value={storeEmail}
@@ -185,8 +197,8 @@ export default function CreateWallet() {
         >
           <AlphaCard>
             <TextField
-              label={t("CreateWallet.Input3Label")}
-              placeholder={t("CreateWallet.Input3Placeholder")}
+              label={t("CreateWallet.Input4Label")}
+              placeholder={t("CreateWallet.Input4Placeholder")}
               autoComplete="none"
               value={walletName}
               onChange={handleWalletNameChange}
