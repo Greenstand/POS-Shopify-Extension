@@ -29,10 +29,12 @@ export default function CreateWallet() {
   // error state
   const [storeEmailError, setStoreEmailError] = useState(false);
   const [storeNameError, setStoreNameError] = useState(false);
+  const [storeOwnerNameError, setStoreOwnerNameError] = useState(false);
   const [walletNameError, setWalletNameError] = useState(false);
 
   const [storeEmailDisabled, setStoreEmailDisabled] = useState(false);
   const [storeNameDisabled, setStoreNameDisabled] = useState(false);
+  const [storeOwnerNameDisabled, setStoreOwnerNameDisabled] = useState(false);
   const [walletNameDisabled, setWalletNameDisabled] = useState(false);
 
   const [disabled, setDisabled] = useState(true);
@@ -59,13 +61,19 @@ export default function CreateWallet() {
       storeNameDisabled ||
       storeEmailDisabled ||
       walletNameDisabled ||
+      storeOwnerNameDisabled ||
       !checked
     ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [storeNameDisabled, storeEmailDisabled, walletNameDisabled]);
+  }, [
+    storeNameDisabled,
+    storeEmailDisabled,
+    walletNameDisabled,
+    storeOwnerNameDisabled,
+  ]);
 
   // handle changes
 
@@ -80,6 +88,11 @@ export default function CreateWallet() {
 
   const handleWalletNameChange = useCallback(
     (value) => setWalletName(value),
+    []
+  );
+
+  const handleStoreOwnerNameChange = useCallback(
+    (value) => setStoreOwnerName(value),
     []
   );
 
@@ -120,24 +133,6 @@ export default function CreateWallet() {
     }
   };
 
-  const validateWalletPassword = () => {
-    if (walletPassword == "") {
-      setWalletPasswordError("Wallet password must not be empty");
-      setWalletPasswordDisabled(true);
-    } else if (walletPassword.length < 8) {
-      setWalletPasswordError("Wallet password must have at least 8 characters");
-      setWalletPasswordDisabled(true);
-    } else if (!/[a-z]+[A-Z]+[0-9]+[^a-zA-Z0-9]+/.test(walletPassword)) {
-      setWalletPasswordError(
-        "Wallet password must have lowercase, uppercase, numeric and special characters"
-      );
-      setWalletPasswordDisabled(true);
-    } else {
-      setWalletPasswordError(false);
-      setWalletPasswordDisabled(false);
-    }
-  };
-
   return (
     <Page>
       <TitleBar
@@ -170,8 +165,8 @@ export default function CreateWallet() {
                 label={t("CreateWallet.Input2Label")}
                 placeholder={t("CreateWallet.Input2Placeholder")}
                 autoComplete="none"
-                value={storeEmail}
-                onChange={handleStoreEmailChange}
+                value={storeOwnerName}
+                onChange={handleStoreOwnerNameChange}
                 error={storeEmailError}
                 onBlur={validateStoreEmail}
               />
