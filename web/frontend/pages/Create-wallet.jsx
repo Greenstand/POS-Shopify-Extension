@@ -108,6 +108,16 @@ export default function CreateWallet() {
     }
   };
 
+  const validateStoreOwnerName = () => {
+    if (storeName == "") {
+      setStoreOwnerNameError("Store owner name must not be empty");
+      setStoreOwnerNameDisabled(true);
+    } else {
+      setStoreOwnerNameError(false);
+      setStoreOwnerNameDisabled(false);
+    }
+  };
+
   const validateStoreEmail = () => {
     if (storeName == "") {
       setStoreEmailError("Store email must not be empty");
@@ -167,8 +177,8 @@ export default function CreateWallet() {
                 autoComplete="none"
                 value={storeOwnerName}
                 onChange={handleStoreOwnerNameChange}
-                error={storeEmailError}
-                onBlur={validateStoreEmail}
+                error={storeOwnerNameError}
+                onBlur={validateOwnerNameEmail}
               />
             </div>
             <div style={{ marginTop: "16px" }}>
