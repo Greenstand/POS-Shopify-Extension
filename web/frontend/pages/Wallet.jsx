@@ -2,7 +2,9 @@ import {
   AlphaCard,
   Page,
   Layout,
-  TextContainer,
+  SkeletonBodyText,
+  SkeletonPage,
+  SkeletonDisplayText,
   Text,
   Button,
   Form,
@@ -29,6 +31,7 @@ export default function Wallet() {
   const [modal, setModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const activator = useRef(null);
 
@@ -40,6 +43,7 @@ export default function Wallet() {
       const response = await readResponse(body);
 
       console.log(response);
+      setLoading(false);
     });
   }, []);
 
@@ -71,7 +75,45 @@ export default function Wallet() {
     setModal(true);
   };
 
-  return (
+  return loading ? (
+    <SkeletonPage fullWidth>
+      <Layout>
+        <Layout.Section>
+          <AlphaCard sectioned>
+            <SkeletonBodyText />
+          </AlphaCard>
+          <AlphaCard sectioned>
+            <SkeletonDisplayText size="small" />
+            <SkeletonBodyText />
+          </AlphaCard>
+          <AlphaCard sectioned>
+            <SkeletonDisplayText size="small" />
+            <SkeletonBodyText />
+          </AlphaCard>
+        </Layout.Section>
+        <Layout.Section variant="oneThird">
+          <AlphaCard>
+            <AlphaCard>
+              <SkeletonDisplayText size="small" />
+              <SkeletonBodyText lines={2} />
+            </AlphaCard>
+            <AlphaCard>
+              <SkeletonBodyText lines={1} />
+            </AlphaCard>
+          </AlphaCard>
+          <AlphaCard subdued>
+            <AlphaCard>
+              <SkeletonDisplayText size="small" />
+              <SkeletonBodyText lines={2} />
+            </AlphaCard>
+            <AlphaCard>
+              <SkeletonBodyText lines={2} />
+            </AlphaCard>
+          </AlphaCard>
+        </Layout.Section>
+      </Layout>
+    </SkeletonPage>
+  ) : (
     <Page fullWidth>
       <Frame>
         <TokenModal
