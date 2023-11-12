@@ -46,9 +46,9 @@ export default function CreateWallet() {
       method: "GET",
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {
-      const response = await readResponse(body);
+      const { data } = await readResponse(body);
 
-      console.log(response);
+      setStoreName(data.body.shop.name);
     });
   }, []);
 
