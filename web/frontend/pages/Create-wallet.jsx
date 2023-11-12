@@ -13,8 +13,13 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback, useEffect } from "react";
 
+// api
+import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
+import readResponse from "../utils/readResponse";
+
 export default function CreateWallet() {
   const { t } = useTranslation();
+  const authFetch = useAuthenticatedFetch();
 
   const [storeEmail, setStoreEmail] = useState("");
   const [storeName, setStoreName] = useState("");
@@ -25,16 +30,27 @@ export default function CreateWallet() {
   const [storeEmailError, setStoreEmailError] = useState(false);
   const [storeNameError, setStoreNameError] = useState(false);
   const [walletNameError, setWalletNameError] = useState(false);
-  const [walletPasswordError, setWalletPasswordError] = useState(false);
 
   const [storeEmailDisabled, setStoreEmailDisabled] = useState(false);
   const [storeNameDisabled, setStoreNameDisabled] = useState(false);
   const [walletNameDisabled, setWalletNameDisabled] = useState(false);
-  const [walletPasswordDisabled, setWalletPasswordDisabled] = useState(false);
 
   const [disabled, setDisabled] = useState(true);
 
   const [checked, setChecked] = useState(false);
+
+  // get shop name
+
+  useEffect(() => {
+    authFetch("/api/get-shop-data", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const response = await readResponse(body);
+
+      console.log(response);
+    });
+  }, []);
 
   // change disabled on validation
 
@@ -43,19 +59,13 @@ export default function CreateWallet() {
       storeNameDisabled ||
       storeEmailDisabled ||
       walletNameDisabled ||
-      walletPasswordDisabled ||
       !checked
     ) {
       setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }, [
-    storeNameDisabled,
-    storeEmailDisabled,
-    walletNameDisabled,
-    walletPasswordDisabled,
-  ]);
+  }, [storeNameDisabled, storeEmailDisabled, walletNameDisabled]);
 
   // handle changes
 
@@ -70,11 +80,6 @@ export default function CreateWallet() {
 
   const handleWalletNameChange = useCallback(
     (value) => setWalletName(value),
-    []
-  );
-
-  const handleWalletPasswordChange = useCallback(
-    (value) => setWalletPassword(value),
     []
   );
 
