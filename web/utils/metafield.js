@@ -79,11 +79,19 @@ export async function updateMetafield(session, namespace, key, value, type) {
 }
 
 export async function deleteMetafield(session, namespace, key) {
-  const { id } = await getMetafield(session, namespace, key);
+  try {
+    const { id } = await getMetafield(session, namespace, key);
 
-  await shopify.rest.Metafield.delete({
-    session: session,
-    blog_id: 382285388,
-    id: 534526895,
-  });
+    const res = await shopify.api.rest.Metafield.delete({
+      session: session,
+      id: id,
+    });
+
+    if (res == undefined) {
+      return { error: false };
+    }
+  } catch (err) {
+    console.error(err);
+    return { error: err };
+  }
 }
