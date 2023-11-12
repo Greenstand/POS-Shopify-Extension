@@ -8,6 +8,7 @@ import {
   TextField,
   Frame,
   Modal,
+  Spinner,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -41,6 +42,8 @@ export default function CreateWallet() {
 
   const [checked, setChecked] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   // get shop name
 
   useEffect(() => {
@@ -53,6 +56,7 @@ export default function CreateWallet() {
       console.log(data.body.shop);
       setStoreName(data.body.shop.name);
       setStoreOwnerName(data.body.shop.shop_owner);
+      setLoading(false);
     });
   }, []);
 
@@ -145,7 +149,23 @@ export default function CreateWallet() {
     }
   };
 
-  return (
+  return loading ? (
+    <Page fullWidth>
+      <Frame>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      </Frame>
+    </Page>
+  ) : (
     <Page>
       <TitleBar
         title={t("CreateWallet.title")}
