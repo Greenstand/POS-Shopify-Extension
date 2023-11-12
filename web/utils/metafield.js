@@ -27,7 +27,7 @@ export async function getMetafield(session, namespace, key) {
       key: key,
     });
 
-    return res;
+    return res.data[0];
   } catch (err) {
     console.error(err);
     return err;
