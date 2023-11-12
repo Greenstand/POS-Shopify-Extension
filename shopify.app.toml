@@ -2,19 +2,19 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://digital-ones-gcc-planets.trycloudflare.com"
+application_url = "https://armed-relocation-register-smooth.trycloudflare.com"
 embedded = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
-scopes = "write_products read_checkout write_checkout"
- 
+scopes = "write_products"
+
 [auth]
 redirect_urls = [
-  "https://digital-ones-gcc-planets.trycloudflare.com/auth/callback",
-  "https://digital-ones-gcc-planets.trycloudflare.com/auth/shopify/callback",
-  "https://digital-ones-gcc-planets.trycloudflare.com/api/auth/callback",
-  "https://digital-ones-gcc-planets.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://armed-relocation-register-smooth.trycloudflare.com/auth/callback",
+  "https://armed-relocation-register-smooth.trycloudflare.com/auth/shopify/callback",
+  "https://armed-relocation-register-smooth.trycloudflare.com/api/auth/callback",
+  "https://armed-relocation-register-smooth.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
