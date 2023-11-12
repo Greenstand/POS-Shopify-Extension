@@ -109,7 +109,7 @@ export default function CreateWallet() {
   };
 
   const validateStoreOwnerName = () => {
-    if (storeName == "") {
+    if (storeOwnerName == "") {
       setStoreOwnerNameError("Store owner name must not be empty");
       setStoreOwnerNameDisabled(true);
     } else {
