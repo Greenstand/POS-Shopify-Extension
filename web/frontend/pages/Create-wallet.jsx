@@ -188,18 +188,6 @@ export default function CreateWallet() {
               error={walletNameError}
               onBlur={validateWalletName}
             />
-            <div style={{ marginTop: "16px" }}>
-              <TextField
-                label={t("CreateWallet.Input4Label")}
-                placeholder={t("CreateWallet.Input4Placeholder")}
-                type="password"
-                autoComplete="none"
-                value={walletPassword}
-                onChange={handleWalletPasswordChange}
-                error={walletPasswordError}
-                onBlur={validateWalletPassword}
-              />
-            </div>
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
