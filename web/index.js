@@ -11,6 +11,7 @@ import { authenticate_wallet } from "./routes/auth.js";
 import "dotenv/config";
 import cors from "cors";
 import { getShopData } from "./utils/getShopDetails.js";
+import { createMetafield } from "./utils/metafield.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -50,7 +51,16 @@ app.use(serveStatic(STATIC_PATH, { index: false }));
 app.get("/api/auth-wallet", authenticate_wallet);
 
 app.use("/api/get-shop-data", async (_req, res, _next) => {
-  const shopName = await getShopData(res.locals.shopify.session);
+  const session = res.locals.shopify.session;
+  const shopName = await getShopData(session);
+  const respons = await createMetafield(
+    session,
+    "$app:wallet",
+    "wallet_id",
+    "1",
+    "string",
+  );
+  console.log(respons);
 
   return res.status(200).send({
     data: shopName,
