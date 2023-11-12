@@ -37,8 +37,8 @@
     "Input3Placeholder": "Enter store email here",
     "Section2Header": "Wallet details",
     "Section2Desc": "Greenstand needs this information to save your wallet",
-    "Input4Label": "Wallet password",
-    "Input4Placeholder": "Enter wallet password here",
+    "Input4Label": "Wallet name",
+    "Input4Placeholder": "Enter wallet name here",
     "TermsAndConditions": "I agree to the terms and conditions",
     "ButtonText": "Create wallet"
   },

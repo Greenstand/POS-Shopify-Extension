@@ -54,7 +54,7 @@ app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
-app.get("/api/create-wallet", createWallet);
+app.post("/api/create-wallet", createWallet);
 
 app.use("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;

@@ -22,20 +22,20 @@ export default function CreateWallet() {
   const { t } = useTranslation();
   const authFetch = useAuthenticatedFetch();
 
-  const [storeEmail, setStoreEmail] = useState("");
-  const [storeName, setStoreName] = useState("");
-  const [storeOwnerName, setStoreOwnerName] = useState("");
+  const [shopEmail, setShopEmail] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [shopOwnerName, setShopOwnerName] = useState("");
   const [walletName, setWalletName] = useState("");
 
   // error state
-  const [storeEmailError, setStoreEmailError] = useState(false);
-  const [storeNameError, setStoreNameError] = useState(false);
-  const [storeOwnerNameError, setStoreOwnerNameError] = useState(false);
+  const [shopEmailError, setShopEmailError] = useState(false);
+  const [shopNameError, setShopNameError] = useState(false);
+  const [shopOwnerNameError, setShopOwnerNameError] = useState(false);
   const [walletNameError, setWalletNameError] = useState(false);
 
-  const [storeEmailDisabled, setStoreEmailDisabled] = useState(false);
-  const [storeNameDisabled, setStoreNameDisabled] = useState(false);
-  const [storeOwnerNameDisabled, setStoreOwnerNameDisabled] = useState(false);
+  const [shopEmailDisabled, setShopEmailDisabled] = useState(false);
+  const [shopNameDisabled, setShopNameDisabled] = useState(false);
+  const [shopOwnerNameDisabled, setShopOwnerNameDisabled] = useState(false);
   const [walletNameDisabled, setWalletNameDisabled] = useState(false);
 
   const [disabled, setDisabled] = useState(true);
@@ -54,8 +54,8 @@ export default function CreateWallet() {
       const { data } = await readResponse(body);
 
       console.log(data.body.shop);
-      setStoreName(data.body.shop.name);
-      setStoreOwnerName(data.body.shop.shop_owner);
+      setShopName(data.body.shop.name);
+      setShopOwnerName(data.body.shop.shop_owner);
       setLoading(false);
     });
   }, []);
@@ -63,79 +63,85 @@ export default function CreateWallet() {
   // change disabled on validation
 
   useEffect(() => {
+    console.log(
+      shopNameDisabled,
+      shopOwnerNameDisabled,
+      shopEmailDisabled,
+      walletNameDisabled,
+      checked
+    );
     if (
-      storeNameDisabled ||
-      storeEmailDisabled ||
+      shopNameDisabled ||
+      shopEmailDisabled ||
       walletNameDisabled ||
-      storeOwnerNameDisabled ||
+      shopOwnerNameDisabled ||
       !checked
     ) {
+      console.log("change");
       setDisabled(true);
     } else {
       setDisabled(false);
     }
   }, [
-    storeNameDisabled,
-    storeEmailDisabled,
+    shopNameDisabled,
+    shopEmailDisabled,
     walletNameDisabled,
-    storeOwnerNameDisabled,
+    shopOwnerNameDisabled,
+    checked,
   ]);
 
   // handle changes
 
   const handleCheck = useCallback((newChecked) => setChecked(newChecked), []);
 
-  const handleStoreEmailChange = useCallback(
-    (value) => setStoreEmail(value),
-    []
-  );
+  const handleShopEmailChange = useCallback((value) => setShopEmail(value), []);
 
-  const handleStoreNameChange = useCallback((value) => setStoreName(value), []);
+  const handleShopNameChange = useCallback((value) => setShopName(value), []);
 
   const handleWalletNameChange = useCallback(
     (value) => setWalletName(value),
     []
   );
 
-  const handleStoreOwnerNameChange = useCallback(
-    (value) => setStoreOwnerName(value),
+  const handleShopOwnerNameChange = useCallback(
+    (value) => setShopOwnerName(value),
     []
   );
 
   // validation
 
-  const validateStoreName = () => {
-    if (storeName == "") {
-      setStoreNameError("Store name must not be empty");
-      setStoreNameDisabled(true);
+  const validateShopName = () => {
+    if (shopName == "") {
+      setShopNameError("Shop name must not be empty");
+      setShopNameDisabled(true);
     } else {
-      setStoreNameError(false);
-      setStoreNameDisabled(false);
+      setShopNameError(false);
+      setShopNameDisabled(false);
     }
   };
 
-  const validateStoreOwnerName = () => {
-    if (storeOwnerName == "") {
-      setStoreOwnerNameError("Store owner name must not be empty");
-      setStoreOwnerNameDisabled(true);
+  const validateShopOwnerName = () => {
+    if (shopOwnerName == "") {
+      setShopOwnerNameError("Shop owner name must not be empty");
+      setShopOwnerNameDisabled(true);
     } else {
-      setStoreOwnerNameError(false);
-      setStoreOwnerNameDisabled(false);
+      setShopOwnerNameError(false);
+      setShopOwnerNameDisabled(false);
     }
   };
 
-  const validateStoreEmail = () => {
-    if (storeName == "") {
-      setStoreEmailError("Store email must not be empty");
-      setStoreEmailDisabled(true);
+  const validateShopEmail = () => {
+    if (shopName == "") {
+      setShopEmailError("Shop email must not be empty");
+      setShopEmailDisabled(true);
     } else if (
-      !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(storeEmail)
+      !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(shopEmail)
     ) {
-      setStoreEmailError("Store email is invalid");
-      setStoreEmailDisabled(true);
+      setShopEmailError("Shop email is invalid");
+      setShopEmailDisabled(true);
     } else {
-      setStoreEmailError(false);
-      setStoreEmailDisabled(false);
+      setShopEmailError(false);
+      setShopEmailDisabled(false);
     }
   };
 
@@ -147,6 +153,25 @@ export default function CreateWallet() {
       setWalletNameError(false);
       setWalletNameDisabled(false);
     }
+  };
+
+  // handle submit
+
+  const handleSubmit = () => {
+    authFetch("/api/create-wallet", {
+      method: "POST",
+      body: {
+        shopName,
+        shopOwnerName,
+        shopEmail,
+        walletName,
+      },
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const data = await readResponse(body);
+
+      console.log(data);
+    });
   };
 
   return loading ? (
@@ -186,10 +211,10 @@ export default function CreateWallet() {
               label={t("CreateWallet.Input1Label")}
               placeholder={t("CreateWallet.Input1Placeholder")}
               autoComplete="none"
-              value={storeName}
-              onChange={handleStoreNameChange}
-              error={storeNameError}
-              onBlur={validateStoreName}
+              value={shopName}
+              onChange={handleShopNameChange}
+              error={shopNameError}
+              onBlur={validateShopName}
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
@@ -197,10 +222,10 @@ export default function CreateWallet() {
                 label={t("CreateWallet.Input2Label")}
                 placeholder={t("CreateWallet.Input2Placeholder")}
                 autoComplete="none"
-                value={storeOwnerName}
-                onChange={handleStoreOwnerNameChange}
-                error={storeOwnerNameError}
-                onBlur={validateStoreOwnerName}
+                value={shopOwnerName}
+                onChange={handleShopOwnerNameChange}
+                error={shopOwnerNameError}
+                onBlur={validateShopOwnerName}
               />
             </div>
             <div style={{ marginTop: "16px" }}>
@@ -210,10 +235,10 @@ export default function CreateWallet() {
                 placeholder={t("CreateWallet.Input3Placeholder")}
                 autoComplete="email"
                 helpText="We’ll use this address if we need to contact you about your account."
-                value={storeEmail}
-                onChange={handleStoreEmailChange}
-                error={storeEmailError}
-                onBlur={validateStoreEmail}
+                value={shopEmail}
+                onChange={handleShopEmailChange}
+                error={shopEmailError}
+                onBlur={validateShopEmail}
               />
             </div>
           </AlphaCard>
@@ -241,7 +266,13 @@ export default function CreateWallet() {
             onChange={handleCheck}
           />
           <div style={{ marginTop: "32px", width: "100%" }}>
-            <Button primary fullWidth size="large" disabled={disabled}>
+            <Button
+              primary
+              fullWidth
+              size="large"
+              disabled={disabled}
+              onClick={handleSubmit}
+            >
               {t("CreateWallet.ButtonText")}
             </Button>
           </div>

@@ -4,7 +4,7 @@ import { updateMetafield } from "../../utils/metafield.js";
 export const createWallet = async (req, res) => {
   const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
-  const { walletName, shopName, shopOwnerName, shopEmail } = req.query;
+  const { walletName, shopName, shopOwnerName, shopEmail } = req.body;
 
   if (!auth) {
     try {
