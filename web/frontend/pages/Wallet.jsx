@@ -12,6 +12,7 @@ import {
   FormLayout,
   TextField,
   Frame,
+  Spinner,
   Modal,
   Link,
   Loading,
@@ -78,9 +79,21 @@ export default function Wallet() {
   };
 
   return loading ? (
-    <Frame>
-      <Loading />
-    </Frame>
+    <Page fullWidth>
+      <Frame>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      </Frame>
+    </Page>
   ) : (
     <Page fullWidth>
       <Frame>
