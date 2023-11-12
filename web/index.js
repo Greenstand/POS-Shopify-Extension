@@ -6,7 +6,7 @@ import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import { authenticate_wallet } from "./routes/auth.js";
+import { authenticate_wallet } from "./routes/wallet/auth.js";
 
 import "dotenv/config";
 import cors from "cors";
@@ -57,8 +57,6 @@ app.get("/api/auth-wallet", authenticate_wallet);
 app.use("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
   const shopName = await getShopData(session);
-  const respons = await deleteMetafield(session, "$app:wallet", "wallet_id");
-  console.log(respons);
 
   return res.status(200).send({
     data: shopName,
