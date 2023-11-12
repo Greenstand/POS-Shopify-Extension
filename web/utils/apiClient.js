@@ -23,4 +23,12 @@ apiClient.setAuthHeader = (token) => {
   return apiClient;
 };
 
+apiClient.isAuthenticated = () => {
+  if (apiClient.defaults.headers.common["Authorization"]) {
+    return true;
+  } else {
+    return false;
+  }
+};
+
 export default apiClient;

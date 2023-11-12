@@ -7,6 +7,7 @@ import serveStatic from "serve-static";
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
 import { authenticate_wallet } from "./routes/wallet/auth.js";
+import { createWallet } from "./routes/wallet/create-wallet.js";
 
 import "dotenv/config";
 import cors from "cors";
@@ -53,6 +54,7 @@ app.use(shopify.cspHeaders());
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
+app.get("/api/create-wallet", createWallet);
 
 app.use("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
