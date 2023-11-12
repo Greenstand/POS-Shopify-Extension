@@ -9,6 +9,25 @@ export async function createMetafield(session, namespace, key, value, type) {
     metafield.type = type;
 
     const res = await metafield.save({
+      update: false,
+    });
+
+    return res;
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+export async function updateMetafield(session, namespace, key, value, type) {
+  try {
+    const metafield = new shopify.api.rest.Metafield({ session: session });
+    metafield.namespace = namespace;
+    metafield.key = key;
+    metafield.value = value;
+    metafield.type = type;
+
+    const res = await metafield.save({
       update: true,
     });
 
