@@ -23,8 +23,8 @@ export default function CreateWallet() {
 
   const [storeEmail, setStoreEmail] = useState("");
   const [storeName, setStoreName] = useState("");
+  const [storeOwnerName, setStoreOwnerName] = useState("");
   const [walletName, setWalletName] = useState("");
-  const [walletPassword, setWalletPassword] = useState("");
 
   // error state
   const [storeEmailError, setStoreEmailError] = useState(false);
@@ -178,7 +178,7 @@ export default function CreateWallet() {
                 value={storeOwnerName}
                 onChange={handleStoreOwnerNameChange}
                 error={storeOwnerNameError}
-                onBlur={validateOwnerNameEmail}
+                onBlur={validateStoreOwnerName}
               />
             </div>
             <div style={{ marginTop: "16px" }}>
