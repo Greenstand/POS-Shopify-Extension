@@ -1,5 +1,27 @@
 import shopify from "../shopify.js";
 
+// ! func: getMetafield (3 params)
+// ? session: the session generated from Shopify OAuth
+// ? namespace: the namespace of the metafield
+// ? key: the key of the metafield
+// * CRUD type: get
+
+export async function getMetafield(session, namespace, key) {
+  try {
+    const res = await shopify.api.rest.Metafield.all({
+      session: session,
+      namespace: namespace,
+      key: key,
+    });
+
+    return res.data[0];
+  } catch (err) {
+    console.error(err);
+    return err;
+  }
+}
+
+// post
 export async function createMetafield(session, namespace, key, value, type) {
   try {
     const metafield = new shopify.api.rest.Metafield({ session: session });
@@ -19,6 +41,7 @@ export async function createMetafield(session, namespace, key, value, type) {
   }
 }
 
+// put
 export async function updateMetafield(session, namespace, key, value, type) {
   try {
     const metafield = new shopify.api.rest.Metafield({ session: session });
@@ -38,17 +61,4 @@ export async function updateMetafield(session, namespace, key, value, type) {
   }
 }
 
-export async function getMetafield(session, namespace, key) {
-  try {
-    const res = await shopify.api.rest.Metafield.all({
-      session: session,
-      namespace: namespace,
-      key: key,
-    });
-
-    return res.data[0];
-  } catch (err) {
-    console.error(err);
-    return err;
-  }
-}
+// delete
