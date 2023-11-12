@@ -274,10 +274,9 @@ export default function Wallet() {
                     justifyContent: "center",
                   }}
                 >
-                  {/* <Text variant="headingLg" as="h1">
+                  <Text variant="headingLg" as="h1">
                     {t("Wallet.heading")}
-                  </Text> */}
-                  <SkeletonDisplayText size="medium" />
+                  </Text>
                   <div style={{ padding: "48px" }}>
                     <img src={Token} width="100px" />
                   </div>
