@@ -50,7 +50,9 @@ export default function CreateWallet() {
     }).then(async ({ body }) => {
       const { data } = await readResponse(body);
 
+      console.log(data.body.shop);
       setStoreName(data.body.shop.name);
+      setStoreOwnerName(data.body.shop.shop_owner);
     });
   }, []);
 
