@@ -1,18 +1,10 @@
 import shopify from "../shopify.js";
 
 export const getShopName = async (session) => {
-  const query = `
-        {
-            shop {
-                name
-            }
-        }
-    `;
-
   try {
-    const client = new shopify.api.clients.Graphql({ session });
+    const client = new shopify.api.rest({ session });
 
-    const data = await client.query({ data: query });
+    const data = await client.get({ path: "shop" });
 
     return data.body;
   } catch (err) {
