@@ -10,7 +10,7 @@ import { authenticate_wallet } from "./routes/auth.js";
 
 import "dotenv/config";
 import cors from "cors";
-import { getShopName } from "./utils/getShopDetails.js";
+import { getShopData } from "./utils/getShopDetails.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -49,12 +49,10 @@ app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
 
-app.use("/api/get-shop-name", async (_req, res, _next) => {
-  const shopName = await getShopName(res.locals.shopify.session);
+app.use("/api/get-shop-data", async (_req, res, _next) => {
+  const shopName = await getShopData(res.locals.shopify.session);
 
   return res.status(200).send({
-    error: false,
-    message: "Test completed!",
     data: shopName,
   });
 });
