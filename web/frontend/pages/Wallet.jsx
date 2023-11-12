@@ -2,15 +2,20 @@ import {
   AlphaCard,
   Page,
   Layout,
-  TextContainer,
+  SkeletonBodyText,
+  SkeletonPage,
+  SkeletonDisplayText,
+  SkeletonThumbnail,
   Text,
   Button,
   Form,
   FormLayout,
   TextField,
   Frame,
+  Spinner,
   Modal,
   Link,
+  Loading,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -18,15 +23,32 @@ import { useCallback, useRef, useEffect, useState } from "react";
 import TokenModal from "../components/Wallet/TokenModal";
 
 import Token from "../assets/Token.svg";
+import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
+import readResponse from "../utils/readResponse";
 
 export default function Wallet() {
+  const authFetch = useAuthenticatedFetch();
+
   const { t } = useTranslation();
   const [tokenQuantity, setTokenQuantity] = useState("1");
   const [modal, setModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const activator = useRef(null);
+
+  useEffect(() => {
+    authFetch("/api/auth-wallet", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const response = await readResponse(body);
+
+      console.log(response);
+      setLoading(false);
+    });
+  }, []);
 
   const validate = () => {
     const num = parseInt(tokenQuantity);
@@ -56,7 +78,23 @@ export default function Wallet() {
     setModal(true);
   };
 
-  return (
+  return loading ? (
+    <Page fullWidth>
+      <Frame>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      </Frame>
+    </Page>
+  ) : (
     <Page fullWidth>
       <Frame>
         <TokenModal
