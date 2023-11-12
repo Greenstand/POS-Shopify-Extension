@@ -78,6 +78,15 @@ export async function updateMetafield(session, namespace, key, value, type) {
   }
 }
 
+// ! func: updateMetafield (5 params)
+// ? session: the session generated from Shopify OAuth
+// ? namespace: the namespace of the metafield
+// ? key: the key of the metafield
+// ? value: the value of the metafield
+// ? type: the type of the metafield (json, string)
+// * CRUD type: put
+// * return value: Object[error: (false/Error)]
+
 export async function deleteMetafield(session, namespace, key) {
   try {
     const { id } = await getMetafield(session, namespace, key);
