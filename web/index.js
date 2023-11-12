@@ -10,7 +10,12 @@ import { authenticate_wallet } from "./routes/auth.js";
 
 import "dotenv/config";
 import cors from "cors";
-import { getShopName } from "./utils/getShopDetails.js";
+import { getShopData } from "./utils/getShopDetails.js";
+import {
+  createMetafield,
+  getMetafield,
+  deleteMetafield,
+} from "./utils/metafield.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -49,12 +54,13 @@ app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
 
-app.use("/api/get-shop-name", async (_req, res, _next) => {
-  const shopName = await getShopName(res.locals.shopify.session);
+app.use("/api/get-shop-data", async (_req, res, _next) => {
+  const session = res.locals.shopify.session;
+  const shopName = await getShopData(session);
+  const respons = await deleteMetafield(session, "$app:wallet", "wallet_id");
+  console.log(respons);
 
   return res.status(200).send({
-    error: false,
-    message: "Test completed!",
     data: shopName,
   });
 });
