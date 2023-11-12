@@ -48,7 +48,14 @@ export async function createMetafield(session, namespace, key, value, type) {
   }
 }
 
-// put
+// ! func: updateMetafield (5 params)
+// ? session: the session generated from Shopify OAuth
+// ? namespace: the namespace of the metafield
+// ? key: the key of the metafield
+// ? value: the value of the metafield
+// ? type: the type of the metafield (json, string)
+// * CRUD type: put
+
 export async function updateMetafield(session, namespace, key, value, type) {
   try {
     const metafield = new shopify.api.rest.Metafield({ session: session });
