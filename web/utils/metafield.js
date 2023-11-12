@@ -21,7 +21,7 @@ export async function createMetafield(session, namespace, key, value, type) {
 
 export async function getMetafield(session, namespace, key) {
   try {
-    const res = await shopify.rest.Metafield.all({
+    const res = await shopify.api.rest.Metafield.all({
       session: session,
       namespace: namespace,
       key: key,
@@ -29,7 +29,7 @@ export async function getMetafield(session, namespace, key) {
 
     return res;
   } catch (err) {
-    console.error(error);
-    return error;
+    console.error(err);
+    return err;
   }
 }
