@@ -152,7 +152,7 @@ export default function CreateWallet() {
           <AlphaCard>
             <TextField
               label={t("CreateWallet.Input1Label")}
-              placeholder={t("CreateWallet.Input1")}
+              placeholder={t("CreateWallet.Input1Placeholder")}
               autoComplete="none"
               value={storeName}
               onChange={handleStoreNameChange}
