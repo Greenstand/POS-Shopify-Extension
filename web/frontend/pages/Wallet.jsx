@@ -2,10 +2,6 @@ import {
   AlphaCard,
   Page,
   Layout,
-  SkeletonBodyText,
-  SkeletonPage,
-  SkeletonDisplayText,
-  SkeletonThumbnail,
   Text,
   Button,
   Form,
@@ -13,9 +9,6 @@ import {
   TextField,
   Frame,
   Spinner,
-  Modal,
-  Link,
-  Loading,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -35,19 +28,37 @@ export default function Wallet() {
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [wallet, setWallet] = useState(false);
 
   const activator = useRef(null);
 
   useEffect(() => {
-    authFetch("/api/get-shop-data", {
+    authFetch("/api/auth-wallet", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }).then(async ({ body }) => {
-      const response = await readResponse(body);
+    })
+      .then(async ({ body }) => {
+        authFetch("/api/get-wallet", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }).then(async ({ body }) => {
+          const response = await readResponse(body);
+          console.log(response);
 
-      console.log(response);
-      setLoading(false);
-    });
+          if (response.error) {
+            if (response.error.code && response.error.code == 404) {
+              setLoading(false);
+              return setWallet(false);
+            }
+          }
+
+          setWallet(response.data);
+          setLoading(false);
+        });
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }, []);
 
   const validate = () => {
@@ -171,18 +182,20 @@ export default function Wallet() {
                       fontWeight: "bold",
                     }}
                   >
-                    0
+                    {wallet ? wallet.tokens_in_wallet : "0"}
                   </p>
                 </Text>
                 <Text>Tokens</Text>
 
-                {/* {tokenQuantity < 10 ? ( */}
                 <div style={{ marginTop: "16px" }}>
                   <Text tone="subdued" variant="bodySm">
-                    Maybe it's time to stock up.
+                    {wallet
+                      ? wallet.tokens_in_wallet < 10
+                        ? "Maybe it's time to stock up."
+                        : ""
+                      : "You do not have a wallet."}
                   </Text>
                 </div>
-                {/* ) : null} */}
               </div>
             </AlphaCard>
           </Layout.Section>
@@ -233,7 +246,6 @@ export default function Wallet() {
                           <div style={{ paddingTop: "16px", width: "100%" }}>
                             <Button
                               primary
-                              destructive
                               fullWidth
                               onClick={openModal}
                               ref={activator}
@@ -253,24 +265,51 @@ export default function Wallet() {
             {/* wallet card */}
             <Layout.Section oneThird>
               <AlphaCard sectioned>
-                <div
-                  style={{
-                    width: "100%",
-                    height: "50vh",
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
-                  }}
-                >
-                  <Text variant="bodyLg">You do not have a wallet.</Text>
-                  <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
-                    <Button primary url="/connect-wallet">
-                      Connect a wallet
-                    </Button>
+                {wallet ? (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "50vh",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text variant="heading2xl">You have a wallet!</Text>
+                    <div
+                      style={{
+                        paddingTop: "48px",
+                        paddingBottom: "48px",
+                      }}
+                    >
+                      <Text variant="bodyLg">
+                        <span style={{ fontWeight: "bold" }}>Wallet name:</span>{" "}
+                        {wallet.wallet}
+                      </Text>
+                    </div>
+                    <Button destructive>Disconnect wallet</Button>
                   </div>
-                  <Button url="/create-wallet">Create a wallet</Button>
-                </div>
+                ) : (
+                  <div
+                    style={{
+                      width: "100%",
+                      height: "50vh",
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Text variant="bodyLg">You do not have a wallet.</Text>
+                    <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
+                      <Button primary url="/connect-wallet">
+                        Connect a wallet
+                      </Button>
+                    </div>
+                    <Button url="/create-wallet">Create a wallet</Button>
+                  </div>
+                )}
               </AlphaCard>
             </Layout.Section>
           </Layout>

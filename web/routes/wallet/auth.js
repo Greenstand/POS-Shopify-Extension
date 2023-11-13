@@ -1,7 +1,14 @@
-import apiClient from "../utils/apiClient.js";
+import apiClient from "../../utils/apiClient.js";
 import "dotenv/config";
 
 export const authenticate_wallet = async (req, res) => {
+  if (apiClient.defaults.headers.common["Authorization"]) {
+    return res.status(200).send({
+      error: false,
+      message: "Already authenticated",
+    });
+  }
+
   apiClient
     .post("/auth", {
       wallet: `${process.env.TREETRACKER_WALLET_NAME}`,

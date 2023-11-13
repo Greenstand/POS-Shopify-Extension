@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://armed-relocation-register-smooth.trycloudflare.com"
+application_url = "https://formerly-had-cellular-dated.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://armed-relocation-register-smooth.trycloudflare.com/auth/callback",
-  "https://armed-relocation-register-smooth.trycloudflare.com/auth/shopify/callback",
-  "https://armed-relocation-register-smooth.trycloudflare.com/api/auth/callback",
-  "https://armed-relocation-register-smooth.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://formerly-had-cellular-dated.trycloudflare.com/auth/callback",
+  "https://formerly-had-cellular-dated.trycloudflare.com/auth/shopify/callback",
+  "https://formerly-had-cellular-dated.trycloudflare.com/api/auth/callback",
+  "https://formerly-had-cellular-dated.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

@@ -8,100 +8,141 @@ import {
   TextField,
   Frame,
   Modal,
+  Spinner,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback, useEffect } from "react";
 
+// api
+import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
+import readResponse from "../utils/readResponse";
+
 export default function CreateWallet() {
   const { t } = useTranslation();
+  const authFetch = useAuthenticatedFetch();
 
-  const [storeEmail, setStoreEmail] = useState("");
-  const [storeName, setStoreName] = useState("");
+  const [shopEmail, setShopEmail] = useState("");
+  const [shopName, setShopName] = useState("");
+  const [shopOwnerName, setShopOwnerName] = useState("");
   const [walletName, setWalletName] = useState("");
-  const [walletPassword, setWalletPassword] = useState("");
 
   // error state
-  const [storeEmailError, setStoreEmailError] = useState(false);
-  const [storeNameError, setStoreNameError] = useState(false);
+  const [shopEmailError, setShopEmailError] = useState(false);
+  const [shopNameError, setShopNameError] = useState(false);
+  const [shopOwnerNameError, setShopOwnerNameError] = useState(false);
   const [walletNameError, setWalletNameError] = useState(false);
-  const [walletPasswordError, setWalletPasswordError] = useState(false);
 
-  const [storeEmailDisabled, setStoreEmailDisabled] = useState(false);
-  const [storeNameDisabled, setStoreNameDisabled] = useState(false);
+  const [shopEmailDisabled, setShopEmailDisabled] = useState(false);
+  const [shopNameDisabled, setShopNameDisabled] = useState(false);
+  const [shopOwnerNameDisabled, setShopOwnerNameDisabled] = useState(false);
   const [walletNameDisabled, setWalletNameDisabled] = useState(false);
-  const [walletPasswordDisabled, setWalletPasswordDisabled] = useState(false);
 
   const [disabled, setDisabled] = useState(true);
 
   const [checked, setChecked] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+  const [apiLoading, setApiLoading] = useState(false);
+
+  // get shop name
+
+  useEffect(() => {
+    authFetch("/api/get-shop-data", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const { data } = await readResponse(body);
+
+      console.log(data.body.shop);
+      setShopName(data.body.shop.name);
+      setShopOwnerName(data.body.shop.shop_owner);
+      setLoading(false);
+    });
+  }, []);
+
   // change disabled on validation
 
   useEffect(() => {
+    console.log(
+      shopNameDisabled,
+      shopOwnerNameDisabled,
+      shopEmailDisabled,
+      walletNameDisabled,
+      checked
+    );
     if (
-      storeNameDisabled ||
-      storeEmailDisabled ||
+      shopNameDisabled ||
+      shopEmailDisabled ||
       walletNameDisabled ||
-      walletPasswordDisabled ||
+      shopOwnerNameDisabled ||
       !checked
     ) {
+      console.log("change");
       setDisabled(true);
     } else {
       setDisabled(false);
     }
   }, [
-    storeNameDisabled,
-    storeEmailDisabled,
+    shopNameDisabled,
+    shopEmailDisabled,
     walletNameDisabled,
-    walletPasswordDisabled,
+    shopOwnerNameDisabled,
+    checked,
   ]);
 
   // handle changes
 
   const handleCheck = useCallback((newChecked) => setChecked(newChecked), []);
 
-  const handleStoreEmailChange = useCallback(
-    (value) => setStoreEmail(value),
-    []
-  );
+  const handleShopEmailChange = useCallback((value) => setShopEmail(value), []);
 
-  const handleStoreNameChange = useCallback((value) => setStoreName(value), []);
+  const handleShopNameChange = useCallback((value) => setShopName(value), []);
 
   const handleWalletNameChange = useCallback(
     (value) => setWalletName(value),
     []
   );
 
-  const handleWalletPasswordChange = useCallback(
-    (value) => setWalletPassword(value),
+  const handleShopOwnerNameChange = useCallback(
+    (value) => setShopOwnerName(value),
     []
   );
 
   // validation
 
-  const validateStoreName = () => {
-    if (storeName == "") {
-      setStoreNameError("Store name must not be empty");
-      setStoreNameDisabled(true);
+  const validateShopName = () => {
+    if (shopName == "") {
+      setShopNameError("Shop name must not be empty");
+      setShopNameDisabled(true);
     } else {
-      setStoreNameError(false);
-      setStoreNameDisabled(false);
+      setShopNameError(false);
+      setShopNameDisabled(false);
     }
   };
 
-  const validateStoreEmail = () => {
-    if (storeName == "") {
-      setStoreEmailError("Store email must not be empty");
-      setStoreEmailDisabled(true);
-    } else if (
-      !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(storeEmail)
-    ) {
-      setStoreEmailError("Store email is invalid");
-      setStoreEmailDisabled(true);
+  const validateShopOwnerName = () => {
+    if (shopOwnerName == "") {
+      setShopOwnerNameError("Shop owner name must not be empty");
+      setShopOwnerNameDisabled(true);
     } else {
-      setStoreEmailError(false);
-      setStoreEmailDisabled(false);
+      setShopOwnerNameError(false);
+      setShopOwnerNameDisabled(false);
+    }
+  };
+
+  const validateShopEmail = () => {
+    if (shopName == "") {
+      setShopEmailError("Shop email must not be empty");
+      setShopEmailDisabled(true);
+    } else if (
+      !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(shopEmail)
+    ) {
+      setShopEmailError("Shop email is invalid");
+      setShopEmailDisabled(true);
+    } else {
+      setShopEmailError(false);
+      setShopEmailDisabled(false);
     }
   };
 
@@ -109,31 +150,62 @@ export default function CreateWallet() {
     if (walletName == "") {
       setWalletNameError("Wallet name must not be empty");
       setWalletNameDisabled(true);
+    } else if (!/^[a-zA-Z0-9@.-]*$/g.test(walletName)) {
+      setWalletNameError(
+        "Wallet name must only include numbers, letters, and -.@ symbols"
+      );
+      setWalletNameDisabled(true);
     } else {
       setWalletNameError(false);
       setWalletNameDisabled(false);
     }
   };
 
-  const validateWalletPassword = () => {
-    if (walletPassword == "") {
-      setWalletPasswordError("Wallet password must not be empty");
-      setWalletPasswordDisabled(true);
-    } else if (walletPassword.length < 8) {
-      setWalletPasswordError("Wallet password must have at least 8 characters");
-      setWalletPasswordDisabled(true);
-    } else if (!/[a-z]+[A-Z]+[0-9]+[^a-zA-Z0-9]+/.test(walletPassword)) {
-      setWalletPasswordError(
-        "Wallet password must have lowercase, uppercase, numeric and special characters"
-      );
-      setWalletPasswordDisabled(true);
-    } else {
-      setWalletPasswordError(false);
-      setWalletPasswordDisabled(false);
-    }
+  // handle submit
+
+  const handleSubmit = () => {
+    setApiLoading(true);
+
+    authFetch("/api/create-wallet", {
+      method: "POST",
+      body: JSON.stringify({
+        shopName,
+        shopOwnerName,
+        shopEmail,
+        walletName,
+      }),
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const data = await readResponse(body);
+
+      console.log(data);
+      if (data.error) {
+        if (data.error.status == 409) {
+          setWalletNameError("Wallet already exists");
+          setWalletNameDisabled(true);
+        }
+      }
+      setApiLoading(false);
+    });
   };
 
-  return (
+  return loading ? (
+    <Page fullWidth>
+      <Frame>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      </Frame>
+    </Page>
+  ) : (
     <Page>
       <TitleBar
         title={t("CreateWallet.title")}
@@ -154,22 +226,34 @@ export default function CreateWallet() {
               label={t("CreateWallet.Input1Label")}
               placeholder={t("CreateWallet.Input1Placeholder")}
               autoComplete="none"
-              value={storeName}
-              onChange={handleStoreNameChange}
-              error={storeNameError}
-              onBlur={validateStoreName}
+              value={shopName}
+              onChange={handleShopNameChange}
+              error={shopNameError}
+              onBlur={validateShopName}
             />
             <div style={{ marginTop: "16px" }}>
               <TextField
                 type="email"
                 label={t("CreateWallet.Input2Label")}
                 placeholder={t("CreateWallet.Input2Placeholder")}
+                autoComplete="none"
+                value={shopOwnerName}
+                onChange={handleShopOwnerNameChange}
+                error={shopOwnerNameError}
+                onBlur={validateShopOwnerName}
+              />
+            </div>
+            <div style={{ marginTop: "16px" }}>
+              <TextField
+                type="email"
+                label={t("CreateWallet.Input3Label")}
+                placeholder={t("CreateWallet.Input3Placeholder")}
                 autoComplete="email"
                 helpText="We’ll use this address if we need to contact you about your account."
-                value={storeEmail}
-                onChange={handleStoreEmailChange}
-                error={storeEmailError}
-                onBlur={validateStoreEmail}
+                value={shopEmail}
+                onChange={handleShopEmailChange}
+                error={shopEmailError}
+                onBlur={validateShopEmail}
               />
             </div>
           </AlphaCard>
@@ -180,26 +264,14 @@ export default function CreateWallet() {
         >
           <AlphaCard>
             <TextField
-              label={t("CreateWallet.Input3Label")}
-              placeholder={t("CreateWallet.Input3Placeholder")}
+              label={t("CreateWallet.Input4Label")}
+              placeholder={t("CreateWallet.Input4Placeholder")}
               autoComplete="none"
               value={walletName}
               onChange={handleWalletNameChange}
               error={walletNameError}
               onBlur={validateWalletName}
             />
-            <div style={{ marginTop: "16px" }}>
-              <TextField
-                label={t("CreateWallet.Input4Label")}
-                placeholder={t("CreateWallet.Input4Placeholder")}
-                type="password"
-                autoComplete="none"
-                value={walletPassword}
-                onChange={handleWalletPasswordChange}
-                error={walletPasswordError}
-                onBlur={validateWalletPassword}
-              />
-            </div>
           </AlphaCard>
         </Layout.AnnotatedSection>
         <div style={{ marginTop: "32px", width: "100%" }}>
@@ -209,7 +281,14 @@ export default function CreateWallet() {
             onChange={handleCheck}
           />
           <div style={{ marginTop: "32px", width: "100%" }}>
-            <Button primary fullWidth size="large" disabled={disabled}>
+            <Button
+              primary
+              fullWidth
+              size="large"
+              disabled={disabled}
+              onClick={handleSubmit}
+              loading={apiLoading}
+            >
               {t("CreateWallet.ButtonText")}
             </Button>
           </div>

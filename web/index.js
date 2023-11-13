@@ -6,7 +6,8 @@ import serveStatic from "serve-static";
 
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import { authenticate_wallet } from "./routes/auth.js";
+import { authenticate_wallet } from "./routes/wallet/auth.js";
+import { createWallet } from "./routes/wallet/create-wallet.js";
 
 import "dotenv/config";
 import cors from "cors";
@@ -16,6 +17,7 @@ import {
   getMetafield,
   deleteMetafield,
 } from "./utils/metafield.js";
+import { getWallet } from "./routes/wallet/get-wallet.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -28,6 +30,10 @@ const STATIC_PATH =
     : `${process.cwd()}/frontend/`;
 
 const app = express();
+
+const jsonErrorHandler = (err, req, res, next) => {
+  res.status(500).send({ error: err });
+};
 
 // Set up Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
@@ -46,19 +52,20 @@ app.post(
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(jsonErrorHandler);
 
 app.use(shopify.cspHeaders());
-app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
+app.get("/api/get-wallet", getWallet);
 
-app.use("/api/get-shop-data", async (_req, res, _next) => {
+app.post("/api/create-wallet", createWallet);
+
+app.get("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
   const shopName = await getShopData(session);
-  const respons = await deleteMetafield(session, "$app:wallet", "wallet_id");
-  console.log(respons);
 
   return res.status(200).send({
     data: shopName,
@@ -71,5 +78,7 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
     .set("Content-Type", "text/html")
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
+
+app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.listen(PORT);
