@@ -5,15 +5,18 @@ export const createWallet = async (req, res) => {
   const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
   const { walletName, shopName, shopOwnerName, shopEmail } = req.body;
+  console.log(req.body);
 
   if (!auth) {
     try {
-      const res = apiClient.post("/auth", {
+      const data = await apiClient.post("/auth", {
         wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
         password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
       });
 
-      console.log(res);
+      const { token } = data.data;
+
+      apiClient.setAuthToken(token);
     } catch (err) {
       console.log(err);
 

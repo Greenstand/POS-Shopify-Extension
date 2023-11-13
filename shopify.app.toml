@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://finest-receptors-triangle-principal.trycloudflare.com"
+application_url = "https://determination-egyptian-indicator-fill.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://finest-receptors-triangle-principal.trycloudflare.com/auth/callback",
-  "https://finest-receptors-triangle-principal.trycloudflare.com/auth/shopify/callback",
-  "https://finest-receptors-triangle-principal.trycloudflare.com/api/auth/callback",
-  "https://finest-receptors-triangle-principal.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://determination-egyptian-indicator-fill.trycloudflare.com/auth/callback",
+  "https://determination-egyptian-indicator-fill.trycloudflare.com/auth/shopify/callback",
+  "https://determination-egyptian-indicator-fill.trycloudflare.com/api/auth/callback",
+  "https://determination-egyptian-indicator-fill.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

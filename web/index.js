@@ -30,6 +30,10 @@ const STATIC_PATH =
 
 const app = express();
 
+const jsonErrorHandler = (err, req, res, next) => {
+  res.status(500).send({ error: err });
+};
+
 // Set up Shopify authentication and webhook handling
 app.get(shopify.config.auth.path, shopify.auth.begin());
 app.get(
@@ -47,16 +51,16 @@ app.post(
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
+app.use(jsonErrorHandler);
 
 app.use(shopify.cspHeaders());
-app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.get("/api/auth-wallet", authenticate_wallet);
 app.post("/api/create-wallet", createWallet);
 
-app.use("/api/get-shop-data", async (_req, res, _next) => {
+app.get("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
   const shopName = await getShopData(session);
 
@@ -71,5 +75,7 @@ app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
     .set("Content-Type", "text/html")
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
+
+app.use(serveStatic(STATIC_PATH, { index: false }));
 
 app.listen(PORT);

@@ -160,12 +160,12 @@ export default function CreateWallet() {
   const handleSubmit = () => {
     authFetch("/api/create-wallet", {
       method: "POST",
-      body: {
+      body: JSON.stringify({
         shopName,
         shopOwnerName,
         shopEmail,
         walletName,
-      },
+      }),
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {
       const data = await readResponse(body);
