@@ -45,8 +45,18 @@ export default function Wallet() {
     }).then(async ({ body }) => {
       const response = await readResponse(body);
 
-      console.log(response);
+      authFetch("/api/get-wallet", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+      }).then(async ({ body }) => {
+        const response = await readResponse(body);
+
+        console.log(response);
+        setLoading(false);
+      });
       setLoading(false);
+    }).catch(err => {
+      console.error(err)
     });
   }, []);
 

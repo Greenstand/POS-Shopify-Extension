@@ -43,6 +43,7 @@ export default function CreateWallet() {
   const [checked, setChecked] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const [apiLoading, setApiLoading] = useState(false);
 
   // get shop name
 
@@ -163,6 +164,8 @@ export default function CreateWallet() {
   // handle submit
 
   const handleSubmit = () => {
+    setApiLoading(true);
+
     authFetch("/api/create-wallet", {
       method: "POST",
       body: JSON.stringify({
@@ -176,12 +179,13 @@ export default function CreateWallet() {
       const data = await readResponse(body);
 
       console.log(data);
-      if(data.error) {
+      if (data.error) {
         if (data.error.status == 409) {
-          setWalletNameError("Wallet already exists")
-          setWalletNameDisabled(true)
+          setWalletNameError("Wallet already exists");
+          setWalletNameDisabled(true);
         }
       }
+      setApiLoading(false);
     });
   };
 
@@ -283,6 +287,7 @@ export default function CreateWallet() {
               size="large"
               disabled={disabled}
               onClick={handleSubmit}
+              loading={apiLoading}
             >
               {t("CreateWallet.ButtonText")}
             </Button>
