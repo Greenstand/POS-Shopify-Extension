@@ -176,6 +176,12 @@ export default function CreateWallet() {
       const data = await readResponse(body);
 
       console.log(data);
+      if(data.error) {
+        if (data.error.status == 409) {
+          setWalletNameError("Wallet already exists")
+          setWalletNameDisabled(true)
+        }
+      }
     });
   };
 
