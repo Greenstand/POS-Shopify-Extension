@@ -31,11 +31,13 @@ export const createWallet = async (req, res) => {
       wallet: walletName,
     });
 
+    console.log(wallet);
+
     const meta1 = await updateMetafield(
       session,
       "$app:wallet",
       "walletId",
-      wallet.id,
+      wallet.data.id,
       "string",
     );
     const meta2 = await updateMetafield(
@@ -62,7 +64,7 @@ export const createWallet = async (req, res) => {
 
     console.log(meta1, meta2, meta3, meta4);
 
-    return res.status(200).send({ data: wallet });
+    return res.status(200).send({ data: wallet.data });
   } catch (err) {
     console.log(err);
 

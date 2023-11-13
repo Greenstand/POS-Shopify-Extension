@@ -149,6 +149,11 @@ export default function CreateWallet() {
     if (walletName == "") {
       setWalletNameError("Wallet name must not be empty");
       setWalletNameDisabled(true);
+    } else if (!/^[a-zA-Z0-9@.-]*$/g.test(walletName)) {
+      setWalletNameError(
+        "Wallet name must only include numbers, letters, and -.@ symbols"
+      );
+      setWalletNameDisabled(true);
     } else {
       setWalletNameError(false);
       setWalletNameDisabled(false);
