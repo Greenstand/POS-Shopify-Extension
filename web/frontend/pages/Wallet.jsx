@@ -189,7 +189,11 @@ export default function Wallet() {
 
                 <div style={{ marginTop: "16px" }}>
                   <Text tone="subdued" variant="bodySm">
-                    {}
+                    {wallet
+                      ? wallet.tokens_in_wallet < 10
+                        ? "Maybe it's time to stock up."
+                        : ""
+                      : "You do not have a wallet."}
                   </Text>
                 </div>
               </div>
