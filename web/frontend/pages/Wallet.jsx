@@ -2,10 +2,6 @@ import {
   AlphaCard,
   Page,
   Layout,
-  SkeletonBodyText,
-  SkeletonPage,
-  SkeletonDisplayText,
-  SkeletonThumbnail,
   Text,
   Button,
   Form,
@@ -13,9 +9,6 @@ import {
   TextField,
   Frame,
   Spinner,
-  Modal,
-  Link,
-  Loading,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +27,8 @@ export default function Wallet() {
   const [modal, setModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true)
+  const [wallet, setWallet] = useState(false);
 
   const activator = useRef(null);
 
@@ -42,22 +36,26 @@ export default function Wallet() {
     authFetch("/api/auth-wallet", {
       method: "GET",
       headers: { "Content-Type": "application/json" },
-    }).then(async ({ body }) => {
-      const response = await readResponse(body);
+    })
+      .then(async ({ body }) => {
+        authFetch("/api/get-wallet", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        }).then(async ({ body }) => {
+          const response = await readResponse(body);
 
-      authFetch("/api/get-wallet", {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
-      }).then(async ({ body }) => {
-        const response = await readResponse(body);
-
-        console.log(response);
+          if (response.error) {
+            if (response.error.code && response.error.code == 404) {
+              return setWallet(false)
+            }
+          }
+          setWallet(response);
+        });
         setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
       });
-      setLoading(false);
-    }).catch(err => {
-      console.error(err)
-    });
   }, []);
 
   const validate = () => {
