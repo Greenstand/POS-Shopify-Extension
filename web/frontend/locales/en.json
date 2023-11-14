@@ -2,7 +2,7 @@
   "HomePage": {
     "heading": "Welcome to Greenstand Wallet App!",
     "title": "Greenstand Wallet App",
-    "body": "Greenstand Wallet App helps you connect your shop to global Greenstand wallet system. It extends your checkout page to be able to sell clients tree-based impacts as Greenstand Impact Tokens. Each token is linked to the growth of a tree and can be purchased from any grower or organization using the system.",
+    "body": "Greenstand Wallet App helps you connect your shop to the global Greenstand wallet system. It extends your checkout page to be able to sell clients tree-based impacts as Greenstand Impact Tokens. Each token is linked directly to the growth of a tree.",
     "link": "Learn more about Greenstand here"
   },
   "NavigationMenu": {
@@ -16,7 +16,7 @@
   "Wallet": {
     "title": "Wallet",
     "primaryAction": "Buy tokens",
-    "body": "Each token is linked to the growth of a tree. By selling these, you are directly supporting people growing trees - a benefits for both you and the client. ",
+    "body": "Each token is linked to the growth of a tree. By selling these, you are directly supporting people growing trees - this benefits both you and the client. ",
     "link": "<GreenstandExternalLink>Learn more about Greenstand's model</GreenstandExternalLink>",
     "heading": "Buy tokens to sell to your clients",
     "formHeading": "Buy tokens",
