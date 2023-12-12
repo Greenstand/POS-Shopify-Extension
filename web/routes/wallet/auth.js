@@ -19,7 +19,7 @@ export const authenticate_wallet = async (req, res) => {
 
       apiClient.setAuthToken(token);
 
-      return res.status(200).send({
+      return res.status(201).send({
         error: false,
         message: "Authenticated successfully",
       });

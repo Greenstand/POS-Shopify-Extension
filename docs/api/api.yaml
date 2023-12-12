@@ -4,3 +4,12 @@ info:
   title: Greenstand Shopify Wallet Extension
   contact: {}
   version: "0.0.1"
+paths:
+  "/api/auth-wallet":
+    get:
+      tags:
+        - Wallet
+      summary: Authenticate manager wallet
+      description: Authenticate the manager wallet that is required to perform higher-level actions such as creating wallets, deleting wallets, transferring tokens, etc.
+      requestBody:
+        description: Authentication request body (nothing for this path)
