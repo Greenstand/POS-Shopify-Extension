@@ -11,5 +11,27 @@ paths:
         - Wallet
       summary: Authenticate manager wallet
       description: Authenticate the manager wallet that is required to perform higher-level actions such as creating wallets, deleting wallets, transferring tokens, etc.
-      requestBody:
-        description: Authentication request body (nothing for this path)
+      responses:
+        201:
+          description: 'Successful authentication'
+          content:
+            application/json:
+              example:
+                error: false
+                message: Authenticated successfully
+        200:
+          description: 'Already logged in'
+          content:
+            application/json:
+              example:
+                error: false
+                message: Already logged in
+        500:
+          description: 'Error from Greenstand Server'
+          content:
+            application/json:
+              example:
+                error:
+                  message: "Bad request"
+                  code: 400
+
