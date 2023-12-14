@@ -1,24 +1,24 @@
 {
   "HomePage": {
-    "heading": "Welcome to Greenstand Wallet App!",
-    "title": "Greenstand Wallet App",
-    "body": "Greenstand Wallet App helps you connect your shop to Greenstand. It extends your checkout page to be able to sell clients Greenstand Impact Tokens, a token which represents a tree.",
-    "link": "Learn more about Greenstand here"
+    "heading": "Bienvenue dans l’application Portefeuille de Greenstand !",
+    "title": "Portefeuille Greenstand",
+    "body": "“L’application Portefeuille de Greenstand vous aide à connecter votre magasin à Greenstand. Elle agrémente votre page de paiement pour qu’elle puisse vendre des Jetons d’Impact Greenstand, chacun représentant un arbre.",
+    "link": "En savoir plus sur Greenstand"
   },
   "NavigationMenu": {
-    "wallet": "Wallet",
-    "checkout": "Checkout"
+    "wallet": "Portefeuille",
+    "checkout": "Paiement"
   },
   "NotFound": {
-    "description": "Check the URL and try again, or use the search bar to find what you need.",
-    "heading": "There is no page at this address"
+    "description": "Verifiez l’URL et réessayez, ou utilisez la barre de recherche pour trouver ce dont vous avez besoin",
+    "heading": "Il n’y a pas de page attribuée à cette adresse"
   },
   "Wallet": {
     "title": "Portefeuille",
-    "primaryAction": "Acheter les jetons",
-    "body": "Chaque jeton represents un des 6 million des arbres qui étaient planté à Greenstand. En les vendant, vouz aidez en promouvoir une initiative écologique qui bénéficier vous et le client. ",
-    "link": "<GreenstandExternalLink>Apprendre plus sur Greenstand</GreenstandExternalLink>",
-    "heading": "Achetez les jetons pour vendre aux clients",
+    "primaryAction": "Acheter des jetons",
+    "body": "Chaque jeton représente un des 6 millions d’arbres plantés avec Greenstand. En vendant des jetons, vous aidez à promouvoir une initiative durable qui bénéficie aussi bien vous que votre client.",
+    "link": "En savoir plus sur le principe de Greenstand",
+    "heading": "Acheter des jetons",
     "formHeading": "Achetez les jetons",
     "modalHeading": "Êtes-vous sûr qui vous voulez acheter {{tokenQuantity}} jetons?",
     "modalBody": "This action is permanent.",
