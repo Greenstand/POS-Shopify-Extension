@@ -173,7 +173,7 @@ export default function Wallet() {
                   justifyContent: "center",
                 }}
               >
-                <Text variant="bodyLg">You currently have:</Text>
+                <Text variant="bodyLg">{t("Wallet.TokensPanelHeading")}</Text>
                 <Text variant="heading3xl">
                   <p
                     style={{
@@ -185,15 +185,15 @@ export default function Wallet() {
                     {wallet ? wallet.tokens_in_wallet : "0"}
                   </p>
                 </Text>
-                <Text>Tokens</Text>
+                <Text>{t("Wallet.Tokens")}</Text>
 
                 <div style={{ marginTop: "16px" }}>
                   <Text tone="subdued" variant="bodySm">
                     {wallet
                       ? wallet.tokens_in_wallet < 10
-                        ? "Maybe it's time to stock up."
+                        ? t("Wallet.TokenStockUp")
                         : ""
-                      : "You do not have a wallet."}
+                      : t("Wallet.NoWallet")
                   </Text>
                 </div>
               </div>
