@@ -35,12 +35,20 @@
     "Input2Placeholder": "Enter store owner name here",
     "Input3Label": "Store email",
     "Input3Placeholder": "Enter store email here",
+    "Input3HelpText": "We’ll use this address if we need to contact you about your account.",
     "Section2Header": "Wallet details",
     "Section2Desc": "Greenstand needs this information to save your wallet",
     "Input4Label": "Wallet name",
     "Input4Placeholder": "Enter wallet name here",
     "TermsAndConditions": "I agree to the terms and conditions",
-    "ButtonText": "Create wallet"
+    "ButtonText": "Create wallet",
+    "ShopNameEmptyError": "Shop name must not be empty",
+    "ShopOwnerNameEmptyError": "Shop owner name must not be empty",
+    "ShopEmailEmptyError": "Shop email must not be empty",
+    "ShopEmailInvalidError": "Shop email is invalid",
+    "WalletNameEmptyError": "Wallet name must not be empty",
+    "WalletNameInvalidError": "Wallet name must only include numbers, letters, and -.@ symbols",
+    "WalletAlreadyExistsError": "Wallet already exists"
   },
   "ConnectWallet": {
     "title": "Wallet / Connect Wallet",
