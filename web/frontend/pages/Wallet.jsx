@@ -233,7 +233,7 @@ export default function Wallet() {
                       <Form>
                         <FormLayout>
                           <TextField
-                            label="Number of tokens"
+                            label={t("Wallet.BuyTokensLabel")}
                             suffix="tokens"
                             type="number"
                             value={tokenQuantity}
@@ -251,7 +251,7 @@ export default function Wallet() {
                               ref={activator}
                               disabled={disabled}
                             >
-                              Buy tokens
+                              {t("Wallet.BuyTokensButton")}
                             </Button>
                           </div>
                         </FormLayout>
@@ -276,7 +276,9 @@ export default function Wallet() {
                       justifyContent: "center",
                     }}
                   >
-                    <Text variant="heading2xl">You have a wallet!</Text>
+                    <Text variant="heading2xl">
+                      {t("Wallet.WalletPanelHeader")}
+                    </Text>
                     <div
                       style={{
                         paddingTop: "48px",
@@ -284,11 +286,13 @@ export default function Wallet() {
                       }}
                     >
                       <Text variant="bodyLg">
-                        <span style={{ fontWeight: "bold" }}>Wallet name:</span>{" "}
+                        <span style={{ fontWeight: "bold" }}>
+                          {t("Wallet.WalletName")}
+                        </span>{" "}
                         {wallet.wallet}
                       </Text>
                     </div>
-                    <Button destructive>Disconnect wallet</Button>
+                    <Button destructive>{t("Wallet.DisconnectWalletButton")}</Button>
                   </div>
                 ) : (
                   <div
@@ -301,13 +305,13 @@ export default function Wallet() {
                       justifyContent: "center",
                     }}
                   >
-                    <Text variant="bodyLg">You do not have a wallet.</Text>
+                    <Text variant="bodyLg">{t("Wallet.NoWallet")}</Text>
                     <div style={{ paddingTop: "16px", paddingBottom: "8px" }}>
                       <Button primary url="/connect-wallet">
-                        Connect a wallet
+                        {t("Wallet.ConnectWalletButton")}
                       </Button>
                     </div>
-                    <Button url="/create-wallet">Create a wallet</Button>
+                    <Button url="/create-wallet">{t("Wallet.CreateWalletButton")}</Button>
                   </div>
                 )}
               </AlphaCard>

@@ -26,10 +26,17 @@
     "modalSecondaryButton": "Cancel",
     "TokenEmptyError": "Please enter a value",
     "TooManyTokensError": "Too many tokens",
+    "BuyTokensLabel": "Number of tokens",
+    "BuyTokensButton": "Buy tokens",
     "TokensPanelHeading": "You currently have:",
     "Tokens": "Tokens",
     "TokenStockUp": "Maybe it's time to stock up.",
-    "NoWallet": "You do not have a wallet."
+    "NoWallet": "You do not have a wallet.",
+    "WalletPanelHeader": "You have a wallet!",
+    "WalletName": "Wallet name:",
+    "DisconnectWalletButton": "Disconnect wallet",
+    "ConnectWalletButton": "Connect a wallet",
+    "CreateWalletButton": "Create a wallet"
   },
   "CreateWallet": {
     "title": "Wallet / Create Wallet",
