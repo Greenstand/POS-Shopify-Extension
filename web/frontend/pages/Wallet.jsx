@@ -193,7 +193,7 @@ export default function Wallet() {
                       ? wallet.tokens_in_wallet < 10
                         ? t("Wallet.TokenStockUp")
                         : ""
-                      : t("Wallet.NoWallet")
+                      : t("Wallet.NoWallet")}
                   </Text>
                 </div>
               </div>
