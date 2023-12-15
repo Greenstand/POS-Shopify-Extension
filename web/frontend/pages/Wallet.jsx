@@ -66,10 +66,10 @@ export default function Wallet() {
 
     if (!num) {
       setDisabled(true);
-      setError("Please enter a value");
+      setError(t("Wallet.TokenEmptyError"));
     } else if (num > 999999999) {
       setDisabled(true);
-      setError("Too many tokens");
+      setError(t("Wallet.TooManyTokensError"));
     } else {
       setDisabled(false);
       setError(false);

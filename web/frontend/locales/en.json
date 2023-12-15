@@ -23,7 +23,9 @@
     "modalHeading": "Are you sure you want to buy {{tokenQuantity}} tokens?",
     "modalBody": "This action is permanent.",
     "modalPrimaryButton": "Proceed",
-    "modalSecondaryButton": "Cancel"
+    "modalSecondaryButton": "Cancel",
+    "TokenEmptyError": "Please enter a value",
+    "TooManyTokensError": "Too many tokens"
   },
   "CreateWallet": {
     "title": "Wallet / Create Wallet",
