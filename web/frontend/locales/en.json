@@ -17,13 +17,26 @@
     "title": "Wallet",
     "primaryAction": "Buy tokens",
     "body": "Each token is linked to the growth of a tree. By selling these, you are directly supporting people growing trees - this benefits both you and the client. ",
-    "link": "<GreenstandExternalLink>Learn more about Greenstand's model</GreenstandExternalLink>",
+    "link": "Learn more about Greenstand's model",
     "heading": "Buy tokens to sell to your clients",
     "formHeading": "Buy tokens",
     "modalHeading": "Are you sure you want to buy {{tokenQuantity}} tokens?",
     "modalBody": "This action is permanent.",
     "modalPrimaryButton": "Proceed",
-    "modalSecondaryButton": "Cancel"
+    "modalSecondaryButton": "Cancel",
+    "TokenEmptyError": "Please enter a value",
+    "TooManyTokensError": "Too many tokens",
+    "BuyTokensLabel": "Number of tokens",
+    "BuyTokensButton": "Buy tokens",
+    "TokensPanelHeading": "You currently have:",
+    "Tokens": "Tokens",
+    "TokenStockUp": "Maybe it's time to stock up.",
+    "NoWallet": "You do not have a wallet.",
+    "WalletPanelHeader": "You have a wallet!",
+    "WalletName": "Wallet name:",
+    "DisconnectWalletButton": "Disconnect wallet",
+    "ConnectWalletButton": "Connect a wallet",
+    "CreateWalletButton": "Create a wallet"
   },
   "CreateWallet": {
     "title": "Wallet / Create Wallet",
@@ -35,12 +48,20 @@
     "Input2Placeholder": "Enter store owner name here",
     "Input3Label": "Store email",
     "Input3Placeholder": "Enter store email here",
+    "Input3HelpText": "We’ll use this address if we need to contact you about your account.",
     "Section2Header": "Wallet details",
     "Section2Desc": "Greenstand needs this information to save your wallet",
     "Input4Label": "Wallet name",
     "Input4Placeholder": "Enter wallet name here",
     "TermsAndConditions": "I agree to the terms and conditions",
-    "ButtonText": "Create wallet"
+    "ButtonText": "Create wallet",
+    "ShopNameEmptyError": "Shop name must not be empty",
+    "ShopOwnerNameEmptyError": "Shop owner name must not be empty",
+    "ShopEmailEmptyError": "Shop email must not be empty",
+    "ShopEmailInvalidError": "Shop email is invalid",
+    "WalletNameEmptyError": "Wallet name must not be empty",
+    "WalletNameInvalidError": "Wallet name must only include numbers, letters, and -.@ symbols",
+    "WalletAlreadyExistsError": "Wallet already exists"
   },
   "ConnectWallet": {
     "title": "Wallet / Connect Wallet",
@@ -49,7 +70,9 @@
     "Input1Placeholder": "Enter wallet name here",
     "Input2Label": "Wallet password",
     "Input2Placeholder": "Enter wallet password here",
-    "ButtonText": "Connect wallet"
+    "ButtonText": "Connect wallet",
+    "WalletNameEmptyError": "Wallet name must not be empty",
+    "WalletPasswordEmptyError": "Wallet password must not be empty"
   },
   "Checkout": {
     "title": "Checkout"

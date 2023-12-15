@@ -54,7 +54,7 @@ export default function ConnectWallet() {
 
   const validateWalletName = () => {
     if (walletName == "") {
-      setWalletNameError("Wallet name must not be empty");
+      setWalletNameError(t("ConnectWallet.WalletNameEmptyError"));
       setWalletNameDisabled(true);
     } else {
       setWalletNameError(false);
@@ -64,7 +64,7 @@ export default function ConnectWallet() {
 
   const validateWalletPassword = () => {
     if (walletPassword == "") {
-      setWalletPasswordError("Wallet password must not be empty");
+      setWalletPasswordError(t("ConnectWallet.WalletPasswordEmptyError"));
       setWalletPasswordDisabled(true);
     } else {
       setWalletPasswordError(false);
