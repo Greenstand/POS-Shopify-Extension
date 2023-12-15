@@ -113,7 +113,7 @@ export default function CreateWallet() {
 
   const validateShopName = () => {
     if (shopName == "") {
-      setShopNameError("Shop name must not be empty");
+      setShopNameError(t("CreateWallet.ShopNameEmptyError"));
       setShopNameDisabled(true);
     } else {
       setShopNameError(false);
@@ -123,7 +123,7 @@ export default function CreateWallet() {
 
   const validateShopOwnerName = () => {
     if (shopOwnerName == "") {
-      setShopOwnerNameError("Shop owner name must not be empty");
+      setShopOwnerNameError(t("CreateWallet.ShopOwnerNameEmptyError"));
       setShopOwnerNameDisabled(true);
     } else {
       setShopOwnerNameError(false);
@@ -133,12 +133,12 @@ export default function CreateWallet() {
 
   const validateShopEmail = () => {
     if (shopName == "") {
-      setShopEmailError("Shop email must not be empty");
+      setShopEmailError(t("CreateWallet.ShopEmailEmptyError"));
       setShopEmailDisabled(true);
     } else if (
       !/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(shopEmail)
     ) {
-      setShopEmailError("Shop email is invalid");
+      setShopEmailError(t("CreateWallet.ShopEmailInvalidError"));
       setShopEmailDisabled(true);
     } else {
       setShopEmailError(false);
@@ -148,12 +148,10 @@ export default function CreateWallet() {
 
   const validateWalletName = () => {
     if (walletName == "") {
-      setWalletNameError("Wallet name must not be empty");
+      setWalletNameError(t("CreateWallet.WalletNameEmptyError"));
       setWalletNameDisabled(true);
     } else if (!/^[a-zA-Z0-9@.-]*$/g.test(walletName)) {
-      setWalletNameError(
-        "Wallet name must only include numbers, letters, and -.@ symbols"
-      );
+      setWalletNameError(t("CreateWallet.WalletNameInvalidError"));
       setWalletNameDisabled(true);
     } else {
       setWalletNameError(false);
@@ -181,7 +179,7 @@ export default function CreateWallet() {
       console.log(data);
       if (data.error) {
         if (data.error.status == 409) {
-          setWalletNameError("Wallet already exists");
+          setWalletNameError(t("CreateWallet.WalletAlreadyExistsError"));
           setWalletNameDisabled(true);
         }
       }
@@ -249,7 +247,7 @@ export default function CreateWallet() {
                 label={t("CreateWallet.Input3Label")}
                 placeholder={t("CreateWallet.Input3Placeholder")}
                 autoComplete="email"
-                helpText="We’ll use this address if we need to contact you about your account."
+                helpText={t("CreateWallet.Input3HelpText")}
                 value={shopEmail}
                 onChange={handleShopEmailChange}
                 error={shopEmailError}
@@ -260,7 +258,7 @@ export default function CreateWallet() {
         </Layout.AnnotatedSection>
         <Layout.AnnotatedSection
           title="Wallet details"
-          description="Greenstand needs this information to save your wallet"
+          description={t("CreateWallet.Section2Desc")}
         >
           <AlphaCard>
             <TextField
