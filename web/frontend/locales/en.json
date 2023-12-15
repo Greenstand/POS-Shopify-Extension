@@ -17,7 +17,7 @@
     "title": "Wallet",
     "primaryAction": "Buy tokens",
     "body": "Each token is linked to the growth of a tree. By selling these, you are directly supporting people growing trees - this benefits both you and the client. ",
-    "link": "<GreenstandExternalLink>Learn more about Greenstand's model</GreenstandExternalLink>",
+    "link": "Learn more about Greenstand's model",
     "heading": "Buy tokens to sell to your clients",
     "formHeading": "Buy tokens",
     "modalHeading": "Are you sure you want to buy {{tokenQuantity}} tokens?",
@@ -25,7 +25,11 @@
     "modalPrimaryButton": "Proceed",
     "modalSecondaryButton": "Cancel",
     "TokenEmptyError": "Please enter a value",
-    "TooManyTokensError": "Too many tokens"
+    "TooManyTokensError": "Too many tokens",
+    "TokensPanelHeading": "You currently have:",
+    "Tokens": "Tokens",
+    "TokenStockUp": "Maybe it's time to stock up.",
+    "NoWallet": "You do not have a wallet."
   },
   "CreateWallet": {
     "title": "Wallet / Create Wallet",
