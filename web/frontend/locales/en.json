@@ -57,7 +57,9 @@
     "Input1Placeholder": "Enter wallet name here",
     "Input2Label": "Wallet password",
     "Input2Placeholder": "Enter wallet password here",
-    "ButtonText": "Connect wallet"
+    "ButtonText": "Connect wallet",
+    "WalletNameEmptyError": "Wallet name must not be empty",
+    "WalletPasswordEmptyError": "Wallet password must not be empty"
   },
   "Checkout": {
     "title": "Checkout"
