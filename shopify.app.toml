@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://mining-paths-governmental-uncle.trycloudflare.com"
+application_url = "https://hairy-assistant-guarantee-helpful.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://mining-paths-governmental-uncle.trycloudflare.com/auth/callback",
-  "https://mining-paths-governmental-uncle.trycloudflare.com/auth/shopify/callback",
-  "https://mining-paths-governmental-uncle.trycloudflare.com/api/auth/callback",
-  "https://mining-paths-governmental-uncle.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://hairy-assistant-guarantee-helpful.trycloudflare.com/auth/callback",
+  "https://hairy-assistant-guarantee-helpful.trycloudflare.com/auth/shopify/callback",
+  "https://hairy-assistant-guarantee-helpful.trycloudflare.com/api/auth/callback",
+  "https://hairy-assistant-guarantee-helpful.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

@@ -16,9 +16,11 @@ import {
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
+import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
 
 export default function CreateWallet() {
   const { t } = useTranslation();
+  const authFetch = useAuthenticatedFetch();
 
   const [tokens, setTokens] = useState("1");
   const [per, setPer] = useState("1");
@@ -34,6 +36,40 @@ export default function CreateWallet() {
   const handleTokenChange = useCallback((newValue) => setTokens(newValue), []);
   const handlePerChange = useCallback((newValue) => setPer(newValue), []);
   const handleItemChange = useCallback((newValue) => setItem(newValue), []);
+
+  const handleSubmit = () => {
+    const offer = `Greenstand is planting ${
+      tokens ? tokens : 0
+    } trees in your name for every ${
+      (item == "$" ? item : per ? per : "0") +
+      (item == "$" ? (per ? per : "0") : " items")
+    } ${item == "$" ? "worth of items you buy!" : "you buy!"}`;
+
+    console.log(offer);
+
+    // authFetch("/api/create-wallet", {
+    //   method: "POST",
+    //   body: JSON.stringify({
+    //     offer: `Greenstand is planting ${tokens ? tokens : 0} trees in your
+    //                 name for every
+    //                 ${
+    //                   (item == "$" ? item : per ? per : "0") +
+    //                   (item == "$" ? (per ? per : "0") : " items")
+    //                 } ${item == "$" ? "worth of items you buy!" : "you buy!"}`,
+    //   }),
+    //   headers: { "Content-Type": "application/json" },
+    // }).then(async ({ body }) => {
+    //   const data = await readResponse(body);
+
+    //   console.log(data);
+    //   if (data.error) {
+    //     if (data.error.status == 409) {
+    //       setWalletNameError(t("CreateWallet.WalletAlreadyExistsError"));
+    //       setWalletNameDisabled(true);
+    //     }
+    //   }
+    // });
+  };
 
   return (
     <Page fullWidth>
@@ -113,7 +149,7 @@ export default function CreateWallet() {
                     autoComplete="none"
                   />
                   <div style={{ marginTop: "32px" }}>
-                    <Button fullWidth primary>
+                    <Button fullWidth primary onClick={handleSubmit}>
                       Save
                     </Button>
                   </div>
