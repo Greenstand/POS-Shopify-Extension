@@ -28,7 +28,7 @@ export default function App() {
                 },
                 {
                   label: t("NavigationMenu.checkout"),
-                  destination: "/checkout",
+                  destination: "/checkout-settings",
                 },
               ]}
             />

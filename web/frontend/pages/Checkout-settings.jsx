@@ -17,9 +17,9 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
 import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
-import readResponse from "../utils/readResponse";
+import readResponse from "../utils/readResponse.js";
 
-export default function CreateWallet() {
+export default function CheckoutSettings() {
   const { t } = useTranslation();
   const authFetch = useAuthenticatedFetch();
 
