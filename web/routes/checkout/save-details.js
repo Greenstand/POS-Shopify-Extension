@@ -1,9 +1,9 @@
 import { updateMetafield } from "../../utils/metafield.js";
+import { namespace } from "./variables.js";
 
 export const saveDetails = async (req, res) => {
   try {
     const type = "single_line_text_field";
-    const namespace = "checkoutExtension";
     const key = "offer";
     const { offer, tokens, count, item } = req.body;
     const session = res.locals.shopify.session;
