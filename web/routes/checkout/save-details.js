@@ -5,13 +5,21 @@ export const saveDetails = async (req, res) => {
     const type = "single_line_text_field";
     const namespace = "checkoutExtension";
     const key = "offer";
-    const { offer } = req.body;
+    const { offer, tokens, count, item } = req.body;
     const session = res.locals.shopify.session;
 
     console.log(session, namespace, key, offer, type);
 
-    const meta = await updateMetafield(session, namespace, key, offer, type);
-    console.log(meta);
+    await updateMetafield(session, namespace, key, offer, type);
+    await updateMetafield(
+      session,
+      namespace,
+      "tokens",
+      tokens,
+      "number_integer",
+    );
+    await updateMetafield(session, namespace, "per", count, "number_integer");
+    await updateMetafield(session, namespace, "item", item, type);
 
     res
       .status(200)

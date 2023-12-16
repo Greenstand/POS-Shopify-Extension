@@ -55,6 +55,9 @@ export default function CheckoutSettings() {
       method: "POST",
       body: JSON.stringify({
         offer: offer,
+        count: per,
+        tokens: tokens,
+        item: item,
       }),
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {
