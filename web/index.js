@@ -12,11 +12,6 @@ import { createWallet } from "./routes/wallet/create-wallet.js";
 import "dotenv/config";
 import cors from "cors";
 import { getShopData } from "./utils/getShopDetails.js";
-import {
-  createMetafield,
-  getMetafield,
-  deleteMetafield,
-} from "./utils/metafield.js";
 import { getWallet } from "./routes/wallet/get-wallet.js";
 import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
@@ -54,21 +49,31 @@ app.post(
 
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
+// * cors extension
+// ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
+
 app.use(cors());
+
+// ! do not remove
 app.use(express.json());
 app.use(jsonErrorHandler);
 
+// shopify's content-security-policy
+
 app.use(shopify.cspHeaders());
+
+// wallet
 
 app.get("/api/auth-wallet", authenticate_wallet);
 app.get("/api/get-wallet", getWallet);
-
 app.post("/api/create-wallet", createWallet);
 
 // checkout details
 
 app.get("/api/get-checkout-details", getDetails);
 app.post("/api/save-checkout-details", saveDetails);
+
+// get shop data
 
 app.get("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
@@ -79,12 +84,16 @@ app.get("/api/get-shop-data", async (_req, res, _next) => {
   });
 });
 
+// not found route
+
 app.use("/*", shopify.ensureInstalledOnShop(), async (_req, res, _next) => {
   return res
     .status(200)
     .set("Content-Type", "text/html")
     .send(readFileSync(join(STATIC_PATH, "index.html")));
 });
+
+// test route
 
 app.use(serveStatic(STATIC_PATH, { index: false }));
 
