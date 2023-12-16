@@ -3,20 +3,21 @@ import {
   useApi,
   useTranslate,
   reactExtension,
-} from '@shopify/ui-extensions-react/checkout';
+} from "@shopify/ui-extensions-react/checkout";
 
-export default reactExtension(
-  'purchase.checkout.block.render',
-  () => <Extension />,
-);
+export default reactExtension("purchase.checkout.block.render", () => (
+  <Extension />
+));
 
 function Extension() {
-  const translate = useTranslate();
-  const { extension } = useApi();
+  const t = useTranslate();
+  const api = useApi();
+
+  console.log(api);
 
   return (
-    <Banner title="greenstand-wallet-client-connection">
-      {translate('welcome', {target: extension.target})}
+    <Banner title="Greenstand Tokens Offer">
+      Welcome! {api.shop.name} is offering
     </Banner>
   );
 }
