@@ -1,6 +1,6 @@
 import { updateMetafield } from "../../utils/metafield.js";
 
-export const save_details = async (req, res) => {
+export const saveDetails = async (req, res) => {
   try {
     const type = "single_line_text_field";
     const namespace = "checkout";

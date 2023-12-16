@@ -18,6 +18,7 @@ import {
   deleteMetafield,
 } from "./utils/metafield.js";
 import { getWallet } from "./routes/wallet/get-wallet.js";
+import { saveDetails } from "./routes/checkout/save-details.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -62,6 +63,7 @@ app.get("/api/auth-wallet", authenticate_wallet);
 app.get("/api/get-wallet", getWallet);
 
 app.post("/api/create-wallet", createWallet);
+app.post("/api/save-checkout-details", saveDetails);
 
 app.get("/api/get-shop-data", async (_req, res, _next) => {
   const session = res.locals.shopify.session;
