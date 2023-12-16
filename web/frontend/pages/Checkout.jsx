@@ -17,6 +17,7 @@ import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 import { useState, useCallback } from "react";
 import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
+import readResponse from "../utils/readResponse";
 
 export default function CreateWallet() {
   const { t } = useTranslation();
@@ -47,28 +48,20 @@ export default function CreateWallet() {
 
     console.log(offer);
 
-    // authFetch("/api/create-wallet", {
-    //   method: "POST",
-    //   body: JSON.stringify({
-    //     offer: `Greenstand is planting ${tokens ? tokens : 0} trees in your
-    //                 name for every
-    //                 ${
-    //                   (item == "$" ? item : per ? per : "0") +
-    //                   (item == "$" ? (per ? per : "0") : " items")
-    //                 } ${item == "$" ? "worth of items you buy!" : "you buy!"}`,
-    //   }),
-    //   headers: { "Content-Type": "application/json" },
-    // }).then(async ({ body }) => {
-    //   const data = await readResponse(body);
+    authFetch("/api/save-checkout-details", {
+      method: "POST",
+      body: JSON.stringify({
+        offer: offer,
+      }),
+      headers: { "Content-Type": "application/json" },
+    }).then(async ({ body }) => {
+      const data = await readResponse(body);
 
-    //   console.log(data);
-    //   if (data.error) {
-    //     if (data.error.status == 409) {
-    //       setWalletNameError(t("CreateWallet.WalletAlreadyExistsError"));
-    //       setWalletNameDisabled(true);
-    //     }
-    //   }
-    // });
+      console.log(data);
+      if (data.error) {
+        console.log(data.error);
+      }
+    });
   };
 
   return (

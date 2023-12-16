@@ -18,6 +18,8 @@ handle = "wallet-client-connection"
 module = "./src/Checkout.jsx"
 target = "purchase.checkout.block.render"
 
+    
+
 [extensions.capabilities]
 # Gives your extension access to directly query Shopify’s storefront API.
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#api-access
@@ -32,12 +34,9 @@ api_access = true
 # products, customers, and more. Learn more:
 # https://shopify.dev/docs/api/checkout-ui-extensions/unstable/configuration#metafields
 
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_key"
-# [[extensions.metafields]]
-# namespace = "my_namespace"
-# key = "my_other_key"
+[[extensions.metafields]]
+namespace = "checkoutExtension"
+key = "offer"
 
 # Defines settings that will be collected from merchants installing
 # your extension. Learn more:

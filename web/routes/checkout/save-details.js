@@ -3,12 +3,15 @@ import { updateMetafield } from "../../utils/metafield.js";
 export const saveDetails = async (req, res) => {
   try {
     const type = "single_line_text_field";
-    const namespace = "checkout";
+    const namespace = "checkoutExtension";
     const key = "offer";
-    const { value } = req.body;
+    const { offer } = req.body;
     const session = res.locals.shopify.session;
 
-    const meta = updateMetafield(session, namespace, key, value, type);
+    console.log(session, namespace, key, offer, type);
+
+    const meta = await updateMetafield(session, namespace, key, offer, type);
+    console.log(meta);
 
     res
       .status(200)

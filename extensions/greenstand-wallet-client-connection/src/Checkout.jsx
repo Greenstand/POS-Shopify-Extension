@@ -1,9 +1,13 @@
+import { useEffect, useState } from "react";
+
 import {
   Banner,
   useApi,
   useTranslate,
   reactExtension,
+  useSubscription,
 } from "@shopify/ui-extensions-react/checkout";
+import { Spinner } from "@shopify/ui-extensions/checkout";
 
 export default reactExtension("purchase.checkout.block.render", () => (
   <Extension />
@@ -11,13 +15,26 @@ export default reactExtension("purchase.checkout.block.render", () => (
 
 function Extension() {
   const t = useTranslate();
-  const api = useApi();
+  const { appMetafields } = useApi();
+  const [loading, setLoading] = useState(true);
+  const [offer, setOffer] = useState("");
 
-  console.log(api);
+  const offerSub = useSubscription(appMetafields);
+
+  useEffect(() => {
+    if (offerSub.length > 0) {
+      console.log("offerSub", offerSub);
+      setLoading(false);
+      const curOffer = offerSub.filter((o) => o.metafield.key == "offer")[0]
+        .metafield.value;
+      console.log(curOffer);
+      setOffer(curOffer);
+    }
+  }, [offerSub]);
 
   return (
     <Banner title="Greenstand Tokens Offer">
-      Welcome! {api.shop.name} is offering
+      {loading ? <Spinner /> : offer}
     </Banner>
   );
 }
