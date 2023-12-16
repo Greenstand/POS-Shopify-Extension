@@ -1,3 +1,1 @@
-export default {
-  namespace: "checkoutExtension",
-};
+export const namespace = "checkoutExtension";

@@ -4,17 +4,20 @@ import { namespace } from "./variables.js";
 export const getDetails = async (req, res) => {
   try {
     const session = res.locals.shopify.session;
+    console.log(namespace);
 
-    const tokens = getMetafield(session, namespace, "tokens");
-    const per = getMetafield(session, namespace, "per");
-    const item = getMetafield(session, namespace, "item");
+    const tokens = await getMetafield(session, namespace, "tokens");
+    const per = await getMetafield(session, namespace, "per");
+    const item = await getMetafield(session, namespace, "item");
+
+    console.log(tokens, per, item);
 
     res.status(200).send({
       message: "Successfully retrieved values",
       body: {
-        tokens,
-        per,
-        item,
+        tokens: tokens.value,
+        per: per.value,
+        item: item.value,
       },
       error: false,
     });

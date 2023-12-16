@@ -2,20 +2,18 @@ import {
   AlphaCard,
   Page,
   Layout,
-  TextContainer,
   Text,
   Button,
-  Form,
   FormLayout,
   TextField,
   Link,
   Frame,
-  Modal,
+  Spinner,
   Select,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useAuthenticatedFetch } from "../hooks/useAuthenticatedFetch.js";
 import readResponse from "../utils/readResponse.js";
 
@@ -26,8 +24,9 @@ export default function CheckoutSettings() {
   const [tokens, setTokens] = useState("1");
   const [per, setPer] = useState("1");
   const [item, setItem] = useState("$");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [buttonError, setButtonError] = useState("");
 
   const values = [
     { label: "dollars", value: "$" },
@@ -40,8 +39,35 @@ export default function CheckoutSettings() {
   const handlePerChange = useCallback((newValue) => setPer(newValue), []);
   const handleItemChange = useCallback((newValue) => setItem(newValue), []);
 
+  useEffect(() => {
+    authFetch("/api/get-checkout-details", {
+      method: "GET",
+      headers: { "Content-Type": "application/json" },
+    })
+      .then(async ({ body }) => {
+        const response = await readResponse(body);
+
+        if (response.error) {
+          if (response.error.code && response.error.code == 404) {
+            setButtonLoading(false);
+          }
+        }
+
+        const { tokens, per, item } = response.body;
+
+        setTokens(tokens);
+        setPer(per);
+        setItem(item);
+
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }, []);
+
   const handleSubmit = () => {
-    setLoading(true);
+    setButtonLoading(true);
     const offer = `Greenstand is planting ${
       tokens ? tokens : 0
     } trees in your name for every ${
@@ -62,16 +88,32 @@ export default function CheckoutSettings() {
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {
       const data = await readResponse(body);
-      setLoading(false);
+      setButtonLoading(false);
 
       console.log(data);
       if (data.error) {
-        setError(data.error.msg);
+        setButtonError(data.error.msg);
       }
     });
   };
 
-  return (
+  return loading ? (
+    <Page fullWidth>
+      <Frame>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Spinner />
+        </div>
+      </Frame>
+    </Page>
+  ) : (
     <Page fullWidth>
       <TitleBar
         title={t("Checkout.title")}
@@ -153,7 +195,7 @@ export default function CheckoutSettings() {
                       fullWidth
                       primary
                       onClick={handleSubmit}
-                      loading={loading}
+                      loading={buttonLoading}
                     >
                       Save
                     </Button>
@@ -164,7 +206,7 @@ export default function CheckoutSettings() {
                         marginTop: "16px",
                       }}
                     >
-                      {error}
+                      {buttonError}
                     </p>
                   </div>
                 </FormLayout>
