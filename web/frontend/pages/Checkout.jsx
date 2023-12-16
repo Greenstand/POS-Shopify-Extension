@@ -26,6 +26,8 @@ export default function CreateWallet() {
   const [tokens, setTokens] = useState("1");
   const [per, setPer] = useState("1");
   const [item, setItem] = useState("$");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const values = [
     { label: "dollars", value: "$" },
@@ -39,6 +41,7 @@ export default function CreateWallet() {
   const handleItemChange = useCallback((newValue) => setItem(newValue), []);
 
   const handleSubmit = () => {
+    setLoading(true);
     const offer = `Greenstand is planting ${
       tokens ? tokens : 0
     } trees in your name for every ${
@@ -56,10 +59,11 @@ export default function CreateWallet() {
       headers: { "Content-Type": "application/json" },
     }).then(async ({ body }) => {
       const data = await readResponse(body);
+      setLoading(false);
 
       console.log(data);
       if (data.error) {
-        console.log(data.error);
+        setError(data.error.msg);
       }
     });
   };
@@ -142,9 +146,23 @@ export default function CreateWallet() {
                     autoComplete="none"
                   />
                   <div style={{ marginTop: "32px" }}>
-                    <Button fullWidth primary onClick={handleSubmit}>
+                    <Button
+                      fullWidth
+                      primary
+                      onClick={handleSubmit}
+                      loading={loading}
+                    >
                       Save
                     </Button>
+                    <p
+                      style={{
+                        textAlign: "center",
+                        color: "red",
+                        marginTop: "16px",
+                      }}
+                    >
+                      {error}
+                    </p>
                   </div>
                 </FormLayout>
               </div>
