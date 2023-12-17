@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://anyway-equivalent-nearby-fioricet.trycloudflare.com"
+application_url = "https://reasonable-monkey-verification-alias.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://anyway-equivalent-nearby-fioricet.trycloudflare.com/auth/callback",
-  "https://anyway-equivalent-nearby-fioricet.trycloudflare.com/auth/shopify/callback",
-  "https://anyway-equivalent-nearby-fioricet.trycloudflare.com/api/auth/callback",
-  "https://anyway-equivalent-nearby-fioricet.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://reasonable-monkey-verification-alias.trycloudflare.com/auth/callback",
+  "https://reasonable-monkey-verification-alias.trycloudflare.com/auth/shopify/callback",
+  "https://reasonable-monkey-verification-alias.trycloudflare.com/api/auth/callback",
+  "https://reasonable-monkey-verification-alias.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
