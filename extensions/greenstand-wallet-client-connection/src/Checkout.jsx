@@ -25,7 +25,11 @@ function Extension() {
   const t = useTranslate();
   const { appMetafields, ui } = useApi();
   const [loading, setLoading] = useState(true);
-  const [offer, setOffer] = useState("");
+  const [tokens, setTokens] = useState(null);
+  const [per, setPer] = useState(null);
+  const [item, setItem] = useState(null);
+
+  console.log(appMetafields);
 
   // form
   const [checked, setChecked] = useState(false);
@@ -62,10 +66,16 @@ function Extension() {
     if (offerSub.length > 0) {
       console.log("offerSub", offerSub);
       setLoading(false);
-      const curOffer = offerSub.filter((o) => o.metafield.key == "offer")[0]
+      const curTokens = offerSub.filter((o) => o.metafield.key == "tokens")[0]
         .metafield.value;
-      console.log(curOffer);
-      setOffer(curOffer);
+      const curPer = offerSub.filter((o) => o.metafield.key == "per")[0]
+        .metafield.value;
+      const curItem = offerSub.filter((o) => o.metafield.key == "item")[0]
+        .metafield.value;
+
+      setTokens(curTokens);
+      setPer(curPer);
+      setItem(curItem);
     }
   }, [offerSub]);
 
@@ -76,7 +86,7 @@ function Extension() {
       ) : (
         <BlockLayout>
           <BlockStack>
-            <Text>{offer}</Text>
+            {/* <Text>{offer}</Text> */}
             <Checkbox
               id="opt-in"
               name="opt-in"

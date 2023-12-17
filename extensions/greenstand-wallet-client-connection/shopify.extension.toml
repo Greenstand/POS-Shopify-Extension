@@ -36,7 +36,17 @@ api_access = true
 
 [[extensions.metafields]]
 namespace = "checkoutExtension"
-key = "offer"
+key = "tokens"
+
+
+[[extensions.metafields]]
+namespace = "checkoutExtension"
+key = "per"
+
+
+[[extensions.metafields]]
+namespace = "checkoutExtension"
+key = "item"
 
 # Defines settings that will be collected from merchants installing
 # your extension. Learn more:
