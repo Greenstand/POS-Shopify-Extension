@@ -3,11 +3,9 @@ import {
   Page,
   Layout,
   Checkbox,
-  Text,
   Button,
   TextField,
   Frame,
-  Modal,
   Spinner,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
@@ -54,7 +52,6 @@ export default function CreateWallet() {
     }).then(async ({ body }) => {
       const { data } = await readResponse(body);
 
-      console.log(data.body.shop);
       setShopName(data.body.shop.name);
       setShopOwnerName(data.body.shop.shop_owner);
       setLoading(false);
@@ -64,13 +61,6 @@ export default function CreateWallet() {
   // change disabled on validation
 
   useEffect(() => {
-    console.log(
-      shopNameDisabled,
-      shopOwnerNameDisabled,
-      shopEmailDisabled,
-      walletNameDisabled,
-      checked
-    );
     if (
       shopNameDisabled ||
       shopEmailDisabled ||
@@ -78,7 +68,6 @@ export default function CreateWallet() {
       shopOwnerNameDisabled ||
       !checked
     ) {
-      console.log("change");
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -176,7 +165,6 @@ export default function CreateWallet() {
     }).then(async ({ body }) => {
       const data = await readResponse(body);
 
-      console.log(data);
       if (data.error) {
         if (data.error.status == 409) {
           setWalletNameError(t("CreateWallet.WalletAlreadyExistsError"));
