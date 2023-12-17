@@ -1,17 +1,14 @@
+import React, { useState, useCallback, useEffect } from "react";
+
 import {
   AlphaCard,
   Page,
   Layout,
-  Checkbox,
-  Text,
   Button,
   TextField,
-  Frame,
-  Modal,
 } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
-import { useState, useCallback, useEffect } from "react";
 
 export default function ConnectWallet() {
   const { t } = useTranslation();
