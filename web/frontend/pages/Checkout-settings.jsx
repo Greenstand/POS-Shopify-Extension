@@ -53,6 +53,8 @@ export default function CheckoutSettings() {
   const handlePerChange = useCallback((newValue) => setPer(newValue), []);
   const handleItemChange = useCallback((newValue) => setItem(newValue), []);
 
+  // get checkout details on render to automatically fill in values
+
   useEffect(() => {
     authFetch("/api/get-checkout-details", {
       method: "GET",
@@ -79,6 +81,8 @@ export default function CheckoutSettings() {
         console.error(err);
       });
   }, []);
+
+  // change checkout settings
 
   const handleSubmit = () => {
     setButtonLoading(true);
