@@ -1,3 +1,15 @@
+// function binArrayToJson
+
+// * desc
+// * a function that converts a binary array to JSON
+// * used for converting shopify useAuthenticatedFetch requests to JSON
+
+// ? params
+// ? binArray <bin[]>
+
+// ! returns
+// ! JSON <json>
+
 export var binArrayToJson = function (binArray) {
   var str = "";
   for (var i = 0; i < binArray.length; i++) {
