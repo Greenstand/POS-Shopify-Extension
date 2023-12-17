@@ -161,8 +161,8 @@ export default function CheckoutSettings() {
                   <Text tone="subdued">Insert image here</Text>
                 </div>
                 <Text>
-                  Greenstand Wallet App makes changes to checkout to allow users
-                  to purchase tokens from you.
+                  Greenstand Wallet App makes changes to checkout to allow your
+                  users to purchase tokens from you.
                 </Text>
               </div>
             </AlphaCard>
@@ -243,17 +243,25 @@ export default function CheckoutSettings() {
                   justifyContent: "center",
                 }}
               >
-                <Text variant="headingLg">Preview</Text>
+                <Text variant="headingXl">Preview</Text>
 
                 <div style={{ padding: "64px" }}>
                   <Text variant="bodyLg">
                     <p style={{ textAlign: "center" }}>
+                      <Text variant="headingMd">Offer UI:</Text>
+                      <br />
                       Greenstand is planting {tokens ? tokens : 0} trees in your
                       name for every{" "}
                       {(item == "$" ? item : per ? per : "0") +
                         (item == "$" ? (per ? per : "0") : " items")}{" "}
                       {item == "$" ? "worth of items you buy!" : "you buy!"}{" "}
                       <Link>Learn more!</Link>
+                      <br />
+                      <br />
+                      <Text variant="headingMd">Checkout UI:</Text>
+                      <br />
+                      Congratulations! With this purchase you get a tree wallet
+                      and {tokens} tokens!
                     </p>
                   </Text>
                 </div>
