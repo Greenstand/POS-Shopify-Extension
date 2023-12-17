@@ -70,7 +70,6 @@ export async function updateMetafield(session, namespace, key, value, type) {
     const res = await metafield.save({
       update: true,
     });
-    console.log(metafield);
 
     return res;
   } catch (err) {
