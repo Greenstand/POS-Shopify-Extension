@@ -1,15 +1,22 @@
-import { Page, Layout, Link, Text } from "@shopify/polaris";
+import {
+  Page,
+  Layout,
+  Link,
+  Text,
+  AlphaCard,
+  CalloutCard,
+} from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 
 export default function HomePage() {
   const { t } = useTranslation();
   return (
-    <Page narrowWidth>
+    <Page fullWidth>
       <TitleBar title={t("HomePage.title")} primaryAction={null} />
       <Layout>
         <Layout.Section>
-          <Card sectioned>
+          <AlphaCard sectioned>
             <div style={{ textAlign: "center" }}>
               <Text as="h2" variant="headingXl">
                 {t("HomePage.heading")}
@@ -23,7 +30,22 @@ export default function HomePage() {
                 {t("HomePage.link")}
               </Link>
             </div>
-          </Card>
+          </AlphaCard>
+        </Layout.Section>
+        <Layout.Section>
+          <CalloutCard
+            title="Customize the offers your clients get"
+            illustration="https://cdn.shopify.com/s/assets/admin/checkout/settings-customizecart-705f57c725ac05be5a34ec20c05b94298cb8afd10aac7bd9c7ad02030f48cfa0.svg"
+            primaryAction={{
+              content: "Checkout settings",
+              url: "/checkout-settings",
+            }}
+          >
+            <p>
+              Change the offer that your clients get, and the placement, styling
+              - everything!
+            </p>
+          </CalloutCard>
         </Layout.Section>
       </Layout>
     </Page>
