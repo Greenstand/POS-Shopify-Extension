@@ -18,6 +18,18 @@ export var binArrayToJson = function (binArray) {
   return typeof str == "string" ? str : JSON.parse(str);
 };
 
+// function readResponse
+
+// * desc
+// * a function that converts a readable stream into an object
+// * used for converting shopify useAuthenticatedFetch responses to Javascript objects
+
+// ? params
+// ? readableStream <readableStream>
+
+// ! returns
+// ! data <object>
+
 const readResponse = async (readableStream) => {
   const reader = readableStream.getReader();
 
