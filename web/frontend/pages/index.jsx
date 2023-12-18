@@ -1,9 +1,4 @@
-import {
-  Page,
-  Layout,
-  Link,
-  Text,
-} from "@shopify/polaris";
+import { Page, Layout, Link, Text } from "@shopify/polaris";
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 
