@@ -14,12 +14,12 @@ import {
   List,
 } from "@shopify/ui-extensions-react/checkout";
 
-import getCurrentURL from "./utils/getDevURL.js";
+// import getCurrentURL from "./utils/getDevURL.js";
 
 const CreateWallet = () => {
   const { ui } = useApi();
 
-  console.log(getCurrentURL());
+  // console.log(getCurrentURL());
 
   const [walletName, setWalletName] = useState("");
   const handleWalletNameChange = useCallback(
