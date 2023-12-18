@@ -14,6 +14,7 @@ import {
   TextField,
   InlineLayout,
   Button,
+  useCartLines,
 } from "@shopify/ui-extensions-react/checkout";
 import CreateWallet from "./CreateWallet.jsx";
 
@@ -23,15 +24,22 @@ export default reactExtension("purchase.checkout.block.render", () => (
 
 function Extension() {
   const t = useTranslate();
-  const { appMetafields, ui } = useApi();
+  const api = useApi();
+  const { appMetafields, cost } = api;
+  const cart = useCartLines();
+
   const [loading, setLoading] = useState(true);
-  const [offer, setOffer] = useState("");
+  const [tokens, setTokens] = useState(null);
+  const [per, setPer] = useState(null);
+  const [item, setItem] = useState(null);
 
   // form
   const [checked, setChecked] = useState(false);
   const [walletName, setWalletName] = useState("");
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(true);
+
+  const [isShown, setIsShown] = useState(true);
 
   const handleCheckChange = useCallback((newValue) => setChecked(newValue), []);
   const handleWalletNameChange = useCallback(
@@ -57,26 +65,48 @@ function Extension() {
   // offer
 
   const offerSub = useSubscription(appMetafields);
+  const subTotalAmount = useSubscription(cost.subtotalAmount);
 
   useEffect(() => {
     if (offerSub.length > 0) {
-      console.log("offerSub", offerSub);
-      setLoading(false);
-      const curOffer = offerSub.filter((o) => o.metafield.key == "offer")[0]
+      const curTokens = offerSub.filter((o) => o.metafield.key == "tokens")[0]
         .metafield.value;
-      console.log(curOffer);
-      setOffer(curOffer);
+      const curPer = offerSub.filter((o) => o.metafield.key == "per")[0]
+        .metafield.value;
+      const curItem = offerSub.filter((o) => o.metafield.key == "item")[0]
+        .metafield.value;
+
+      setTokens(curTokens);
+      setPer(curPer);
+      setItem(curItem);
     }
   }, [offerSub]);
 
-  return (
+  useEffect(() => {
+    if (tokens && per && item && subTotalAmount && cart) {
+      setLoading(false);
+      console.log("true");
+      console.log(per);
+
+      if (item == "$") {
+        if (per > subTotalAmount.amount) {
+          setIsShown(false);
+        }
+      } else {
+        const quantitySum = cart.reduce((acc, cur) => acc + cur.quantity, 0);
+        console.log(quantitySum);
+      }
+    }
+  }, [tokens, per, item, subTotalAmount, cart]);
+
+  return isShown ? (
     <Banner title="Greenstand Tokens Offer">
       {loading ? (
         <SkeletonText />
       ) : (
         <BlockLayout>
           <BlockStack>
-            <Text>{offer}</Text>
+            {/* <Text>{offer}</Text> */}
             <Checkbox
               id="opt-in"
               name="opt-in"
@@ -112,5 +142,5 @@ function Extension() {
         </BlockLayout>
       )}
     </Banner>
-  );
+  ) : null;
 }

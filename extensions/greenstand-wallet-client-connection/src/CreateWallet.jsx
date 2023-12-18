@@ -14,8 +14,20 @@ import {
   List,
 } from "@shopify/ui-extensions-react/checkout";
 
+<<<<<<< HEAD
+// import getCurrentURL from "./utils/getDevURL.js";
+=======
+import getCurrentURL from "./utils/getDevURL.js";
+>>>>>>> cae0eab (feat: trying to get fs to work)
+
 const CreateWallet = () => {
   const { ui } = useApi();
+
+<<<<<<< HEAD
+  // console.log(getCurrentURL());
+=======
+  console.log(getCurrentURL());
+>>>>>>> cae0eab (feat: trying to get fs to work)
 
   const [walletName, setWalletName] = useState("");
   const handleWalletNameChange = useCallback(

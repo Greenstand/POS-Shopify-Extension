@@ -4,13 +4,9 @@ import { namespace } from "./variables.js";
 export const saveDetails = async (req, res) => {
   try {
     const type = "single_line_text_field";
-    const key = "offer";
-    const { offer, tokens, count, item } = req.body;
+    const { tokens, count, item } = req.body;
     const session = res.locals.shopify.session;
 
-    console.log(session, namespace, key, offer, type);
-
-    await updateMetafield(session, namespace, key, offer, type);
     await updateMetafield(
       session,
       namespace,
