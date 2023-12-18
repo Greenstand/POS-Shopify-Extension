@@ -3,10 +3,17 @@
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 <<<<<<< HEAD
+<<<<<<< HEAD
 application_url = "https://morning-ser-accuracy-les.trycloudflare.com"
 =======
 application_url = "https://virgin-translated-relax-toshiba.trycloudflare.com"
 >>>>>>> bd0af32 (feat: add callout card asking merchant to customise checkotu)
+=======
+application_url = "https://virgin-translated-relax-toshiba.trycloudflare.com"
+=======
+application_url = "https://texas-nations-somewhat-ash.trycloudflare.com"
+>>>>>>> f8f3189 (chore: switching branches)
+>>>>>>> 8e8a46a (fix: fix rebase error)
 embedded = true
 
 [access_scopes]
@@ -15,10 +22,17 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
+<<<<<<< HEAD
   "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/callback",
   "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/shopify/callback",
   "https://virgin-translated-relax-toshiba.trycloudflare.com/api/auth/callback",
   "https://virgin-translated-relax-toshiba.trycloudflare.com/.shopify/graphiql/auth/callback"
+=======
+  "https://texas-nations-somewhat-ash.trycloudflare.com/auth/callback",
+  "https://texas-nations-somewhat-ash.trycloudflare.com/auth/shopify/callback",
+  "https://texas-nations-somewhat-ash.trycloudflare.com/api/auth/callback",
+  "https://texas-nations-somewhat-ash.trycloudflare.com/.shopify/graphiql/auth/callback"
+>>>>>>> f8f3189 (chore: switching branches)
 ]
 
 [webhooks]
