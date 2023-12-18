@@ -1,3 +1,15 @@
+// function binArrayToJson
+
+// * desc
+// * a function that converts a binary array to JSON
+// * used for converting shopify useAuthenticatedFetch requests to JSON
+
+// ? params
+// ? binArray <bin[]>
+
+// ! returns
+// ! JSON <json>
+
 export var binArrayToJson = function (binArray) {
   var str = "";
   for (var i = 0; i < binArray.length; i++) {
@@ -5,6 +17,18 @@ export var binArrayToJson = function (binArray) {
   }
   return typeof str == "string" ? str : JSON.parse(str);
 };
+
+// function readResponse
+
+// * desc
+// * a function that converts a readable stream into an object
+// * used for converting shopify useAuthenticatedFetch responses to Javascript objects
+
+// ? params
+// ? readableStream <readableStream>
+
+// ! returns
+// ! data <object>
 
 const readResponse = async (readableStream) => {
   const reader = readableStream.getReader();
