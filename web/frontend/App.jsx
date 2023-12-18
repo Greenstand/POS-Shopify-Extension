@@ -28,6 +28,10 @@ export default function App() {
                   label: t("NavigationMenu.checkout"),
                   destination: "/checkout-settings",
                 },
+                {
+                  label: "Offer placement",
+                  destination: "/offer-placement",
+                },
               ]}
             />
             <Routes pages={pages} />
