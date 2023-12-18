@@ -34,3 +34,39 @@ paths:
                 error:
                   message: "Bad request"
                   code: 400
+  "/api/get-wallet":
+    get:
+      tags:
+        - Wallet
+      summary: Get current wallet
+      description: Get the wallet currently connected to the shop. This is done by using Shopify metafields on the shop resource.
+      responses:
+        200:
+          description: "Wallet successfully found"
+          content:
+            application/json:
+              example:
+                error: false
+                data:
+                  id: 482bf306-30c7-4cea-833a-1cdda3d96573,
+                  name: test11,
+                  about: feugiat pretium nibh ipsum consequat nisl vel pretium lectus quam id leo in vitae turpis massa sed elementum tempus egestas,
+                  logo_url: https://www.placehold.co/192x192,
+                  created_at: 2023-08-08T06:28:39.766Z,
+                  tokens_in_wallet: 12
+        404:
+          description: "No wallet is saved in metafields"
+          content:
+            application/json:
+              example:
+                error:
+                  code: 404
+                  message: "No wallet connected to shop"
+        500:
+          description: "Internal Server Error"
+          content:
+            application/json:
+              example:
+                error:
+                  message: "Internal Server Error"
+                  code: 500
