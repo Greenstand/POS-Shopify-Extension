@@ -35,7 +35,6 @@ extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
   const render = true;
 
   if (render) {
-    // Saves initial state, provided to `Render` via `storage.initialData`
     await storage.update(initialState);
   }
 
