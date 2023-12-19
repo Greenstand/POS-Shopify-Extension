@@ -2,9 +2,15 @@ type = "checkout_post_purchase"
 name = "greenstand-tokens-extension"
 
 # [[metafields]]
-# namespace = "my-namespace"
-# key = "my-key"
+# namespace = "checkoutExtension"
+# key = "tokens"
+
 
 # [[metafields]]
-# namespace = "my-namespace"
-# key = "my-key-2"
+# namespace = "checkoutExtension"
+# key = "per"
+
+
+# [[metafields]]
+# namespace = "checkoutExtension"
+# key = "item"
