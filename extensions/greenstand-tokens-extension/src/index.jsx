@@ -7,7 +7,7 @@
  *  2. Render - If requested by `ShouldRender`, will be rendered after checkout
  *     completes
  */
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 
 import {
@@ -46,23 +46,17 @@ const APP_URL =
 
 extend("Checkout::PostPurchase::ShouldRender", async (props) => {
   const { storage, inputData } = props;
-  const initialState = await getRenderData(inputData.token);
 
   const render = true;
 
   if (render) {
-    await storage.update({});
+    await storage.update({ token: inputData.token });
   }
 
   return {
     render,
   };
 });
-
-// Simulate results of network call, etc.
-async function getRenderData(token) {
-  const walletName = uuid();
-}
 
 /**
  * Entry point for the `Render` Extension Point
@@ -75,7 +69,6 @@ render("Checkout::PostPurchase::Render", App);
 
 // Top-level React component
 export function App({ storage }) {
-  // const { storage, extensionPoint } = useExtensionInput();
   const initialState = storage.initialData;
 
   console.log(storage);
@@ -102,14 +95,14 @@ export function App({ storage }) {
             <TextContainer>
               <Heading>How does this work?</Heading>
               <TextBlock>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
-                rem at odit est doloribus quidem vel voluptatum ipsam tempora
-                excepturi asperiores aut illo ea, eius totam, impedit non
-                aspernatur quam!
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
+                voluptatum maxime asperiores? Iure quidem ipsum, placeat
+                voluptates ea officiis suscipit quasi animi! Nihil iure
+                molestias laboriosam ut aliquam deleniti eius.
               </TextBlock>
             </TextContainer>
             <Form>
-              <TextField label="Email address" />
+              <TextField label="Wallet name" />
             </Form>
             <Button
               submit
@@ -117,7 +110,7 @@ export function App({ storage }) {
                 return null;
               }}
             >
-              Get my wallet
+              Create wallet
             </Button>
           </BlockStack>
         </Layout>
