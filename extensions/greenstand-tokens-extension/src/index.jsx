@@ -8,6 +8,7 @@
  *     completes
  */
 import React from "react";
+import raw from "../../../shopify.app.toml";
 
 import {
   extend,
@@ -49,11 +50,7 @@ extend("Checkout::PostPurchase::ShouldRender", async (props) => {
 });
 
 // Simulate results of network call, etc.
-async function getRenderData() {
-  return {
-    couldBe: "anything",
-  };
-}
+async function getRenderData() {}
 
 /**
  * Entry point for the `Render` Extension Point
@@ -68,6 +65,9 @@ render("Checkout::PostPurchase::Render", App);
 export function App({ storage }) {
   // const { storage, extensionPoint } = useExtensionInput();
   const initialState = storage.initialData;
+
+  console.log(storage);
+  console.log("raw", raw);
 
   return (
     <>
