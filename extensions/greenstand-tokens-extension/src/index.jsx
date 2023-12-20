@@ -8,6 +8,7 @@
  *     completes
  */
 import React from "react";
+import axios from "axios";
 
 import {
   extend,
@@ -24,10 +25,10 @@ import {
   Text,
   Form,
   TextField,
-  useExtensionInput,
 } from "@shopify/post-purchase-ui-extensions-react";
 import { v4 as uuid } from "uuid";
-import { faVestPatches } from "@fortawesome/free-solid-svg-icons";
+
+import { useSessionToken } from "@shopify/admin-ui-extensions-react";
 
 /**
  * Entry point for the `ShouldRender` Extension Point.
@@ -43,12 +44,14 @@ import { faVestPatches } from "@fortawesome/free-solid-svg-icons";
 const APP_URL =
   "https://permitted-automobiles-smile-determine.trycloudflare.com";
 
-extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
-  const initialState = await getRenderData();
+extend("Checkout::PostPurchase::ShouldRender", async (props) => {
+  const { storage, inputData } = props;
+  const initialState = await getRenderData(inputData.token);
+
   const render = true;
 
   if (render) {
-    await storage.update(initialState);
+    await storage.update({});
   }
 
   return {
@@ -57,7 +60,9 @@ extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
 });
 
 // Simulate results of network call, etc.
-async function getRenderData() {}
+async function getRenderData(token) {
+  const walletName = uuid();
+}
 
 /**
  * Entry point for the `Render` Extension Point
