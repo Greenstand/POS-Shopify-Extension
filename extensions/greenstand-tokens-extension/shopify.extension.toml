@@ -5,11 +5,9 @@ name = "greenstand-tokens-extension"
 namespace = "checkoutExtension"
 key = "tokens"
 
-
 [[metafields]]
 namespace = "checkoutExtension"
 key = "per"
-
 
 [[metafields]]
 namespace = "checkoutExtension"

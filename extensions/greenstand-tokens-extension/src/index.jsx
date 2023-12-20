@@ -40,11 +40,11 @@ extend("Checkout::PostPurchase::ShouldRender", async (props) => {
   const render = true;
 
   if (render) {
-    await storage.update({});
+    await storage.update({ foo: "bar" });
   }
 
   return {
-    render: false,
+    render,
   };
 });
 
@@ -65,11 +65,9 @@ async function getRenderData() {
 render("Checkout::PostPurchase::Render", App);
 
 // Top-level React component
-export function App(props) {
-  const { storage, extensionPoint } = props;
+export function App() {
+  const { storage, extensionPoint } = useExtensionInput();
   const initialState = storage.initialData;
-
-  console.log(props);
 
   return (
     <BlockStack spacing="loose" alignment="center">
