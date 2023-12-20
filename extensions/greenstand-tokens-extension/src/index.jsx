@@ -65,51 +65,52 @@ async function getRenderData() {
 render("Checkout::PostPurchase::Render", App);
 
 // Top-level React component
-export function App() {
-  const { storage, extensionPoint } = useExtensionInput();
+export function App({ storage }) {
+  // const { storage, extensionPoint } = useExtensionInput();
   const initialState = storage.initialData;
 
   return (
-    <BlockStack spacing="loose" alignment="center">
-      <Heading level={1}>Congratulations!</Heading>
-      <Heading level={2}>
-        With this purchase, you are supporting a tree!
-      </Heading>
-      <Layout
-        maxInlineSize={0.95}
-        media={[
-          { viewportSize: "small", sizes: [1, 30, 1] },
-          { viewportSize: "medium", sizes: [300, 30, 0.5] },
-          { viewportSize: "large", sizes: [400, 30, 0.33] },
-        ]}
-      >
-        <View>
-          <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
-        </View>
-        <View />
-        <BlockStack spacing="xloose">
-          <TextContainer>
-            <Heading>How does this work?</Heading>
-            <TextBlock>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil rem
-              at odit est doloribus quidem vel voluptatum ipsam tempora
-              excepturi asperiores aut illo ea, eius totam, impedit non
-              aspernatur quam!
-            </TextBlock>
-          </TextContainer>
-          <Form>
-            <TextField label="Email address" />
-          </Form>
-          <Button
-            submit
-            onPress={() => {
-              return null;
-            }}
-          >
-            Get my wallet
-          </Button>
-        </BlockStack>
-      </Layout>
-    </BlockStack>
+    <>
+      <CalloutBanner title="Congratulations!" spacing="xloose">
+        <Text>With this purchase, you are supporting a tree!</Text>
+      </CalloutBanner>
+      <BlockStack spacing="loose" alignment="center">
+        <Layout
+          maxInlineSize={0.95}
+          media={[
+            { viewportSize: "small", sizes: [1, 30, 1] },
+            { viewportSize: "medium", sizes: [300, 30, 0.5] },
+            { viewportSize: "large", sizes: [400, 30, 0.33] },
+          ]}
+        >
+          <View>
+            <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
+          </View>
+          <View />
+          <BlockStack spacing="xloose">
+            <TextContainer>
+              <Heading>How does this work?</Heading>
+              <TextBlock>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil
+                rem at odit est doloribus quidem vel voluptatum ipsam tempora
+                excepturi asperiores aut illo ea, eius totam, impedit non
+                aspernatur quam!
+              </TextBlock>
+            </TextContainer>
+            <Form>
+              <TextField label="Email address" />
+            </Form>
+            <Button
+              submit
+              onPress={() => {
+                return null;
+              }}
+            >
+              Get my wallet
+            </Button>
+          </BlockStack>
+        </Layout>
+      </BlockStack>
+    </>
   );
 }
