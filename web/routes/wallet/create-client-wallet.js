@@ -1,6 +1,6 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const createWallet = async (req, res) => {
+export const createClientWallet = async (req, res) => {
   const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
   const { walletName } = req.body;
