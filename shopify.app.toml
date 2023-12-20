@@ -12,10 +12,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://frankfurt-initiatives-lap-chess.trycloudflare.com/auth/callback",
-  "https://frankfurt-initiatives-lap-chess.trycloudflare.com/auth/shopify/callback",
-  "https://frankfurt-initiatives-lap-chess.trycloudflare.com/api/auth/callback",
-  "https://frankfurt-initiatives-lap-chess.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://background-magnitude-journey-structural.trycloudflare.com/auth/callback",
+  "https://background-magnitude-journey-structural.trycloudflare.com/auth/shopify/callback",
+  "https://background-magnitude-journey-structural.trycloudflare.com/api/auth/callback",
+  "https://background-magnitude-journey-structural.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

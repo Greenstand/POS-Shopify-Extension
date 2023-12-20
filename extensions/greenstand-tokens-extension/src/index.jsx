@@ -22,6 +22,9 @@ import {
   TextContainer,
   View,
   Text,
+  Form,
+  TextField,
+  useExtensionInput,
 } from "@shopify/post-purchase-ui-extensions-react";
 
 /**
@@ -31,16 +34,17 @@ import {
  * optionally allows data to be stored on the client for use in the `Render`
  * extension point.
  */
-extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
+extend("Checkout::PostPurchase::ShouldRender", async (props) => {
+  const { storage } = props;
   const initialState = await getRenderData();
   const render = true;
 
   if (render) {
-    await storage.update(initialState);
+    await storage.update({});
   }
 
   return {
-    render,
+    render: false,
   };
 });
 
@@ -61,14 +65,18 @@ async function getRenderData() {
 render("Checkout::PostPurchase::Render", App);
 
 // Top-level React component
-export function App({ extensionPoint, storage }) {
+export function App(props) {
+  const { storage, extensionPoint } = props;
   const initialState = storage.initialData;
 
+  console.log(props);
+
   return (
-    <BlockStack spacing="loose">
-      <CalloutBanner title="Congratulations!" spacing="xloose">
-        <Text>With this purchase, you are supporting a tree!</Text>
-      </CalloutBanner>
+    <BlockStack spacing="loose" alignment="center">
+      <Heading level={1}>Congratulations!</Heading>
+      <Heading level={2}>
+        With this purchase, you are supporting a tree!
+      </Heading>
       <Layout
         maxInlineSize={0.95}
         media={[
@@ -83,20 +91,24 @@ export function App({ extensionPoint, storage }) {
         <View />
         <BlockStack spacing="xloose">
           <TextContainer>
-            <Heading>Post-purchase extension</Heading>
+            <Heading>How does this work?</Heading>
             <TextBlock>
-              Here you can cross-sell other products, request a product review
-              based on a previous purchase, and much more.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil rem
+              at odit est doloribus quidem vel voluptatum ipsam tempora
+              excepturi asperiores aut illo ea, eius totam, impedit non
+              aspernatur quam!
             </TextBlock>
           </TextContainer>
+          <Form>
+            <TextField label="Email address" />
+          </Form>
           <Button
             submit
             onPress={() => {
-              // eslint-disable-next-line no-console
-              console.log(`Extension point ${extensionPoint}`, initialState);
+              return null;
             }}
           >
-            Primary button
+            Get my wallet
           </Button>
         </BlockStack>
       </Layout>
