@@ -12,10 +12,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://background-magnitude-journey-structural.trycloudflare.com/auth/callback",
-  "https://background-magnitude-journey-structural.trycloudflare.com/auth/shopify/callback",
-  "https://background-magnitude-journey-structural.trycloudflare.com/api/auth/callback",
-  "https://background-magnitude-journey-structural.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://ratios-assessments-ph-gentle.trycloudflare.com/auth/callback",
+  "https://ratios-assessments-ph-gentle.trycloudflare.com/auth/shopify/callback",
+  "https://ratios-assessments-ph-gentle.trycloudflare.com/api/auth/callback",
+  "https://ratios-assessments-ph-gentle.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
