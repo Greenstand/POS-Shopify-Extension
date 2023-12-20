@@ -12,10 +12,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ratios-assessments-ph-gentle.trycloudflare.com/auth/callback",
-  "https://ratios-assessments-ph-gentle.trycloudflare.com/auth/shopify/callback",
-  "https://ratios-assessments-ph-gentle.trycloudflare.com/api/auth/callback",
-  "https://ratios-assessments-ph-gentle.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://permitted-automobiles-smile-determine.trycloudflare.com/auth/callback",
+  "https://permitted-automobiles-smile-determine.trycloudflare.com/auth/shopify/callback",
+  "https://permitted-automobiles-smile-determine.trycloudflare.com/api/auth/callback",
+  "https://permitted-automobiles-smile-determine.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

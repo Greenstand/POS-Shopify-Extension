@@ -8,7 +8,6 @@
  *     completes
  */
 import React from "react";
-import raw from "../../../shopify.app.toml";
 
 import {
   extend,
@@ -27,6 +26,8 @@ import {
   TextField,
   useExtensionInput,
 } from "@shopify/post-purchase-ui-extensions-react";
+import { v4 as uuid } from "uuid";
+import { faVestPatches } from "@fortawesome/free-solid-svg-icons";
 
 /**
  * Entry point for the `ShouldRender` Extension Point.
@@ -35,13 +36,19 @@ import {
  * optionally allows data to be stored on the client for use in the `Render`
  * extension point.
  */
-extend("Checkout::PostPurchase::ShouldRender", async (props) => {
-  const { storage } = props;
+
+// * APP URL
+// * update this every time URL changes
+
+const APP_URL =
+  "https://permitted-automobiles-smile-determine.trycloudflare.com";
+
+extend("Checkout::PostPurchase::ShouldRender", async ({ storage }) => {
   const initialState = await getRenderData();
   const render = true;
 
   if (render) {
-    await storage.update({ foo: "bar" });
+    await storage.update(initialState);
   }
 
   return {
@@ -67,7 +74,6 @@ export function App({ storage }) {
   const initialState = storage.initialData;
 
   console.log(storage);
-  console.log("raw", raw);
 
   return (
     <>
