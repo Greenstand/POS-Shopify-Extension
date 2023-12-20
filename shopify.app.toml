@@ -2,6 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
+<<<<<<< HEAD
 application_url = "https://virgin-translated-relax-toshiba.trycloudflare.com"
 embedded = true
 
@@ -11,10 +12,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/shopify/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/api/auth/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://president-swaziland-fastest-erp.trycloudflare.com/auth/callback",
+  "https://president-swaziland-fastest-erp.trycloudflare.com/auth/shopify/callback",
+  "https://president-swaziland-fastest-erp.trycloudflare.com/api/auth/callback",
+  "https://president-swaziland-fastest-erp.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
