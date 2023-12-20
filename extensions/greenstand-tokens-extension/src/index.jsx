@@ -21,6 +21,7 @@ import {
   TextBlock,
   TextContainer,
   View,
+  Text,
 } from "@shopify/post-purchase-ui-extensions-react";
 
 /**
@@ -65,9 +66,8 @@ export function App({ extensionPoint, storage }) {
 
   return (
     <BlockStack spacing="loose">
-      <CalloutBanner title="Post-purchase extension template">
-        Use this template as a starting point to build a great post-purchase
-        extension.
+      <CalloutBanner title="Congratulations!" spacing="xloose">
+        <Text>With this purchase, you are supporting a tree!</Text>
       </CalloutBanner>
       <Layout
         maxInlineSize={0.95}
