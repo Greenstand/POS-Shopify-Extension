@@ -68,7 +68,7 @@ app.use(shopify.cspHeaders());
 app.get("/api/auth-wallet", authenticate_wallet);
 app.get("/api/get-wallet", getWallet);
 app.post("/api/create-wallet", createWallet);
-app.post("/api/create-wallet-client", createClientWallet);
+app.post("/api/create-client-wallet", createClientWallet);
 
 // checkout details
 
