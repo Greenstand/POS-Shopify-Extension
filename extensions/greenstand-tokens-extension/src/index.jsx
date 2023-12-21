@@ -19,6 +19,7 @@ import {
   Separator,
   Link,
   Checkbox,
+  FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
@@ -82,11 +83,20 @@ export function App() {
                   here.
                 </Link>
               </TextBlock>
-              <TextBlock>Fill out the form to create your wallet:</TextBlock>
+              <TextBlock>
+                Fill in the form to get a token that represents the tree you are
+                supporting:
+              </TextBlock>
             </TextContainer>
             <Form>
-              <Checkbox>I opt in to this program.</Checkbox>
-              <TextField label="Wallet name" />
+              <FormLayout>
+                <Checkbox>I opt in to this program.</Checkbox>
+                <TextField label="Wallet name" />
+                <Text>
+                  - Wallet name can only contain letters, numbers, and _ . -
+                  characters
+                </Text>
+              </FormLayout>
             </Form>
             <Button
               submit
