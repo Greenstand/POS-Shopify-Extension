@@ -24,7 +24,7 @@ import {
 import axios from "axios";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://pride-ferry-sensitive-newspapers.trycloudflare.com";
+const APP_URL = "https://coordinate-harper-og-mud.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend(
@@ -47,6 +47,7 @@ render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
   const { inputData } = useExtensionInput();
+  const { token } = inputData;
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
@@ -56,10 +57,6 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
-
-  useEffect(() => {
-    console.log(inputData);
-  }, []);
 
   useEffect(() => {
     if (!optIn) {
@@ -87,12 +84,19 @@ export function App() {
   };
 
   const createWallet = () => {
+    console.log(token);
     setLoading(true);
     const url = APP_URL + "/api/create-client-wallet";
-    axios
-      .post(url, {
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
         walletName,
-      })
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
       .then((data) => {
         console.log(data);
         setLoading(false);

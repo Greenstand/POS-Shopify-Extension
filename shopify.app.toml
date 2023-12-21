@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://wallpaper-deleted-march-progress.trycloudflare.com/auth/callback",
-  "https://wallpaper-deleted-march-progress.trycloudflare.com/auth/shopify/callback",
-  "https://wallpaper-deleted-march-progress.trycloudflare.com/api/auth/callback",
-  "https://wallpaper-deleted-march-progress.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://coordinate-harper-og-mud.trycloudflare.com/auth/callback",
+  "https://coordinate-harper-og-mud.trycloudflare.com/auth/shopify/callback",
+  "https://coordinate-harper-og-mud.trycloudflare.com/api/auth/callback",
+  "https://coordinate-harper-og-mud.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
