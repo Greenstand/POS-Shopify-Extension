@@ -50,6 +50,14 @@ export function App() {
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
 
+  useEffect(() => {
+    if (!optIn) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [optIn]);
+
   return (
     <>
       <CalloutBanner title="Congratulations!" spacing="xloose">
@@ -108,6 +116,7 @@ export function App() {
             </Form>
             <Button
               submit
+              disabled={disabled}
               onPress={() => {
                 return null;
               }}
