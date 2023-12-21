@@ -21,6 +21,7 @@ import {
   Checkbox,
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
+import axios from "axios";
 
 // For local development, replace APP_URL with your local tunnel URL.
 const APP_URL = "https://pride-ferry-sensitive-newspapers.trycloudflare.com";
@@ -29,6 +30,12 @@ const APP_URL = "https://pride-ferry-sensitive-newspapers.trycloudflare.com";
 extend(
   "Checkout::PostPurchase::ShouldRender",
   async ({ inputData, storage }) => {
+    // const { metafields } = inputData.shop;
+
+    // const tokens = metafields.filter((m) => m.key == "tokens")[0];
+    // const per = metafields.filter((m) => m.key == "per")[0];
+    // const item = metafields.filter((m) => m.key == "item")[0];
+
     await storage.update({ offer: "offer" });
 
     // For local development, always show the post-purchase page
@@ -39,8 +46,7 @@ extend(
 render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
-  const { storage, inputData, calculateChangeset, applyChangeset, done } =
-    useExtensionInput();
+  const { inputData } = useExtensionInput();
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
@@ -50,6 +56,10 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  useEffect(() => {
+    console.log(inputData);
+  }, []);
 
   useEffect(() => {
     if (!optIn) {
@@ -74,6 +84,18 @@ export function App() {
         "Wallet name can only contain letters, numbers, and @ . - characters"
       );
     }
+  };
+
+  const createWallet = () => {
+    setLoading(true);
+    const url = APP_URL + "/api/create-client-wallet";
+    axios
+      .post(url, {
+        walletName,
+      })
+      .then((data) => {
+        setLoading(false);
+      });
   };
 
   return (
