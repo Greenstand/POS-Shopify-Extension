@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import {
   extend,
   render,
@@ -42,7 +42,13 @@ export function App() {
   const { storage, inputData, calculateChangeset, applyChangeset, done } =
     useExtensionInput();
   const [loading, setLoading] = useState(true);
-  const [calculatedPurchase, setCalculatedPurchase] = useState();
+  const [disabled, setDisabled] = useState(true);
+
+  const [walletName, setWalletName] = useState("");
+  const [optIn, setOptIn] = useState(true);
+
+  const changeOptIn = useCallback((newValue) => setOptIn(newValue));
+  const changeWalletName = useCallback((newValue) => setWalletName(newValue));
 
   return (
     <>
@@ -90,12 +96,14 @@ export function App() {
             </TextContainer>
             <Form>
               <FormLayout>
-                <Checkbox>I opt in to this program.</Checkbox>
-                <TextField label="Wallet name" />
-                <Text>
-                  - Wallet name can only contain letters, numbers, and _ . -
-                  characters
-                </Text>
+                <Checkbox value={optIn} onChange={changeOptIn}>
+                  I opt in to this program.
+                </Checkbox>
+                <TextField
+                  label="Wallet name"
+                  value={walletName}
+                  onChange={changeWalletName}
+                />
               </FormLayout>
             </Form>
             <Button
