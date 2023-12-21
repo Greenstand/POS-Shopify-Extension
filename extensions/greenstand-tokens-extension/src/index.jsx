@@ -135,10 +135,10 @@ export function App() {
             <TextContainer>
               <Heading>How does this work?</Heading>
               <TextBlock>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                voluptatum maxime asperiores? Iure quidem ipsum, placeat
-                voluptates ea officiis suscipit quasi animi! Nihil iure
-                molestias laboriosam ut aliquam deleniti eius.
+                You will be given an impact wallet containing one or more tokens
+                that represents verified environmental restoration impacts. In
+                simpler terms you made it possible that this tree will be able
+                to grow and that a community member was involved in planting.
               </TextBlock>
               <TextBlock>
                 Learn more about Greenstand{" "}
