@@ -2,8 +2,12 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
+<<<<<<< HEAD
 application_url = "https://virgin-translated-relax-toshiba.trycloudflare.com"
 
+=======
+application_url = "https://pride-ferry-sensitive-newspapers.trycloudflare.com"
+>>>>>>> 9bf144f (feat: made the extension work)
 embedded = true
 
 [access_scopes]
@@ -12,10 +16,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://ld-requests-revised-drivers.trycloudflare.com/auth/callback",
-  "https://ld-requests-revised-drivers.trycloudflare.com/auth/shopify/callback",
-  "https://ld-requests-revised-drivers.trycloudflare.com/api/auth/callback",
-  "https://ld-requests-revised-drivers.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://pride-ferry-sensitive-newspapers.trycloudflare.com/auth/callback",
+  "https://pride-ferry-sensitive-newspapers.trycloudflare.com/auth/shopify/callback",
+  "https://pride-ferry-sensitive-newspapers.trycloudflare.com/api/auth/callback",
+  "https://pride-ferry-sensitive-newspapers.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
