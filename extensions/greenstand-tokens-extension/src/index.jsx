@@ -15,6 +15,10 @@ import {
   View,
   Form,
   TextField,
+  InlineStack,
+  Separator,
+  Link,
+  Checkbox,
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
@@ -55,6 +59,12 @@ export function App() {
         >
           <View>
             <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
+            <TextBlock>
+              Link to the tree you are supporting:{" "}
+              <Link external to="https://greenstand.org/">
+                The tree I am supporting
+              </Link>
+            </TextBlock>
           </View>
           <View />
           <BlockStack spacing="xloose">
@@ -66,8 +76,16 @@ export function App() {
                 voluptates ea officiis suscipit quasi animi! Nihil iure
                 molestias laboriosam ut aliquam deleniti eius.
               </TextBlock>
+              <TextBlock>
+                Learn more about Greenstand{" "}
+                <Link external to="https://greenstand.org/">
+                  here.
+                </Link>
+              </TextBlock>
+              <TextBlock>Fill out the form to create your wallet:</TextBlock>
             </TextContainer>
             <Form>
+              <Checkbox>I opt in to this program.</Checkbox>
               <TextField label="Wallet name" />
             </Form>
             <Button
