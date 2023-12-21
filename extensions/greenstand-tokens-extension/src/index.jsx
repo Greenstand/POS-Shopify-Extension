@@ -47,7 +47,7 @@ render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
   const { inputData } = useExtensionInput();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
 
@@ -94,6 +94,11 @@ export function App() {
         walletName,
       })
       .then((data) => {
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err.stack);
         setLoading(false);
       });
   };
@@ -160,9 +165,9 @@ export function App() {
             <Button
               submit
               disabled={disabled}
-              onPress={() => {
-                console.log("hello");
-              }}
+              onPress={createWallet}
+              loading={loading}
+              loadingLabel="Loading..."
             >
               Create wallet
             </Button>
