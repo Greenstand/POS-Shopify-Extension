@@ -2,8 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://virgin-translated-relax-toshiba.trycloudflare.com"
-
+application_url = "https://ld-requests-revised-drivers.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -12,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/auth/shopify/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/api/auth/callback",
-  "https://virgin-translated-relax-toshiba.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://ld-requests-revised-drivers.trycloudflare.com/auth/callback",
+  "https://ld-requests-revised-drivers.trycloudflare.com/auth/shopify/callback",
+  "https://ld-requests-revised-drivers.trycloudflare.com/api/auth/callback",
+  "https://ld-requests-revised-drivers.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
