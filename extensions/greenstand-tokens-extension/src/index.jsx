@@ -43,6 +43,7 @@ export function App() {
     useExtensionInput();
   const [loading, setLoading] = useState(true);
   const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState("");
 
   const [walletName, setWalletName] = useState("");
   const [optIn, setOptIn] = useState(true);
@@ -57,6 +58,23 @@ export function App() {
       setDisabled(false);
     }
   }, [optIn]);
+
+  const onInput = () => {
+    setError(false);
+    setDisabled();
+  };
+
+  const onBlur = () => {
+    if (walletName === "") {
+      setDisabled(true);
+      setError("Wallet name cannot be empty");
+    } else if (!/^[a-zA-Z0-9@.-]*$/g.test(walletName)) {
+      setDisabled(true);
+      setError(
+        "Wallet name can only contain letters, numbers, and @ . - characters"
+      );
+    }
+  };
 
   return (
     <>
@@ -111,6 +129,9 @@ export function App() {
                   label="Wallet name"
                   value={walletName}
                   onChange={changeWalletName}
+                  onBlur={onBlur}
+                  onInput={onInput}
+                  error={error}
                 />
               </FormLayout>
             </Form>
@@ -118,7 +139,7 @@ export function App() {
               submit
               disabled={disabled}
               onPress={() => {
-                return null;
+                console.log("hello");
               }}
             >
               Create wallet
