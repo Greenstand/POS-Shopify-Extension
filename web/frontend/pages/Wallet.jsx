@@ -292,7 +292,9 @@ export default function Wallet() {
                         {wallet.wallet}
                       </Text>
                     </div>
-                    <Button destructive>{t("Wallet.DisconnectWalletButton")}</Button>
+                    <Button destructive>
+                      {t("Wallet.DisconnectWalletButton")}
+                    </Button>
                   </div>
                 ) : (
                   <div
@@ -311,7 +313,9 @@ export default function Wallet() {
                         {t("Wallet.ConnectWalletButton")}
                       </Button>
                     </div>
-                    <Button url="/create-wallet">{t("Wallet.CreateWalletButton")}</Button>
+                    <Button url="/create-wallet">
+                      {t("Wallet.CreateWalletButton")}
+                    </Button>
                   </div>
                 )}
               </AlphaCard>

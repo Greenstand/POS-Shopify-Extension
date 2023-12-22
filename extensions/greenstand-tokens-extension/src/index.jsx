@@ -1,77 +1,114 @@
-/**
- * Extend Shopify Checkout with a custom Post Purchase user experience.
- * This template provides two extension points:
- *
- *  1. ShouldRender - Called first, during the checkout process, when the
- *     payment page loads.
- *  2. Render - If requested by `ShouldRender`, will be rendered after checkout
- *     completes
- */
-import React, { useState } from "react";
-import axios from "axios";
-
+import { useEffect, useState, useCallback } from "react";
 import {
   extend,
   render,
+  useExtensionInput,
   BlockStack,
   Button,
   CalloutBanner,
   Heading,
   Image,
-  Layout,
-  TextBlock,
-  TextContainer,
-  View,
   Text,
+  TextContainer,
+  TextBlock,
+  Layout,
+  View,
   Form,
   TextField,
+  InlineStack,
+  Separator,
+  Link,
+  Checkbox,
+  FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
-import { v4 as uuid } from "uuid";
+import axios from "axios";
 
-import { useSessionToken } from "@shopify/admin-ui-extensions-react";
+// For local development, replace APP_URL with your local tunnel URL.
+const APP_URL = "https://coordinate-harper-og-mud.trycloudflare.com";
 
-/**
- * Entry point for the `ShouldRender` Extension Point.
- *
- * Returns a value indicating whether or not to render a PostPurchase step, and
- * optionally allows data to be stored on the client for use in the `Render`
- * extension point.
- */
+// Preload data from your app server to ensure that the extension loads quickly.
+extend(
+  "Checkout::PostPurchase::ShouldRender",
+  async ({ inputData, storage }) => {
+    // const { metafields } = inputData.shop;
 
-// * APP URL
-// * update this every time URL changes
+    // const tokens = metafields.filter((m) => m.key == "tokens")[0];
+    // const per = metafields.filter((m) => m.key == "per")[0];
+    // const item = metafields.filter((m) => m.key == "item")[0];
 
-const APP_URL =
-  "https://permitted-automobiles-smile-determine.trycloudflare.com";
+    await storage.update({ offer: "offer" });
 
-extend("Checkout::PostPurchase::ShouldRender", async (props) => {
-  const { storage, inputData } = props;
-
-  const render = true;
-
-  if (render) {
-    await storage.update({ token: inputData.token });
+    // For local development, always show the post-purchase page
+    return { render: true };
   }
+);
 
-  return {
-    render,
+render("Checkout::PostPurchase::Render", () => <App />);
+
+export function App() {
+  const { inputData } = useExtensionInput();
+  const { token } = inputData;
+  const [loading, setLoading] = useState(false);
+  const [disabled, setDisabled] = useState(true);
+  const [error, setError] = useState("");
+
+  const [walletName, setWalletName] = useState("");
+  const [optIn, setOptIn] = useState(true);
+
+  const changeOptIn = useCallback((newValue) => setOptIn(newValue));
+  const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  useEffect(() => {
+    if (!optIn) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [optIn]);
+
+  const onInput = () => {
+    setError(false);
+    setDisabled();
   };
-});
 
-/**
- * Entry point for the `Render` Extension Point
- *
- * Returns markup composed of remote UI components.  The Render extension can
- * optionally make use of data stored during `ShouldRender` extension point to
- * expedite time-to-first-meaningful-paint.
- */
-render("Checkout::PostPurchase::Render", App);
+  const onBlur = () => {
+    if (walletName === "") {
+      setDisabled(true);
+      setError("Wallet name cannot be empty");
+    } else if (!/^[a-zA-Z0-9@.-]*$/g.test(walletName)) {
+      setDisabled(true);
+      setError(
+        "Wallet name can only contain letters, numbers, and @ . - characters"
+      );
+    } else if (walletName.length < 3 || walletName.length > 30) {
+      setDisabled(true);
+      setError("Wallet name must be between 3 and 30 characters");
+    }
+  };
 
-// Top-level React component
-export function App({ storage }) {
-  const initialState = storage.initialData;
-
-  console.log(storage);
+  const createWallet = () => {
+    console.log(token);
+    setLoading(true);
+    const url = APP_URL + "/api/create-client-wallet";
+    fetch(url, {
+      method: "POST",
+      body: JSON.stringify({
+        walletName,
+      }),
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((data) => {
+        console.log(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err.stack);
+        setLoading(false);
+      });
+  };
 
   return (
     <>
@@ -89,26 +126,55 @@ export function App({ storage }) {
         >
           <View>
             <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
+            <TextBlock>
+              Link to the tree you are supporting:{" "}
+              <Link external to="https://greenstand.org/">
+                The tree I am supporting
+              </Link>
+            </TextBlock>
           </View>
           <View />
           <BlockStack spacing="xloose">
             <TextContainer>
               <Heading>How does this work?</Heading>
               <TextBlock>
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi
-                voluptatum maxime asperiores? Iure quidem ipsum, placeat
-                voluptates ea officiis suscipit quasi animi! Nihil iure
-                molestias laboriosam ut aliquam deleniti eius.
+                You will be given an impact wallet containing one or more tokens
+                that represents verified environmental restoration impacts. In
+                simpler terms you made it possible that this tree will be able
+                to grow and that a community member was involved in planting.
+              </TextBlock>
+              <TextBlock>
+                Learn more about Greenstand{" "}
+                <Link external to="https://greenstand.org/">
+                  here.
+                </Link>
+              </TextBlock>
+              <TextBlock>
+                Fill in the form to get a token that represents the tree you are
+                supporting:
               </TextBlock>
             </TextContainer>
             <Form>
-              <TextField label="Wallet name" />
+              <FormLayout>
+                <Checkbox value={optIn} onChange={changeOptIn}>
+                  I opt in to this program.
+                </Checkbox>
+                <TextField
+                  label="Wallet name"
+                  value={walletName}
+                  onChange={changeWalletName}
+                  onBlur={onBlur}
+                  onInput={onInput}
+                  error={error}
+                />
+              </FormLayout>
             </Form>
             <Button
               submit
-              onPress={() => {
-                return null;
-              }}
+              disabled={disabled}
+              onPress={createWallet}
+              loading={loading}
+              loadingLabel="Loading..."
             >
               Create wallet
             </Button>
