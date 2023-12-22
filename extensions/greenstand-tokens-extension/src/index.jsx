@@ -80,6 +80,9 @@ export function App() {
       setError(
         "Wallet name can only contain letters, numbers, and @ . - characters"
       );
+    } else if (walletName.length < 3 || walletName.length > 30) {
+      setDisabled(true);
+      setError("Wallet name must be between 3 and 30 characters");
     }
   };
 
