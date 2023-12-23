@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://wall-omega-welfare-taylor.trycloudflare.com/auth/callback",
-  "https://wall-omega-welfare-taylor.trycloudflare.com/auth/shopify/callback",
-  "https://wall-omega-welfare-taylor.trycloudflare.com/api/auth/callback",
-  "https://wall-omega-welfare-taylor.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://rely-ant-fundamental-theater.trycloudflare.com/auth/callback",
+  "https://rely-ant-fundamental-theater.trycloudflare.com/auth/shopify/callback",
+  "https://rely-ant-fundamental-theater.trycloudflare.com/api/auth/callback",
+  "https://rely-ant-fundamental-theater.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
