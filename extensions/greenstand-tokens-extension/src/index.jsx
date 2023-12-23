@@ -22,6 +22,7 @@ import {
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
 import axios from "axios";
+import { getCurrentURL } from "../UrlProvider.js";
 
 // For local development, replace APP_URL with your local tunnel URL.
 const APP_URL =
