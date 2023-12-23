@@ -2,7 +2,7 @@
 
 name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://rely-ant-fundamental-theater.trycloudflare.com"
+application_url = "https://reviewed-nevertheless-score-inclusive.trycloudflare.com"
 embedded = true
 
 [access_scopes]
@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://rely-ant-fundamental-theater.trycloudflare.com/auth/callback",
-  "https://rely-ant-fundamental-theater.trycloudflare.com/auth/shopify/callback",
-  "https://rely-ant-fundamental-theater.trycloudflare.com/api/auth/callback",
-  "https://rely-ant-fundamental-theater.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/auth/callback",
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/auth/shopify/callback",
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/api/auth/callback",
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]

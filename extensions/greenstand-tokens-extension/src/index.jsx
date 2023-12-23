@@ -24,7 +24,8 @@ import {
 import axios from "axios";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://rely-ant-fundamental-theater.trycloudflare.com";
+const APP_URL =
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend(
