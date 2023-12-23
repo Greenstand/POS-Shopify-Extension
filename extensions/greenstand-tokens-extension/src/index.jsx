@@ -22,9 +22,11 @@ import {
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
 import axios from "axios";
+import { getCurrentURL } from "../UrlProvider.js";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://coordinate-harper-og-mud.trycloudflare.com";
+const APP_URL =
+  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend(
@@ -36,7 +38,7 @@ extend(
     // const per = metafields.filter((m) => m.key == "per")[0];
     // const item = metafields.filter((m) => m.key == "item")[0];
 
-    await storage.update({ offer: "offer" });
+    await storage.update({ token: inputData.token });
 
     // For local development, always show the post-purchase page
     return { render: true };
@@ -46,8 +48,8 @@ extend(
 render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
-  const { inputData } = useExtensionInput();
-  const { token } = inputData;
+  const input = useExtensionInput();
+  const { inputData, storage } = input;
   const [loading, setLoading] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
@@ -86,28 +88,26 @@ export function App() {
     }
   };
 
-  const createWallet = () => {
-    console.log(token);
+  const createWallet = async () => {
     setLoading(true);
-    const url = APP_URL + "/api/create-client-wallet";
-    fetch(url, {
+    console.log(inputData.token);
+    const wallet = await fetch(`${APP_URL}/api/create-client-wallet`, {
       method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         walletName,
       }),
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
     })
-      .then((data) => {
-        console.log(data);
-        setLoading(false);
-      })
+      .then((response) => response.json())
       .catch((err) => {
-        console.error(err.stack);
-        setLoading(false);
+        console.error(err);
+        return error;
       });
+    console.log(wallet);
+    setLoading(false);
   };
 
   return (
