@@ -11,10 +11,10 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/auth/callback",
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/auth/shopify/callback",
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/api/auth/callback",
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://clerk-winners-marine-keywords.trycloudflare.com/auth/callback",
+  "https://clerk-winners-marine-keywords.trycloudflare.com/auth/shopify/callback",
+  "https://clerk-winners-marine-keywords.trycloudflare.com/api/auth/callback",
+  "https://clerk-winners-marine-keywords.trycloudflare.com/.shopify/graphiql/auth/callback"
 ]
 
 [webhooks]
