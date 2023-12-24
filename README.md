@@ -21,7 +21,7 @@
 - [Engineering Handbook](https://greenstand.gitbook.io/engineering)
 - Shopify Docs: (https://shopify.dev/docs/apps/getting-started/create)
 - Message @SuspenseFallback or Krithin Jay on Slack for help
-- Message @dadiorchen or Dadiorchen on Slack help
+- Create a discussion/issue
 - Ask for help in the Slack Channel
 
 ## Tech Stack
@@ -53,7 +53,7 @@ The following Shopify tools complement these third-party tools to ease app devel
 
 
 - Merchant (admin): Backend user of Shopify customizing the checkout process and adding items to the online store. 
-- Prerequisite (Merchant): Needs to have a designated wallet handle with tokens inside. Or create a new wallet by contacting Greenstand Info@greenstand.org (See Notes Section)
+- Prerequisite (Merchant): Needs to have a designated wallet handle with tokens inside. Or create a new wallet in the app.
 
 ### Users Defined:
 
