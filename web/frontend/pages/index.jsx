@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import {
   Page,
   Layout,
@@ -6,6 +7,9 @@ import {
   AlphaCard,
   CalloutCard,
 } from "@shopify/polaris";
+=======
+import { Page, Layout, Link, Text } from "@shopify/polaris";
+>>>>>>> f68bbdf (fix: next merge error)
 import { TitleBar } from "@shopify/app-bridge-react";
 import { useTranslation } from "react-i18next";
 
