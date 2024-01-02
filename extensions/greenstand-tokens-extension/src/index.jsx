@@ -22,7 +22,7 @@ import {
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
 import axios from "axios";
-import * as jose from "jose";
+import { jwtDecode } from "jwt-decode";
 
 // For local development, replace APP_URL with your local tunnel URL.
 const APP_URL = "https://brand-angela-beads-snap.trycloudflare.com";
@@ -37,7 +37,7 @@ extend(
     // const per = metafields.filter((m) => m.key == "per")[0];
     // const item = metafields.filter((m) => m.key == "item")[0];
 
-    await storage.update({ token: inputData.token });
+    await storage.update({ token: jwtDecode(inputData.token) });
 
     // For local development, always show the post-purchase page
     return { render: true };
@@ -58,6 +58,8 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  console.log(input);
 
   useEffect(() => {
     if (!optIn) {
