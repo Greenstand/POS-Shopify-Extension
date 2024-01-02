@@ -22,10 +22,10 @@ import {
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
 import axios from "axios";
+import * as jose from "jose";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL =
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com";
+const APP_URL = "https://brand-angela-beads-snap.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend(
