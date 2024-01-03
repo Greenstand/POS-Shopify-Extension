@@ -21,29 +21,25 @@ import {
   Checkbox,
   FormLayout,
 } from "@shopify/post-purchase-ui-extensions-react";
-import axios from "axios";
-import { getCurrentURL } from "../UrlProvider.js";
 
 // For local development, replace APP_URL with your local tunnel URL.
 const APP_URL =
-  "https://reviewed-nevertheless-score-inclusive.trycloudflare.com";
+  "https://meals-broadcast-watched-governmental.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
-extend(
-  "Checkout::PostPurchase::ShouldRender",
-  async ({ inputData, storage }) => {
-    // const { metafields } = inputData.shop;
+extend("Checkout::PostPurchase::ShouldRender", async (api) => {
+  // const { metafields } = inputData.shop;
+  const { storage } = api;
 
-    // const tokens = metafields.filter((m) => m.key == "tokens")[0];
-    // const per = metafields.filter((m) => m.key == "per")[0];
-    // const item = metafields.filter((m) => m.key == "item")[0];
+  // const tokens = metafields.filter((m) => m.key == "tokens")[0];
+  // const per = metafields.filter((m) => m.key == "per")[0];
+  // const item = metafields.filter((m) => m.key == "item")[0];
 
-    await storage.update({ token: inputData.token });
+  await storage.update({ api, hello: "bye" });
 
-    // For local development, always show the post-purchase page
-    return { render: true };
-  }
-);
+  // For local development, always show the post-purchase page
+  return { render: true };
+});
 
 render("Checkout::PostPurchase::Render", () => <App />);
 
@@ -59,6 +55,8 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  console.log(storage);
 
   useEffect(() => {
     if (!optIn) {
@@ -102,6 +100,7 @@ export function App() {
       }),
     })
       .then((response) => response.json())
+      .then((response) => console.log(response))
       .catch((err) => {
         console.error(err);
         return error;
