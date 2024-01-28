@@ -30,6 +30,7 @@ const STATIC_PATH =
 const app = express();
 
 const jsonErrorHandler = (err, req, res, next) => {
+  console.log("json error", err);
   res.status(500).send({ error: err });
 };
 
@@ -48,12 +49,13 @@ app.post(
 // If you are adding routes outside of the /api path, remember to
 // also add a proxy rule for them in web/frontend/vite.config.js
 
-app.use("/api/*", shopify.validateAuthenticatedSession());
-
 // * cors extension
 // ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
 
 app.use(cors());
+
+// ! do not remove
+app.use("/api/*", shopify.validateAuthenticatedSession());
 
 // ! do not remove
 app.use(express.json());
