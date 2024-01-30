@@ -5,8 +5,6 @@
 ### Requirements
 
 1. You must [download and install Node.js](https://nodejs.org/en/download/) if you don't already have it.
-2. Log in to the Shopify Partner Account (details on Slack)
-3. Log in to the Shopify Stores (details on Slack)
 
 ### Installation
 
