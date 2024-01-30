@@ -8,13 +8,16 @@
 2. Log in to the Shopify Partner Account (details on Slack)
 3. Log in to the Shopify Stores (details on Slack)
 
-
 ### Installation
 
 1. Fork this repository
 2. Clone the fork
-3. Get credentials from Slack
-4. Create a new branch
+3. Create a new branch
+
+### Setting up Shopify
+
+1. Create a Shopify Partners account
+2. Send me the email address you used on Slack (Krithin Jay)
 
 ### Get help
 
@@ -50,7 +53,6 @@ The following Shopify tools complement these third-party tools to ease app devel
 
 
 ### User Roles: 
-
 
 - Merchant (admin): Backend user of Shopify customizing the checkout process and adding items to the online store. 
 - Prerequisite (Merchant): Needs to have a designated wallet handle with tokens inside. Or create a new wallet in the app.
