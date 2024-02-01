@@ -13,8 +13,8 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@shopify/app": "3.50.0",
-    "@shopify/cli": "3.50.0",
+    "@shopify/app": "3.55.1",
+    "@shopify/cli": "3.55.1",
     "@shopify/polaris": "^12.6.0",
     "@shopify/shopify-app-session-storage": "^2.0.2",
     "commitlint": "^18.0.0",
