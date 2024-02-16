@@ -2,7 +2,7 @@
 
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 name = "greenstand-wallet-app"
-application_url = "https://orientation-objective-console-belfast.trycloudflare.com"
+application_url = "https://stability-chip-glad-rising.trycloudflare.com"
 embedded = true
 
 [build]
@@ -15,9 +15,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://orientation-objective-console-belfast.trycloudflare.com/auth/callback",
-  "https://orientation-objective-console-belfast.trycloudflare.com/auth/shopify/callback",
-  "https://orientation-objective-console-belfast.trycloudflare.com/api/auth/callback"
+  "https://stability-chip-glad-rising.trycloudflare.com/auth/callback",
+  "https://stability-chip-glad-rising.trycloudflare.com/auth/shopify/callback",
+  "https://stability-chip-glad-rising.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
