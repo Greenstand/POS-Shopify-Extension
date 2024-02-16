@@ -52,6 +52,8 @@ app.post(
 // * cors extension
 // ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
 
+console.log(shopify);
+
 app.use(cors());
 
 // ! do not remove
