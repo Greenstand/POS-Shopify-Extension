@@ -17,6 +17,9 @@ import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
 import { createClientWallet } from "./routes/wallet/create-client-wallet.js";
 
+import jwt from "jsonwebtoken";
+import { createHash } from "crypto";
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10,
@@ -52,16 +55,37 @@ app.post(
 // * cors extension
 // ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
 
-console.log(shopify);
-
 app.use(cors());
-
-// ! do not remove
-app.use("/api/*", shopify.validateAuthenticatedSession());
 
 // ! do not remove
 app.use(express.json());
 app.use(jsonErrorHandler);
+
+app.post("/api/create-client-wallet", (req, res) => {
+  const auth = req.headers.authorization;
+  const ext_token = auth?.split(" ")[1];
+
+  const header_payload =
+    ext_token.split(".")[0] + "." + ext_token.split(".")[1];
+
+  const payload = jwt.verify(ext_token, process.env.CLIENT_SECRET);
+  console.log(payload);
+
+  const encoded_payload = createHash("sha256").update(payload).digest("base64");
+
+  const signed = btoa(
+    jwt.sign(encoded_payload, process.env.CLIENT_SECRET || "", {
+      algorithm: "HS256",
+    }),
+  );
+
+  console.log(ext_token?.split(".")[2], signed);
+
+  res.status(200).json({ message: "idk" });
+});
+app.use("/api/*", shopify.validateAuthenticatedSession());
+
+// ! do not remove
 
 // shopify's content-security-policy
 
@@ -72,9 +96,8 @@ app.use(shopify.cspHeaders());
 app.get("/api/auth-wallet", authenticate_wallet);
 app.get("/api/get-wallet", getWallet);
 app.post("/api/create-wallet", createWallet);
-app.post("/api/create-client-wallet", createClientWallet);
 
-// checkout details
+// checkout detais
 
 app.get("/api/get-checkout-details", getDetails);
 app.post("/api/save-checkout-details", saveDetails);

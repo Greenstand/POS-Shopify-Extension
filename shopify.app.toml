@@ -2,12 +2,13 @@
 
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 name = "greenstand-wallet-app"
-application_url = "https://stability-chip-glad-rising.trycloudflare.com"
+application_url = "https://adsl-adjustments-slow-soa.trycloudflare.com"
 embedded = true
 
 [build]
 automatically_update_urls_on_dev = true
 dev_store_url = "greenstand-wallet-extension.myshopify.com"
+include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -15,13 +16,13 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://stability-chip-glad-rising.trycloudflare.com/auth/callback",
-  "https://stability-chip-glad-rising.trycloudflare.com/auth/shopify/callback",
-  "https://stability-chip-glad-rising.trycloudflare.com/api/auth/callback"
+  "https://adsl-adjustments-slow-soa.trycloudflare.com/auth/callback",
+  "https://adsl-adjustments-slow-soa.trycloudflare.com/auth/shopify/callback",
+  "https://adsl-adjustments-slow-soa.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
-api_version = "2023-10"
+api_version = "2024-01"
 
 [pos]
 embedded = false
