@@ -21,6 +21,9 @@ import { createWalletExt } from "./routes/extension/create-wallet.js";
 import jwt from "jsonwebtoken";
 import crypto from "crypto";
 
+import { initiateTransfer } from "./routes/transfer/initiate-token-transfer.js";
+import { acceptTransfer } from "./routes/transfer/accept-token-transfer.js";
+
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
   10,
@@ -122,6 +125,10 @@ app.get("/api/get-shop-data", async (_req, res, _next) => {
     data: shopName,
   });
 });
+
+// transfer token (might need to accept token)
+app.post("/api/initiate-transfer", initiateTransfer);
+app.post("/api/accept-transfer", acceptTransfer);
 
 // not found route
 
