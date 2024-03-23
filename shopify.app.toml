@@ -1,9 +1,14 @@
 # Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
 
-name = "greenstand-wallet-app"
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
-application_url = "https://meals-broadcast-watched-governmental.trycloudflare.com"
+name = "greenstand-wallet-app"
+application_url = "https://plenty-range-ton-classes.trycloudflare.com"
 embedded = true
+
+[build]
+automatically_update_urls_on_dev = true
+dev_store_url = "greenstand-wallet-extension.myshopify.com"
+include_config_on_deploy = true
 
 [access_scopes]
 # Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
@@ -11,18 +16,13 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://meals-broadcast-watched-governmental.trycloudflare.com/auth/callback",
-  "https://meals-broadcast-watched-governmental.trycloudflare.com/auth/shopify/callback",
-  "https://meals-broadcast-watched-governmental.trycloudflare.com/api/auth/callback",
-  "https://meals-broadcast-watched-governmental.trycloudflare.com/.shopify/graphiql/auth/callback"
+  "https://plenty-range-ton-classes.trycloudflare.com/auth/callback",
+  "https://plenty-range-ton-classes.trycloudflare.com/auth/shopify/callback",
+  "https://plenty-range-ton-classes.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
-api_version = "2023-10"
+api_version = "2024-01"
 
 [pos]
 embedded = false
-
-[build]
-automatically_update_urls_on_dev = true
-dev_store_url = "greenstand-wallet-extension.myshopify.com"

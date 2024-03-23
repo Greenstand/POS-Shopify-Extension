@@ -16,6 +16,10 @@ import { getWallet } from "./routes/wallet/get-wallet.js";
 import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
 import { createClientWallet } from "./routes/wallet/create-client-wallet.js";
+import { createWalletExt } from "./routes/extension/create-wallet.js";
+
+import jwt from "jsonwebtoken";
+import crypto from "crypto";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -30,6 +34,7 @@ const STATIC_PATH =
 const app = express();
 
 const jsonErrorHandler = (err, req, res, next) => {
+  console.log("json error", err);
   res.status(500).send({ error: err });
 };
 
@@ -48,8 +53,6 @@ app.post(
 // If you are adding routes outside of the /api path, remember to
 // also add a proxy rule for them in web/frontend/vite.config.js
 
-app.use("/api/*", shopify.validateAuthenticatedSession());
-
 // * cors extension
 // ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
 
@@ -58,6 +61,41 @@ app.use(cors());
 // ! do not remove
 app.use(express.json());
 app.use(jsonErrorHandler);
+
+app.post("/api/create-client-wallet", (req, res) => {
+  const auth = req.headers.authorization;
+  const ext_token = auth?.split(" ")[1];
+
+  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
+    complete: true,
+  });
+
+  const encoded_payload = crypto
+    .createHmac("sha256", process.env.CLIENT_SECRET || "")
+    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
+    .digest("base64url");
+
+  if (encoded_payload == payload.signature) {
+    if (!req.body.walletName) {
+      return res.status(400).json({ error: "Invalid body" });
+    }
+
+    createWalletExt(req.body.walletName).then((code) => {
+      if (code == "200") {
+        res.status(200).json({ message: "Successfully created wallet" });
+      } else if (code == "409") {
+        res.status(409).json({ error: "Wallet already exists", code: 409 });
+      } else {
+        res.status(500).json({ error: "Internal server error", code: 500 });
+      }
+    });
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+app.use("/api/*", shopify.validateAuthenticatedSession());
+
+// ! do not remove
 
 // shopify's content-security-policy
 
@@ -68,9 +106,8 @@ app.use(shopify.cspHeaders());
 app.get("/api/auth-wallet", authenticate_wallet);
 app.get("/api/get-wallet", getWallet);
 app.post("/api/create-wallet", createWallet);
-app.post("/api/create-client-wallet", createClientWallet);
 
-// checkout details
+// checkout detais
 
 app.get("/api/get-checkout-details", getDetails);
 app.post("/api/save-checkout-details", saveDetails);
