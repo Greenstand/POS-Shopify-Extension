@@ -16,9 +16,10 @@ import { getWallet } from "./routes/wallet/get-wallet.js";
 import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
 import { createClientWallet } from "./routes/wallet/create-client-wallet.js";
+import { createWalletExt } from "./routes/extension/create-wallet.js";
 
 import jwt from "jsonwebtoken";
-import { createHash } from "crypto";
+import crypto from "crypto";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -65,23 +66,32 @@ app.post("/api/create-client-wallet", (req, res) => {
   const auth = req.headers.authorization;
   const ext_token = auth?.split(" ")[1];
 
-  const header_payload =
-    ext_token.split(".")[0] + "." + ext_token.split(".")[1];
+  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
+    complete: true,
+  });
 
-  const payload = jwt.verify(ext_token, process.env.CLIENT_SECRET);
-  console.log(payload);
+  const encoded_payload = crypto
+    .createHmac("sha256", process.env.CLIENT_SECRET || "")
+    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
+    .digest("base64url");
 
-  const encoded_payload = createHash("sha256").update(payload).digest("base64");
+  if (encoded_payload == payload.signature) {
+    if (!req.body.walletName) {
+      return res.status(400).json({ error: "Invalid body" });
+    }
 
-  const signed = btoa(
-    jwt.sign(encoded_payload, process.env.CLIENT_SECRET || "", {
-      algorithm: "HS256",
-    }),
-  );
-
-  console.log(ext_token?.split(".")[2], signed);
-
-  res.status(200).json({ message: "idk" });
+    createWalletExt(req.body.walletName).then((code) => {
+      if (code == "200") {
+        res.status(200).json({ message: "Successfully created wallet" });
+      } else if (code == "409") {
+        res.status(409).json({ error: "Wallet already exists", code: 409 });
+      } else {
+        res.status(500).json({ error: "Internal server error", code: 500 });
+      }
+    });
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
 });
 app.use("/api/*", shopify.validateAuthenticatedSession());
 

@@ -2,7 +2,7 @@
 
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 name = "greenstand-wallet-app"
-application_url = "https://adsl-adjustments-slow-soa.trycloudflare.com"
+application_url = "https://plenty-range-ton-classes.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://adsl-adjustments-slow-soa.trycloudflare.com/auth/callback",
-  "https://adsl-adjustments-slow-soa.trycloudflare.com/auth/shopify/callback",
-  "https://adsl-adjustments-slow-soa.trycloudflare.com/api/auth/callback"
+  "https://plenty-range-ton-classes.trycloudflare.com/auth/callback",
+  "https://plenty-range-ton-classes.trycloudflare.com/auth/shopify/callback",
+  "https://plenty-range-ton-classes.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
