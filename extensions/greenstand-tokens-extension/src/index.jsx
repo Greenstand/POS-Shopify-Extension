@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://plenty-range-ton-classes.trycloudflare.com";
+const APP_URL = "https://bike-guides-cloth-brian.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -89,6 +89,28 @@ export function App() {
     setLoading(true);
     console.log(inputData.token);
     const wallet = await fetch(`${APP_URL}/api/create-client-wallet`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        walletName,
+      }),
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("response", response);
+
+        if (response.code == 409) {
+          setError("Wallet already exists");
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        return error;
+      });
+    const transfer = await fetch(`${APP_URL}/api/initiate-transfer`, {
       method: "POST",
       headers: {
         Authorization: `Bearer ${inputData.token}`,

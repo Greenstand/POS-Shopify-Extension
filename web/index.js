@@ -96,6 +96,27 @@ app.post("/api/create-client-wallet", (req, res) => {
     res.status(401).json({ error: "Unauthorised", code: 401 });
   }
 });
+
+app.post("/api/initiate-token-transfer", (req, res) => {
+  const auth = req.headers.authorization;
+  const ext_token = auth?.split(" ")[1];
+
+  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
+    complete: true,
+  });
+
+  const encoded_payload = crypto
+    .createHmac("sha256", process.env.CLIENT_SECRET || "")
+    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
+    .digest("base64url");
+
+  if (encoded_payload == payload.signature) {
+    return initiateTransfer(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 // ! do not remove
@@ -126,9 +147,9 @@ app.get("/api/get-shop-data", async (_req, res, _next) => {
   });
 });
 
-// transfer token (might need to accept token)
-app.post("/api/initiate-transfer", initiateTransfer);
-app.post("/api/accept-transfer", acceptTransfer);
+// // transfer token (might need to accept token)
+// app.post("/api/initiate-transfer", initiateTransfer);
+// app.post("/api/accept-transfer", acceptTransfer);
 
 // not found route
 
