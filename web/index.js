@@ -85,7 +85,10 @@ app.post("/api/create-client-wallet", (req, res) => {
 
     createWalletExt(req.body.walletName).then((code) => {
       if (code == "200") {
-        res.status(200).json({ message: "Successfully created wallet" });
+        res.status(200).json({
+          message: "Successfully created wallet",
+          walletName: req.body.walletName,
+        });
       } else if (code == "409") {
         res.status(409).json({ error: "Wallet already exists", code: 409 });
       } else {

@@ -9,9 +9,12 @@ export const initiateTransfer = async (req, res) => {
   if (!auth) {
     try {
       const data = await apiClient.post("/auth", {
-        wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
-        password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
+        wallet: `${process.env.MAIN_WALLET_NAME}`,
+        password: `${process.env.MAIN_WALLET_PASSWORD}`,
       });
+
+      apiClient.defaults.headers.common["TREETRACKER_API_KEY"] =
+        process.env.MAIN_WALLET_API_KEY;
 
       const { token } = data.data;
 

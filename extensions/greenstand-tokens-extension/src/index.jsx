@@ -110,28 +110,28 @@ export function App() {
         console.error(err);
         return error;
       });
-    const transfer = await fetch(`${APP_URL}/api/initiate-transfer`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${inputData.token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        walletName,
-      }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
+    // const transfer = await fetch(`${APP_URL}/api/initiate-token-transfer`, {
+    //   method: "POST",
+    //   headers: {
+    //     Authorization: `Bearer ${inputData.token}`,
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify({
 
-        if (response.code == 409) {
-          setError("Wallet already exists");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        return error;
-      });
+    //   }),
+    // })
+    //   .then((response) => response.json())
+    //   .then((response) => {
+    //     console.log("response", response);
+
+    //     if (response.code == 409) {
+    //       setError("Wallet already exists");
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.error(err);
+    //     return error;
+    //   });
     console.log(wallet);
     setLoading(false);
   };
@@ -186,6 +186,7 @@ export function App() {
                   I opt in to this program.
                 </Checkbox>
                 <TextField
+                  disabled={loading}
                   label="Wallet name"
                   value={walletName}
                   onChange={changeWalletName}

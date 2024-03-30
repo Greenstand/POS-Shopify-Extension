@@ -14,6 +14,8 @@ export const createWallet = async (req, res) => {
         password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
       });
 
+      web / routes / wallet / create - client - wallet.js;
+
       const { token } = data.data;
 
       apiClient.setAuthToken(token);
