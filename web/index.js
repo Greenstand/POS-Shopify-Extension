@@ -67,35 +67,10 @@ app.use(express.json());
 app.use(jsonErrorHandler);
 
 app.post("/api/create-client-wallet", (req, res) => {
-  const auth = req.headers.authorization;
-  const ext_token = auth?.split(" ")[1];
+  const check = checkExtensionRequest(req);
 
-  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
-    complete: true,
-  });
-
-  const encoded_payload = crypto
-    .createHmac("sha256", process.env.CLIENT_SECRET || "")
-    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
-    .digest("base64url");
-
-  if (encoded_payload == payload.signature) {
-    if (!req.body.walletName) {
-      return res.status(400).json({ error: "Invalid body" });
-    }
-
-    createWalletExt(req.body.walletName).then((code) => {
-      if (code == "200") {
-        res.status(200).json({
-          message: "Successfully created wallet",
-          walletName: req.body.walletName,
-        });
-      } else if (code == "409") {
-        res.status(409).json({ error: "Wallet already exists", code: 409 });
-      } else {
-        res.status(500).json({ error: "Internal server error", code: 500 });
-      }
-    });
+  if (check) {
+    return createWalletExt(req, res);
   } else {
     res.status(401).json({ error: "Unauthorised", code: 401 });
   }
