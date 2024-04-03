@@ -1,4 +1,4 @@
-const checkExtensionRequest = (req) => {
+export const checkExtensionRequest = (req) => {
   const auth = req.headers.authorization;
   const ext_token = auth?.split(" ")[1];
 
