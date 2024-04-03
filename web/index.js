@@ -16,7 +16,7 @@ import GDPRWebhookHandlers from "./gdpr.js";
 
 // routes
 
-import { authenticate_wallet } from "./routes/wallet/auth.js";
+import { authenticateWallet } from "./routes/wallet/auth.js";
 import { createWallet } from "./routes/wallet/create-wallet.js";
 
 import { getShopData } from "./utils/getShopDetails.js";
@@ -112,7 +112,7 @@ app.use(shopify.cspHeaders());
 
 // wallet
 
-app.get("/api/auth-wallet", authenticate_wallet);
+app.get("/api/auth-wallet", authenticateWallet);
 app.get("/api/get-wallet", getWallet);
 app.post("/api/create-wallet", createWallet);
 
