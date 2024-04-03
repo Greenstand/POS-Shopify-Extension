@@ -1,6 +1,6 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const getToken = async (req, res) => {
+export const getTokens = async (req, res) => {
   try {
     const data = await apiClient.post("/auth", {
       wallet: `${process.env.MAIN_WALLET_NAME}`,

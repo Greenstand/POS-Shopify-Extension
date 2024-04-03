@@ -23,6 +23,7 @@ import crypto from "crypto";
 
 import { initiateTransfer } from "./routes/transfer/initiate-token-transfer.js";
 import { acceptTransfer } from "./routes/transfer/accept-token-transfer.js";
+import { getTokens } from "./routes/transfer/get-tokens.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -115,6 +116,26 @@ app.post("/api/initiate-token-transfer", (req, res) => {
 
   if (encoded_payload == payload.signature) {
     return initiateTransfer(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
+app.post("/api/get-tokens", (req, res) => {
+  const auth = req.headers.authorization;
+  const ext_token = auth?.split(" ")[1];
+
+  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
+    complete: true,
+  });
+
+  const encoded_payload = crypto
+    .createHmac("sha256", process.env.CLIENT_SECRET || "")
+    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
+    .digest("base64url");
+
+  if (encoded_payload == payload.signature) {
+    return getTokens(req, res);
   } else {
     res.status(401).json({ error: "Unauthorised", code: 401 });
   }
