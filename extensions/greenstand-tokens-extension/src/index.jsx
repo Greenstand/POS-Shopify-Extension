@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://bike-guides-cloth-brian.trycloudflare.com";
+const APP_URL = "https://learned-laws-diff-selecting.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
