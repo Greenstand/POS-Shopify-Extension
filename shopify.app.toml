@@ -2,7 +2,7 @@
 
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 name = "greenstand-wallet-app"
-application_url = "https://bike-guides-cloth-brian.trycloudflare.com"
+application_url = "https://learned-laws-diff-selecting.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://bike-guides-cloth-brian.trycloudflare.com/auth/callback",
-  "https://bike-guides-cloth-brian.trycloudflare.com/auth/shopify/callback",
-  "https://bike-guides-cloth-brian.trycloudflare.com/api/auth/callback"
+  "https://learned-laws-diff-selecting.trycloudflare.com/auth/callback",
+  "https://learned-laws-diff-selecting.trycloudflare.com/auth/shopify/callback",
+  "https://learned-laws-diff-selecting.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]
