@@ -1,6 +1,11 @@
 import apiClient from "../../utils/apiClient.js";
 import "dotenv/config";
 
+// ! func: authenticate_wallet (3 params)
+// ? req, res
+// * CRUD type: AUTH (special)
+// * return value: null
+
 export const authenticate_wallet = async (req, res) => {
   if (apiClient.defaults.headers.common["Authorization"]) {
     return res.status(200).send({
