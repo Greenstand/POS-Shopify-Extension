@@ -1,6 +1,11 @@
 import { getMetafield } from "../../utils/metafield.js";
 import { namespace } from "./variables.js";
 
+// ! func: getDetails (3 params)
+// ? req, res
+// * CRUD type: get
+// * return value: null
+
 export const getDetails = async (req, res) => {
   try {
     const session = res.locals.shopify.session;

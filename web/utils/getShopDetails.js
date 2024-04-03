@@ -1,5 +1,10 @@
 import shopify from "../shopify.js";
 
+// ! func: getShopData (3 params)
+// ? req, res
+// * CRUD type: get
+// * return value: Object<Shop>
+
 export const getShopData = async (session) => {
   try {
     const client = new shopify.api.clients.Rest({ session });

@@ -1,6 +1,11 @@
 import { updateMetafield } from "../../utils/metafield.js";
 import { namespace } from "./variables.js";
 
+// ! func: saveDetails (3 params)
+// ? req, res
+// * CRUD type: put/update
+// * return value: null
+
 export const saveDetails = async (req, res) => {
   try {
     const type = "single_line_text_field";

@@ -1,6 +1,11 @@
 import apiClient from "../../utils/apiClient.js";
 import { getMetafield } from "../../utils/metafield.js";
 
+// ! func: getWallet (3 params)
+// ? req, res
+// * CRUD type: get
+// * return value: null
+
 export const getWallet = async (req, res) => {
   try {
     const session = res.locals.shopify.session;

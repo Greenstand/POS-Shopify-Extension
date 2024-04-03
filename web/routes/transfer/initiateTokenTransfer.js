@@ -1,28 +1,31 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const initiateTransfer = async (req, res) => {
-  const session = res.locals.shopify.session;
-  const auth = apiClient.isAuthenticated();
+// ! func: initiateTransfer (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
 
+export const initiateTransfer = async (req, res) => {
   const { senderWallet, receiverWallet, tokens, bundleSize } = req.body;
 
-  if (!auth) {
-    try {
-      const data = await apiClient.post("/auth", {
-        wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
-        password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
-      });
+  try {
+    const data = await apiClient.post("/auth", {
+      wallet: `${process.env.MAIN_WALLET_NAME}`,
+      password: `${process.env.MAIN_WALLET_PASSWORD}`,
+    });
 
-      const { token } = data.data;
+    apiClient.defaults.headers.common["TREETRACKER_API_KEY"] =
+      process.env.MAIN_WALLET_API_KEY;
 
-      apiClient.setAuthToken(token);
-    } catch (err) {
-      console.log(err);
+    const { token } = data.data;
 
-      return res.status(500).send({
-        error: err,
-      });
-    }
+    apiClient.setAuthToken(token);
+  } catch (err) {
+    console.log(err);
+
+    return res.status(500).send({
+      error: err,
+    });
   }
 
   let transferData;

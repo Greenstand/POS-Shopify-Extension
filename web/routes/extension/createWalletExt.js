@@ -1,7 +1,13 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const createClientWallet = async (req, res) => {
-  const session = res.locals.shopify.session;
+// ! func: createWalletExt (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
+
+// special create wallet for clients, no metafield saving
+
+export const createWalletExt = async (req, res) => {
   const auth = apiClient.isAuthenticated();
   const { walletName } = req.body;
 
@@ -11,6 +17,9 @@ export const createClientWallet = async (req, res) => {
         wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
         password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
       });
+
+      apiClient.defaults.headers.common["TREETRACKER_API_KEY"] =
+        process.env.TREETRACKER_API_KEY;
 
       const { token } = data.data;
 

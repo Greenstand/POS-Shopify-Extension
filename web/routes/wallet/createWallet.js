@@ -1,6 +1,11 @@
 import apiClient from "../../utils/apiClient.js";
 import { updateMetafield } from "../../utils/metafield.js";
 
+// ! func: createWallet (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
+
 export const createWallet = async (req, res) => {
   const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
@@ -13,6 +18,8 @@ export const createWallet = async (req, res) => {
         wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
         password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
       });
+
+      web / routes / wallet / create - client - wallet.js;
 
       const { token } = data.data;
 

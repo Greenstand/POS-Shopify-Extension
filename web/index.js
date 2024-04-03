@@ -1,28 +1,34 @@
 // @ts-check
+
+// node
+
 import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
+import "dotenv/config";
+import cors from "cors";
+
+// shopify
 
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
-import { authenticate_wallet } from "./routes/wallet/auth.js";
-import { createWallet } from "./routes/wallet/create-wallet.js";
 
-import "dotenv/config";
-import cors from "cors";
+// routes
+
+import { authenticateWallet } from "./routes/wallet/auth.js";
+import { createWallet } from "./routes/wallet/createWallet.js";
+
 import { getShopData } from "./utils/getShopDetails.js";
-import { getWallet } from "./routes/wallet/get-wallet.js";
-import { saveDetails } from "./routes/checkout/save-details.js";
-import { getDetails } from "./routes/checkout/get-details.js";
-import { createClientWallet } from "./routes/wallet/create-client-wallet.js";
-import { createWalletExt } from "./routes/extension/create-wallet.js";
+import { getWallet } from "./routes/wallet/getWallet.js";
+import { saveDetails } from "./routes/checkout/saveDetails.js";
+import { getDetails } from "./routes/checkout/getDetails.js";
+import { createWalletExt } from "./routes/extension/createWalletExt.js";
 
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
-
-import { initiateTransfer } from "./routes/transfer/initiate-token-transfer.js";
-import { acceptTransfer } from "./routes/transfer/accept-token-transfer.js";
+import { initiateTransfer } from "./routes/transfer/initiateTokenTransfer.js";
+import { getTokens } from "./routes/transfer/getTokens.js";
+import { checkExtensionRequest } from "./utils/checkExtensionReq.js";
+import { acceptTransfer } from "./routes/transfer/acceptTokenTransfer.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -57,7 +63,7 @@ app.post(
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 // * cors extension
-// ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
+// ! allows cross-origin-resource-sharing. only modify for security reasons
 
 app.use(cors());
 
@@ -65,37 +71,48 @@ app.use(cors());
 app.use(express.json());
 app.use(jsonErrorHandler);
 
+// ! shopify extension requests
+
 app.post("/api/create-client-wallet", (req, res) => {
-  const auth = req.headers.authorization;
-  const ext_token = auth?.split(" ")[1];
+  const check = checkExtensionRequest(req);
 
-  const payload = jwt.verify(ext_token || "", process.env.CLIENT_SECRET || "", {
-    complete: true,
-  });
-
-  const encoded_payload = crypto
-    .createHmac("sha256", process.env.CLIENT_SECRET || "")
-    .update(ext_token?.split(".")[0] + "." + ext_token?.split(".")[1], "utf8")
-    .digest("base64url");
-
-  if (encoded_payload == payload.signature) {
-    if (!req.body.walletName) {
-      return res.status(400).json({ error: "Invalid body" });
-    }
-
-    createWalletExt(req.body.walletName).then((code) => {
-      if (code == "200") {
-        res.status(200).json({ message: "Successfully created wallet" });
-      } else if (code == "409") {
-        res.status(409).json({ error: "Wallet already exists", code: 409 });
-      } else {
-        res.status(500).json({ error: "Internal server error", code: 500 });
-      }
-    });
+  if (check) {
+    return createWalletExt(req, res);
   } else {
     res.status(401).json({ error: "Unauthorised", code: 401 });
   }
 });
+
+app.post("/api/initiate-token-transfer", (req, res) => {
+  const check = checkExtensionRequest(req);
+
+  if (check) {
+    return initiateTransfer(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
+app.post("/api/accept-token-transfer", (req, res) => {
+  const check = checkExtensionRequest(req);
+
+  if (check) {
+    return acceptTransfer(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
+app.post("/api/get-tokens", (req, res) => {
+  const check = checkExtensionRequest(req);
+
+  if (check) {
+    return getTokens(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
 app.use("/api/*", shopify.validateAuthenticatedSession());
 
 // ! do not remove
@@ -106,7 +123,7 @@ app.use(shopify.cspHeaders());
 
 // wallet
 
-app.get("/api/auth-wallet", authenticate_wallet);
+app.get("/api/auth-wallet", authenticateWallet);
 app.get("/api/get-wallet", getWallet);
 app.post("/api/create-wallet", createWallet);
 
@@ -125,10 +142,6 @@ app.get("/api/get-shop-data", async (_req, res, _next) => {
     data: shopName,
   });
 });
-
-// transfer token (might need to accept token)
-app.post("/api/initiate-transfer", initiateTransfer);
-app.post("/api/accept-transfer", acceptTransfer);
 
 // not found route
 
