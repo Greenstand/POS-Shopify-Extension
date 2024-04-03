@@ -2,6 +2,11 @@ import jwt from "jsonwebtoken";
 import { createHmac } from "crypto";
 import "dotenv/config";
 
+// ! func: checkExtensionRequest (3 params)
+// ? req
+// * desc: checks extension request in second auth workflow (see /docs/api/AUTH_WORKFLOW)
+// * return value: bool
+
 export const checkExtensionRequest = (req) => {
   // get token
 
