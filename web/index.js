@@ -1,27 +1,31 @@
 // @ts-check
+
+// node
+
 import { join } from "path";
 import { readFileSync } from "fs";
 import express from "express";
 import serveStatic from "serve-static";
+import "dotenv/config";
+import cors from "cors";
+
+// shopify
 
 import shopify from "./shopify.js";
 import GDPRWebhookHandlers from "./gdpr.js";
+
+// routes
+
 import { authenticate_wallet } from "./routes/wallet/auth.js";
 import { createWallet } from "./routes/wallet/create-wallet.js";
 
-import "dotenv/config";
-import cors from "cors";
 import { getShopData } from "./utils/getShopDetails.js";
 import { getWallet } from "./routes/wallet/get-wallet.js";
 import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
 import { createWalletExt } from "./routes/extension/create-wallet.js";
 
-import jwt from "jsonwebtoken";
-import crypto from "crypto";
-
 import { initiateTransfer } from "./routes/transfer/initiate-token-transfer.js";
-import { acceptTransfer } from "./routes/transfer/accept-token-transfer.js";
 import { getTokens } from "./routes/transfer/get-tokens.js";
 import { checkExtensionRequest } from "./utils/checkExtensionReq.js";
 
@@ -58,13 +62,15 @@ app.post(
 // also add a proxy rule for them in web/frontend/vite.config.js
 
 // * cors extension
-// ! allows cross-origin-resource-sharing. Only modify for security reasons - important for app to function
+// ! allows cross-origin-resource-sharing. only modify for security reasons
 
 app.use(cors());
 
 // ! do not remove
 app.use(express.json());
 app.use(jsonErrorHandler);
+
+// ! shopify extension requests
 
 app.post("/api/create-client-wallet", (req, res) => {
   const check = checkExtensionRequest(req);
@@ -125,10 +131,6 @@ app.get("/api/get-shop-data", async (_req, res, _next) => {
     data: shopName,
   });
 });
-
-// // transfer token (might need to accept token)
-// app.post("/api/initiate-transfer", initiateTransfer);
-// app.post("/api/accept-transfer", acceptTransfer);
 
 // not found route
 
