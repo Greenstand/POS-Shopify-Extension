@@ -1,9 +1,11 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const acceptTransfer = async (req, res) => {
-  const session = res.locals.shopify.session;
-  const auth = apiClient.isAuthenticated();
+// ! func: acceptTransfer (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
 
+export const acceptTransfer = async (req, res) => {
   const { transferId } = req.body;
 
   try {
