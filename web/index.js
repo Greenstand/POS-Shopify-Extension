@@ -17,16 +17,16 @@ import GDPRWebhookHandlers from "./gdpr.js";
 // routes
 
 import { authenticateWallet } from "./routes/wallet/auth.js";
-import { createWallet } from "./routes/wallet/create-wallet.js";
+import { createWallet } from "./routes/wallet/createWallet.js";
 
 import { getShopData } from "./utils/getShopDetails.js";
-import { getWallet } from "./routes/wallet/get-wallet.js";
-import { saveDetails } from "./routes/checkout/save-details.js";
-import { getDetails } from "./routes/checkout/get-details.js";
-import { createWalletExt } from "./routes/extension/create-wallet.js";
+import { getWallet } from "./routes/wallet/getWallet.js";
+import { saveDetails } from "./routes/checkout/saveDetails.js";
+import { getDetails } from "./routes/checkout/getDetails.js";
+import { createWalletExt } from "./routes/extension/createWalletExt.js";
 
-import { initiateTransfer } from "./routes/transfer/initiate-token-transfer.js";
-import { getTokens } from "./routes/transfer/get-tokens.js";
+import { initiateTransfer } from "./routes/transfer/initiateTokenTransfer.js";
+import { getTokens } from "./routes/transfer/getTokens.js";
 import { checkExtensionRequest } from "./utils/checkExtensionReq.js";
 
 const PORT = parseInt(
