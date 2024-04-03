@@ -1,9 +1,11 @@
 import apiClient from "../../utils/apiClient.js";
 
-export const initiateTransfer = async (req, res) => {
-  const session = res.locals.shopify.session;
-  const auth = apiClient.isAuthenticated();
+// ! func: initiateTransfer (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
 
+export const initiateTransfer = async (req, res) => {
   const { senderWallet, receiverWallet, tokens, bundleSize } = req.body;
 
   try {
