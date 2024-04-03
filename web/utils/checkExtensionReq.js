@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { createHmac } from "crypto";
+import "dotenv/config";
 
 export const checkExtensionRequest = (req) => {
   // get token
