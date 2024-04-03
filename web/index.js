@@ -15,7 +15,6 @@ import { getShopData } from "./utils/getShopDetails.js";
 import { getWallet } from "./routes/wallet/get-wallet.js";
 import { saveDetails } from "./routes/checkout/save-details.js";
 import { getDetails } from "./routes/checkout/get-details.js";
-import { createClientWallet } from "./routes/wallet/create-client-wallet.js";
 import { createWalletExt } from "./routes/extension/create-wallet.js";
 
 import jwt from "jsonwebtoken";

@@ -1,8 +1,9 @@
 import apiClient from "../../utils/apiClient.js";
-import { updateMetafield } from "../../utils/metafield.js";
 
-export const createWalletExt = async (walletName) => {
+export const createWalletExt = async (req, res) => {
+  const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
+  const { walletName } = req.body;
 
   if (!auth) {
     try {
@@ -10,6 +11,9 @@ export const createWalletExt = async (walletName) => {
         wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
         password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
       });
+
+      apiClient.defaults.headers.common["TREETRACKER_API_KEY"] =
+        process.env.TREETRACKER_API_KEY;
 
       const { token } = data.data;
 
@@ -30,11 +34,12 @@ export const createWalletExt = async (walletName) => {
 
     console.log(wallet);
 
-    return "200";
+    return res.status(200).send({ data: wallet.data });
   } catch (err) {
-    const code = err.response.data.code;
-    console.log("error", code);
+    console.log(err);
 
-    return code.toString();
+    return res.status(500).send({
+      error: err,
+    });
   }
 };
