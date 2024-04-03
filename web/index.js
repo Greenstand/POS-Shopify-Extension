@@ -28,6 +28,7 @@ import { createWalletExt } from "./routes/extension/createWalletExt.js";
 import { initiateTransfer } from "./routes/transfer/initiateTokenTransfer.js";
 import { getTokens } from "./routes/transfer/getTokens.js";
 import { checkExtensionRequest } from "./utils/checkExtensionReq.js";
+import { acceptTransfer } from "./routes/transfer/acceptTokenTransfer.js";
 
 const PORT = parseInt(
   process.env.BACKEND_PORT || process.env.PORT || "3000",
@@ -87,6 +88,16 @@ app.post("/api/initiate-token-transfer", (req, res) => {
 
   if (check) {
     return initiateTransfer(req, res);
+  } else {
+    res.status(401).json({ error: "Unauthorised", code: 401 });
+  }
+});
+
+app.post("/api/accept-token-transfer", (req, res) => {
+  const check = checkExtensionRequest(req);
+
+  if (check) {
+    return acceptTransfer(req, res);
   } else {
     res.status(401).json({ error: "Unauthorised", code: 401 });
   }
