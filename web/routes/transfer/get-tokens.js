@@ -1,5 +1,10 @@
 import apiClient from "../../utils/apiClient.js";
 
+// ! func: initiateTransfer (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
+
 export const getTokens = async (req, res) => {
   try {
     const data = await apiClient.post("/auth", {
