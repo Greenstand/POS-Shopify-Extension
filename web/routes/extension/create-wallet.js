@@ -1,7 +1,13 @@
 import apiClient from "../../utils/apiClient.js";
 
+// ! func: createWalletExt (3 params)
+// ? req, res
+// * CRUD type: post
+// * return value: null
+
+// special create wallet for clients, no metafield saving
+
 export const createWalletExt = async (req, res) => {
-  const session = res.locals.shopify.session;
   const auth = apiClient.isAuthenticated();
   const { walletName } = req.body;
 
