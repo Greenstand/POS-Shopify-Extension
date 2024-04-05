@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://learned-laws-diff-selecting.trycloudflare.com";
+const APP_URL = "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -110,28 +110,22 @@ export function App() {
         console.error(err);
         return error;
       });
-    // const transfer = await fetch(`${APP_URL}/api/initiate-token-transfer`, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${inputData.token}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
 
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log("response", response);
-
-    //     if (response.code == 409) {
-    //       setError("Wallet already exists");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     return error;
-    //   });
+    const tokens = await fetch(`${APP_URL}/api/get-tokens`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((response) => {
+        console.log("response", response);
+      })
+      .catch((err) => {
+        console.error(err);
+        return error;
+      });
     console.log(wallet);
     setLoading(false);
   };
