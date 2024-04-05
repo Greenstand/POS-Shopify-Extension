@@ -2,7 +2,7 @@
 
 client_id = "a51c6348b63f08247592f02c74ae1aa1"
 name = "greenstand-wallet-app"
-application_url = "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com"
+application_url = "https://exhibits-pix-dairy-uses.trycloudflare.com"
 embedded = true
 
 [build]
@@ -16,9 +16,9 @@ scopes = "write_products"
 
 [auth]
 redirect_urls = [
-  "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com/auth/callback",
-  "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com/auth/shopify/callback",
-  "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com/api/auth/callback"
+  "https://exhibits-pix-dairy-uses.trycloudflare.com/auth/callback",
+  "https://exhibits-pix-dairy-uses.trycloudflare.com/auth/shopify/callback",
+  "https://exhibits-pix-dairy-uses.trycloudflare.com/api/auth/callback"
 ]
 
 [webhooks]

@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://sandy-backgrounds-ongoing-disturbed.trycloudflare.com";
+const APP_URL = "https://exhibits-pix-dairy-uses.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -55,8 +55,6 @@ export function App() {
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
 
-  console.log(storage);
-
   useEffect(() => {
     if (!optIn) {
       setDisabled(true);
@@ -87,7 +85,6 @@ export function App() {
 
   const createWallet = async () => {
     setLoading(true);
-    console.log(inputData.token);
     const wallet = await fetch(`${APP_URL}/api/create-client-wallet`, {
       method: "POST",
       headers: {
@@ -117,16 +114,35 @@ export function App() {
         Authorization: `Bearer ${inputData.token}`,
         "Content-Type": "application/json",
       },
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
-      })
-      .catch((err) => {
-        console.error(err);
-        return error;
-      });
-    console.log(wallet);
+    }).then((response) => response.json());
+
+    const token_id = tokens.tokens[0].id;
+
+    const init = await fetch(`${APP_URL}/api/initiate-token-transfer`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        senderWallet: "GreenstandEscrow",
+        receiverWallet: walletName,
+        tokens: [token_id],
+        bundleSize: null,
+      }),
+    }).then((response) => response.json());
+
+    const accept = await fetch(`${APP_URL}/api/accept-token-transfer`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        transferId: init.data.id,
+      }),
+    }).then((response) => response.json());
+
     setLoading(false);
   };
 
@@ -144,16 +160,6 @@ export function App() {
             { viewportSize: "large", sizes: [400, 30, 0.33] },
           ]}
         >
-          <View>
-            <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
-            <TextBlock>
-              Link to the tree you are supporting:{" "}
-              <Link external to="https://greenstand.org/">
-                The tree I am supporting
-              </Link>
-            </TextBlock>
-          </View>
-          <View />
           <BlockStack spacing="xloose">
             <TextContainer>
               <Heading>How does this work?</Heading>
