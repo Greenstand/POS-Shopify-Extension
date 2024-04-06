@@ -143,7 +143,15 @@ export function App() {
     }).then((response) => response.json());
 
     if (init.error) {
-      if (wallet.error.status === 401 || 415 || 500) {
+      if (
+        wallet.error.status === 401 ||
+        403 ||
+        404 ||
+        409 ||
+        415 ||
+        422 ||
+        500
+      ) {
         setLoading(false);
         return setError(
           "Sorry, there has been an internal server error. Please try again later."
