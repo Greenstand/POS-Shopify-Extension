@@ -143,15 +143,7 @@ export function App() {
     }).then((response) => response.json());
 
     if (init.error) {
-      if (
-        wallet.error.status === 401 ||
-        403 ||
-        404 ||
-        409 ||
-        415 ||
-        422 ||
-        500
-      ) {
+      if (init.error.status === 401 || 403 || 404 || 409 || 415 || 422 || 500) {
         setLoading(false);
         return setError(
           "Sorry, there has been an internal server error. Please try again later."
@@ -169,6 +161,23 @@ export function App() {
         transferId: init.data.id,
       }),
     }).then((response) => response.json());
+
+    if (accept.error) {
+      if (
+        accept.error.status === 401 ||
+        403 ||
+        404 ||
+        409 ||
+        415 ||
+        422 ||
+        500
+      ) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
+    }
 
     setTokensReceived(true);
 
