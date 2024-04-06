@@ -44,7 +44,7 @@ render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
   const input = useExtensionInput();
-  const { inputData, storage } = input;
+  const { inputData, done } = input;
   const [loading, setLoading] = useState(false);
   const [tokensReceived, setTokensReceived] = useState(false);
   const [disabled, setDisabled] = useState(true);
@@ -195,6 +195,9 @@ export function App() {
           >
             View your wallet
           </Link>
+          <Button submit onPress={done}>
+            Move on
+          </Button>
         </BlockStack>
       </View>
     </>
@@ -241,15 +244,20 @@ export function App() {
                 />
               </FormLayout>
             </Form>
-            <Button
-              submit
-              disabled={disabled}
-              onPress={createWallet}
-              loading={loading}
-              loadingLabel="Loading..."
-            >
-              Create wallet
-            </Button>
+            <BlockStack>
+              <Button
+                submit
+                disabled={disabled}
+                onPress={createWallet}
+                loading={loading}
+                loadingLabel="Loading..."
+              >
+                Create wallet
+              </Button>
+              <Button subdued submit onPress={done}>
+                No thanks
+              </Button>
+            </BlockStack>
           </BlockStack>
         </Layout>
       </BlockStack>
