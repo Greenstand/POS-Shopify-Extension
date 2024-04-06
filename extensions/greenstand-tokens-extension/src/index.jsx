@@ -142,6 +142,15 @@ export function App() {
       }),
     }).then((response) => response.json());
 
+    if (init.error) {
+      if (wallet.error.status === 401 || 415 || 500) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
+    }
+
     const accept = await fetch(`${APP_URL}/api/accept-token-transfer`, {
       method: "POST",
       headers: {
