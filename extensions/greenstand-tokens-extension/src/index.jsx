@@ -98,6 +98,13 @@ export function App() {
     }).then((response) => response.json());
 
     if (wallet.error) {
+      if (wallet.error.status === 401 || 415) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
+
       if (wallet.error.status === 409) {
         setLoading(false);
         return setError("Wallet already exists");
