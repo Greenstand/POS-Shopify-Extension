@@ -95,19 +95,14 @@ export function App() {
       body: JSON.stringify({
         walletName,
       }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
+    }).then((response) => response.json());
 
-        if (response.code == 409) {
-          setError("Wallet already exists");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        return error;
-      });
+    if (wallet.error) {
+      if (wallet.error.status === 409) {
+        setLoading(false);
+        return setError("Wallet already exists");
+      }
+    }
 
     const tokens = await fetch(`${APP_URL}/api/get-tokens`, {
       method: "GET",
