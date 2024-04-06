@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://exhibits-pix-dairy-uses.trycloudflare.com";
+const APP_URL = "https://males-expansys-resource-springfield.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -46,6 +46,7 @@ export function App() {
   const input = useExtensionInput();
   const { inputData, storage } = input;
   const [loading, setLoading] = useState(false);
+  const [tokensReceived, setTokensReceived] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
 
@@ -143,25 +144,34 @@ export function App() {
       }),
     }).then((response) => response.json());
 
+    setTokensReceived(true);
+
     setLoading(false);
   };
 
-  return (
+  return tokensReceived ? (
+    <>
+      <View>
+        <BlockStack spacing="xloose" alignment="center">
+          <Heading>You have received the tokens!</Heading>
+          <Link
+            external
+            to={"https://map.treetracker.org/wallets/" + walletName}
+          >
+            View your wallet
+          </Link>
+        </BlockStack>
+      </View>
+    </>
+  ) : (
     <>
       <CalloutBanner title="Congratulations!" spacing="xloose">
         <Text>With this purchase, you are supporting a tree!</Text>
       </CalloutBanner>
       <BlockStack spacing="loose" alignment="center">
-        <Layout
-          maxInlineSize={0.95}
-          media={[
-            { viewportSize: "small", sizes: [1, 30, 1] },
-            { viewportSize: "medium", sizes: [300, 30, 0.5] },
-            { viewportSize: "large", sizes: [400, 30, 0.33] },
-          ]}
-        >
+        <Layout maxInlineSize={0.7}>
           <BlockStack spacing="xloose">
-            <TextContainer>
+            <TextContainer alignment="center">
               <Heading>How does this work?</Heading>
               <TextBlock>
                 You will be given an impact wallet containing one or more tokens
