@@ -105,6 +105,13 @@ export function App() {
         );
       }
 
+      if (wallet.error.status === 422) {
+        setLoading(false);
+        return setError(
+          "Please enter a name for the wallet. If you have, this is a server error. Please try again later."
+        );
+      }
+
       if (wallet.error.status === 409) {
         setLoading(false);
         return setError("Wallet already exists");
