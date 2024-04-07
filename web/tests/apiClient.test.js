@@ -1,6 +1,6 @@
-import apiClient from "../utils/apiClient.js";
-import "dotenv/config";
-import { describe, it, expect } from "jest";
+const apiClient = require("../utils/apiClient.js");
+require("dotenv/config");
+// import { describe, it, expect } from "jest";
 
 // ! authenticate
 // * helper function to authenticate without server req

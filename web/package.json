@@ -7,7 +7,7 @@
     "debug": "node --inspect-brk index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js --ignore ./frontend",
     "serve": "cross-env NODE_ENV=production node index.js",
-    "test": "node ./tests/apiClient.test.js"
+    "test": "jest"
   },
   "type": "module",
   "engines": {
