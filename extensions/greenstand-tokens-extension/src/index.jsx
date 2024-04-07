@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://learned-laws-diff-selecting.trycloudflare.com";
+const APP_URL = "https://males-expansys-resource-springfield.trycloudflare.com";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -44,8 +44,9 @@ render("Checkout::PostPurchase::Render", () => <App />);
 
 export function App() {
   const input = useExtensionInput();
-  const { inputData, storage } = input;
+  const { inputData, done } = input;
   const [loading, setLoading] = useState(false);
+  const [tokensReceived, setTokensReceived] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [error, setError] = useState("");
 
@@ -54,8 +55,6 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
-
-  console.log(storage);
 
   useEffect(() => {
     if (!optIn) {
@@ -87,7 +86,6 @@ export function App() {
 
   const createWallet = async () => {
     setLoading(true);
-    console.log(inputData.token);
     const wallet = await fetch(`${APP_URL}/api/create-client-wallet`, {
       method: "POST",
       headers: {
@@ -97,71 +95,121 @@ export function App() {
       body: JSON.stringify({
         walletName,
       }),
-    })
-      .then((response) => response.json())
-      .then((response) => {
-        console.log("response", response);
+    }).then((response) => response.json());
 
-        if (response.code == 409) {
-          setError("Wallet already exists");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-        return error;
-      });
-    // const transfer = await fetch(`${APP_URL}/api/initiate-token-transfer`, {
-    //   method: "POST",
-    //   headers: {
-    //     Authorization: `Bearer ${inputData.token}`,
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify({
+    if (wallet.error) {
+      if (wallet.error.status === 401 || 415) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
 
-    //   }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log("response", response);
+      if (wallet.error.status === 422) {
+        setLoading(false);
+        return setError(
+          "Please enter a name for the wallet. If you have, this is a server error. Please try again later."
+        );
+      }
 
-    //     if (response.code == 409) {
-    //       setError("Wallet already exists");
-    //     }
-    //   })
-    //   .catch((err) => {
-    //     console.error(err);
-    //     return error;
-    //   });
-    console.log(wallet);
+      if (wallet.error.status === 409) {
+        setLoading(false);
+        return setError("Wallet already exists");
+      }
+    }
+
+    const tokens = await fetch(`${APP_URL}/api/get-tokens`, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+    }).then((response) => response.json());
+
+    const token_id = tokens.tokens[0].id;
+
+    const init = await fetch(`${APP_URL}/api/initiate-token-transfer`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        senderWallet: "GreenstandEscrow",
+        receiverWallet: walletName,
+        tokens: [token_id],
+        bundleSize: null,
+      }),
+    }).then((response) => response.json());
+
+    if (init.error) {
+      if (init.error.status === 401 || 403 || 404 || 409 || 415 || 422 || 500) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
+    }
+
+    const accept = await fetch(`${APP_URL}/api/accept-token-transfer`, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${inputData.token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        transferId: init.data.id,
+      }),
+    }).then((response) => response.json());
+
+    if (accept.error) {
+      if (
+        accept.error.status === 401 ||
+        403 ||
+        404 ||
+        409 ||
+        415 ||
+        422 ||
+        500
+      ) {
+        setLoading(false);
+        return setError(
+          "Sorry, there has been an internal server error. Please try again later."
+        );
+      }
+    }
+
+    setTokensReceived(true);
+
     setLoading(false);
   };
 
-  return (
+  return tokensReceived ? (
+    <>
+      <View>
+        <BlockStack spacing="xloose" alignment="center">
+          <Heading>You have received the tokens!</Heading>
+          <Link
+            external
+            to={"https://map.treetracker.org/wallets/" + walletName}
+          >
+            View your wallet
+          </Link>
+          <Button submit onPress={done}>
+            Move on
+          </Button>
+        </BlockStack>
+      </View>
+    </>
+  ) : (
     <>
       <CalloutBanner title="Congratulations!" spacing="xloose">
         <Text>With this purchase, you are supporting a tree!</Text>
       </CalloutBanner>
       <BlockStack spacing="loose" alignment="center">
-        <Layout
-          maxInlineSize={0.95}
-          media={[
-            { viewportSize: "small", sizes: [1, 30, 1] },
-            { viewportSize: "medium", sizes: [300, 30, 0.5] },
-            { viewportSize: "large", sizes: [400, 30, 0.33] },
-          ]}
-        >
-          <View>
-            <Image source="https://cdn.shopify.com/static/images/examples/img-placeholder-1120x1120.png" />
-            <TextBlock>
-              Link to the tree you are supporting:{" "}
-              <Link external to="https://greenstand.org/">
-                The tree I am supporting
-              </Link>
-            </TextBlock>
-          </View>
-          <View />
+        <Layout maxInlineSize={0.7}>
           <BlockStack spacing="xloose">
-            <TextContainer>
+            <TextContainer alignment="center">
               <Heading>How does this work?</Heading>
               <TextBlock>
                 You will be given an impact wallet containing one or more tokens
@@ -196,15 +244,20 @@ export function App() {
                 />
               </FormLayout>
             </Form>
-            <Button
-              submit
-              disabled={disabled}
-              onPress={createWallet}
-              loading={loading}
-              loadingLabel="Loading..."
-            >
-              Create wallet
-            </Button>
+            <BlockStack>
+              <Button
+                submit
+                disabled={disabled}
+                onPress={createWallet}
+                loading={loading}
+                loadingLabel="Loading..."
+              >
+                Create wallet
+              </Button>
+              <Button subdued submit onPress={done}>
+                No thanks
+              </Button>
+            </BlockStack>
           </BlockStack>
         </Layout>
       </BlockStack>

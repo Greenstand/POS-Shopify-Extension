@@ -30,7 +30,7 @@ export const initiateTransfer = async (req, res) => {
 
   let transferData;
 
-  if (token) {
+  if (tokens) {
     transferData = {
       tokens,
       sender_wallet: senderWallet,

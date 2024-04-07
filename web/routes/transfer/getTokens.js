@@ -19,7 +19,7 @@ export const getTokens = async (req, res) => {
 
     apiClient.setAuthToken(token);
   } catch (err) {
-    console.log(err);
+    console.log("auth", err.data);
 
     return res.status(500).send({
       error: err,
@@ -27,13 +27,11 @@ export const getTokens = async (req, res) => {
   }
 
   try {
-    const tokens = await apiClient.get("/tokens", {
-      headers: {
-        limit: 100,
-      },
-    });
+    const tokens = await apiClient.get("/tokens?limit=100");
 
-    console.log(tokens);
+    return res.status(200).send({
+      tokens: tokens.data.tokens,
+    });
   } catch (err) {
     console.log(err);
 

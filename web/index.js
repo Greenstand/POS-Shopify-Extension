@@ -103,7 +103,7 @@ app.post("/api/accept-token-transfer", (req, res) => {
   }
 });
 
-app.post("/api/get-tokens", (req, res) => {
+app.get("/api/get-tokens", (req, res) => {
   const check = checkExtensionRequest(req);
 
   if (check) {
