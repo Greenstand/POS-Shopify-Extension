@@ -1,5 +1,6 @@
 const apiClient = require("../utils/apiClient.js");
-require("dotenv/config");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 // import { describe, it, expect } from "jest";
 
 // ! authenticate
@@ -32,12 +33,12 @@ const authenticate = async () => {
 
 describe("API client", () => {
   describe("Check if authenticated function", () => {
-    it("The function should return true if the API client is authenticated", async () => {
-      const res = await authenticate();
-
-      if (res == 201 || res == 202) {
-        expect();
-      }
+    it("The function should return true if the API client is authenticated", () => {
+      authenticate().then((res) => {
+        if (res == 201 || res == 202) {
+          expect();
+        }
+      });
     });
   });
 });

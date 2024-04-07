@@ -1,5 +1,6 @@
-import axios from "axios";
-import "dotenv/config";
+const axios = require("axios");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
 
 const apiClient = axios.create({
   baseURL: `${process.env.TREETRACKER_WALLET_API_ROOT}`,
@@ -31,4 +32,4 @@ apiClient.isAuthenticated = () => {
   }
 };
 
-export default apiClient;
+module.exports = apiClient;
