@@ -55,5 +55,13 @@ describe("API client", () => {
 
       expect(res).toBeTruthy();
     });
+
+    it("The function should change the auth header", () => {
+      apiClient.setAuthHeader("test");
+
+      expect(apiClient.defaults.headers.common["Authorization"]).toBe(
+        "Bearer test",
+      );
+    });
   });
 });
