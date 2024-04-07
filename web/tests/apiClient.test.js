@@ -64,4 +64,20 @@ describe("API client", () => {
       );
     });
   });
+
+  describe("Check set auth token function", () => {
+    it("The function should not return", () => {
+      const res = apiClient.setAuthToken("");
+
+      expect(res).toBeFalsy();
+    });
+
+    it("The function should change the auth header", () => {
+      apiClient.setAuthToken("test");
+
+      expect(apiClient.defaults.headers.common["Authorization"]).toBe(
+        "Bearer test",
+      );
+    });
+  });
 });
