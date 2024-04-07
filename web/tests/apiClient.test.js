@@ -79,5 +79,11 @@ describe("API client", () => {
         "Bearer test",
       );
     });
+
+    it("The function should nullify the header if there is no token", () => {
+      apiClient.setAuthToken("");
+
+      expect(apiClient.defaults.headers.common["Authorization"]).toBeFalsy();
+    });
   });
 });
