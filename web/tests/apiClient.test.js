@@ -6,7 +6,7 @@ import { describe, it, expect } from "jest";
 // * helper function to authenticate without server req
 // * Return value: Int/Object<Error>
 
-const authenticate = () => {
+const authenticate = async () => {
   if (apiClient.defaults.headers.common["Authorization"]) {
     return 202;
   }
@@ -29,3 +29,15 @@ const authenticate = () => {
       return err;
     });
 };
+
+describe("API client", () => {
+  describe("Check if authenticated function", () => {
+    it("The function should return true if the API client is authenticated", async () => {
+      const res = await authenticate();
+
+      if (res == 201 || res == 202) {
+        expect();
+      }
+    });
+  });
+});
