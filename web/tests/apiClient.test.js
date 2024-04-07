@@ -40,5 +40,12 @@ describe("API client", () => {
         }
       });
     });
+
+    it("The function should return false if there is no API token", () => {
+      apiClient.setAuthToken("");
+      expect(apiClient.defaults.headers.common["Authorization"]).toBeFalsy(
+        undefined,
+      );
+    });
   });
 });
