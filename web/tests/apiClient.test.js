@@ -2,6 +2,10 @@ import apiClient from "../utils/apiClient.js";
 import "dotenv/config";
 import { describe, it, expect } from "jest";
 
+// ! authenticate
+// * helper function to authenticate without server req
+// * Return value: Int/Object<Error>
+
 const authenticate = () => {
   if (apiClient.defaults.headers.common["Authorization"]) {
     return 202;
