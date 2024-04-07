@@ -32,6 +32,12 @@ const authenticate = async () => {
 };
 
 describe("API client", () => {
+  describe("Check the general API client", () => {
+    it("The API client should exist", () => {
+      expect(apiClient).toBeTruthy();
+    });
+  });
+
   describe("Check if authenticated function", () => {
     it("The function should return true if the API client is authenticated", () => {
       authenticate().then((res) => {
