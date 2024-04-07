@@ -1,16 +1,26 @@
-# Greenstand Wallet App
+# POS Shopify Extension
 
 ## Getting started
 
 ### Requirements
 
 1. You must [download and install Node.js](https://nodejs.org/en/download/) if you don't already have it.
+2. I would recommend Visual Studio Code for programming
 
 ### Installation
 
 1. Fork this repository
 2. Clone the fork
-3. Create a new branch
+3. Run `npm install`
+
+### Working from the remote
+
+1. Always create a new branch before starting a feature
+2. Commit your changes
+3. Run `git checkout main`
+4. Run `git pull upstream main --rebase` and `git push origin main` (if doesn't work, run `git push origin main --force`)
+5. Switch to your feature branch (`git checkout [branch-name]`) and run `git rebase main`
+6. Now, you can push to your origin (`git push origin main`) and go to this repo and create a PR
 
 ### Setting up Shopify
 
