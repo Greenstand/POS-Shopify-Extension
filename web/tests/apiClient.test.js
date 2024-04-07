@@ -1,70 +1,97 @@
-import apiClient from "../utils/apiClient.js";
-import "dotenv/config";
+const apiClient = require("../utils/apiClient.js");
+const path = require("path");
+require("dotenv").config({ path: path.resolve(__dirname, "../.env") });
+// import { describe, it, expect } from "jest";
 
-const API_ROOT = process.env.TREETRACKER_WALLET_API_ROOT;
-let passed_tests = 0;
-let failed_tests = 0;
-let ran_tests = 0;
-const total_tests = 3;
+// ! authenticate
+// * helper function to authenticate without server req
+// * Return value: Int/Object<Error>
 
-console.log("apiClient.test.js");
-console.log("Starting tests...");
-console.log("----------------------------------------", "\n");
-
-const test_1 = () => {
-  ran_tests += 1;
-
-  console.log(apiClient);
-  console.log("Test 1 Complete");
-  passed_tests += 1;
-};
-
-const test_2 = () => {
-  ran_tests += 1;
-
-  if (API_ROOT) {
-    console.log(API_ROOT);
-    console.log("Test 2 Complete");
-
-    passed_tests += 1;
-  } else {
-    console.log("Test 2 Failed");
-    failed_tests += 1;
-    throw "Error: No API_ROOT found";
+const authenticate = async () => {
+  if (apiClient.defaults.headers.common["Authorization"]) {
+    return 202;
   }
+
+  apiClient
+    .post("/auth", {
+      wallet: `${process.env.TREETRACKER_WALLET_NAME}`,
+      password: `${process.env.TREETRACKER_WALLET_PASSWORD}`,
+    })
+    .then((data) => {
+      const { token } = data.data;
+
+      apiClient.setAuthToken(token);
+
+      return 201;
+    })
+    .catch((err) => {
+      console.log(err);
+
+      return err;
+    });
 };
 
-const test_3 = async () => {
-  ran_tests += 1;
+// Complete unit testing for API client
 
-  try {
-    const response = await apiClient.get(API_ROOT);
-    console.log(response, "\n");
+describe("API client", () => {
+  describe("Check the general API client", () => {
+    it("The API client should exist", () => {
+      expect(apiClient).toBeTruthy();
+    });
+  });
 
-    console.log("Test 3 Complete");
-    passed_tests += 1;
-  } catch (err) {
-    console.log("Test 3 Failed");
-    failed_tests += 1;
-    throw err;
-  }
-};
+  describe("Check if authenticated function", () => {
+    it("The function should return true if the API client is authenticated", () => {
+      authenticate().then((res) => {
+        if (res == 201 || res == 202) {
+          expect();
+        }
+      });
+    });
 
-(async () => {
-  test_1();
-  console.log("----------------------------------------", "\n");
+    it("The function should return false if there is no API token", () => {
+      apiClient.setAuthToken("");
+      expect(apiClient.defaults.headers.common["Authorization"]).toBeFalsy(
+        undefined,
+      );
+    });
+  });
 
-  test_2();
-  console.log("----------------------------------------", "\n");
+  describe("Check set auth header function", () => {
+    it("The function should return", () => {
+      const res = apiClient.setAuthHeader("");
 
-  await test_3();
-  console.log("----------------------------------------", "\n");
+      expect(res).toBeTruthy();
+    });
 
-  console.log("Tests complete");
-  console.log("----------------------------------------", "\n");
+    it("The function should change the auth header", () => {
+      apiClient.setAuthHeader("test");
 
-  console.log(`${ran_tests} tests ran`);
-  console.log(`${total_tests} tests in total`);
-  console.log(`${passed_tests}/${total_tests} tests passed`);
-  console.log(`${failed_tests}/${total_tests} tests failed`);
-})();
+      expect(apiClient.defaults.headers.common["Authorization"]).toBe(
+        "Bearer test",
+      );
+    });
+  });
+
+  describe("Check set auth token function", () => {
+    it("The function should not return", () => {
+      const res = apiClient.setAuthToken("");
+
+      expect(res).toBeFalsy();
+    });
+
+    it("The function should change the auth header", () => {
+      apiClient.setAuthToken("test");
+
+      expect(apiClient.defaults.headers.common["Authorization"]).toBe(
+        "Bearer test",
+      );
+    });
+
+    it("The function should nullify the header if there is no token", () => {
+      apiClient.setAuthToken("");
+
+      expect(apiClient.defaults.headers.common["Authorization"]).toBeFalsy();
+    });
+  });
+});
