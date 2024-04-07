@@ -48,4 +48,12 @@ describe("API client", () => {
       );
     });
   });
+
+  describe("Check set auth header function", () => {
+    it("The function should return", () => {
+      const res = apiClient.setAuthHeader("");
+
+      expect(res).toBeTruthy();
+    });
+  });
 });
