@@ -31,6 +31,8 @@ const authenticate = async () => {
     });
 };
 
+// Complete unit testing for API client
+
 describe("API client", () => {
   describe("Check the general API client", () => {
     it("The API client should exist", () => {
