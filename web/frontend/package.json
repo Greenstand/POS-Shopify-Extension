@@ -31,7 +31,7 @@
     "react-i18next": "^14.0.5",
     "react-query": "^3.34.19",
     "react-router-dom": "^6.3.0",
-    "vite": "^4.5.2"
+    "vite": "^4.5.3"
   },
   "devDependencies": {
     "@shopify/stylelint-polaris": "^15.3.0",
