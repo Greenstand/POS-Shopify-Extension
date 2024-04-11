@@ -8,7 +8,7 @@
     "@shopify/admin-ui-extensions-react": "^1.1.0",
     "@shopify/post-purchase-ui-extensions-react": "^0.13.5",
     "axios": "^1.6.7",
-    "jose": "^5.2.0",
+    "jose": "^5.2.4",
     "jwt-decode": "^4.0.0",
     "react": "^17.0.0"
   },
