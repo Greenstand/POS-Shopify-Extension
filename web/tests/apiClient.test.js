@@ -42,11 +42,10 @@ describe("API client", () => {
 
   describe("Check if authenticated function", () => {
     it("The function should return true if the API client is authenticated", () => {
-      authenticate().then((res) => {
-        if (res == 201 || res == 202) {
-          expect();
-        }
-      });
+      apiClient.setAuthHeader("test");
+      const res = apiClient.isAuthenticated();
+
+      expect(res).toBeTruthy();
     });
 
     it("The function should return false if there is no API token", () => {
