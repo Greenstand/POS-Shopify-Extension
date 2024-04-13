@@ -209,7 +209,13 @@ export function App() {
         <Text>With this purchase, you are supporting a tree!</Text>
       </CalloutBanner>
       <BlockStack spacing="loose" alignment="center">
-        <Layout maxInlineSize={0.7}>
+        <Layout
+          media={[
+            { viewportSize: "large", maxInlineSize: 0.7 },
+            { viewportSize: "medium", maxInlineSize: 0.8 },
+            { viewportSize: "small", maxInlineSize: 0.9 },
+          ]}
+        >
           <BlockStack spacing="xloose">
             <TextContainer alignment="center">
               <Heading>How does this work?</Heading>
