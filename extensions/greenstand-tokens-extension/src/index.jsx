@@ -216,7 +216,7 @@ export function App() {
             { viewportSize: "small", maxInlineSize: 0.9 },
           ]}
         >
-          <BlockStack spacing="xloose">
+          <BlockStack spacing="loose">
             <TextContainer alignment="center">
               <Heading>How does this work?</Heading>
               <TextBlock>
@@ -250,7 +250,7 @@ export function App() {
                 />
               </FormLayout>
             </Form>
-            <BlockStack>
+            <BlockStack spacing="tight">
               <Button
                 submit
                 disabled={disabled}
