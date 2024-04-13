@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://males-expansys-resource-springfield.trycloudflare.com";
+const APP_URL = "https://fully-participation-nba-conclude.trycloudflare.com/";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -55,6 +55,8 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  console.log(input);
 
   useEffect(() => {
     if (!optIn) {
@@ -215,17 +217,15 @@ export function App() {
                 You will be given an impact wallet containing one or more tokens
                 that represents verified environmental restoration impacts. In
                 simpler terms you made it possible that this tree will be able
-                to grow and that a community member was involved in planting.
+                to grow and that a community member was involved in planting. It
+                is <Text emphasized>completely free.</Text> Fill in the form to
+                get a token that represents the tree you are supporting:
               </TextBlock>
-              <TextBlock>
-                Learn more about Greenstand{" "}
+              <TextBlock emphasized>
+                Powered by{" "}
                 <Link external to="https://greenstand.org/">
-                  here.
+                  Greenstand.
                 </Link>
-              </TextBlock>
-              <TextBlock>
-                Fill in the form to get a token that represents the tree you are
-                supporting:
               </TextBlock>
             </TextContainer>
             <Form>
