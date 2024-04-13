@@ -23,7 +23,7 @@ import {
 } from "@shopify/post-purchase-ui-extensions-react";
 
 // For local development, replace APP_URL with your local tunnel URL.
-const APP_URL = "https://males-expansys-resource-springfield.trycloudflare.com";
+const APP_URL = "https://fully-participation-nba-conclude.trycloudflare.com/";
 
 // Preload data from your app server to ensure that the extension loads quickly.
 extend("Checkout::PostPurchase::ShouldRender", async (api) => {
@@ -55,6 +55,8 @@ export function App() {
 
   const changeOptIn = useCallback((newValue) => setOptIn(newValue));
   const changeWalletName = useCallback((newValue) => setWalletName(newValue));
+
+  console.log(input);
 
   useEffect(() => {
     if (!optIn) {
@@ -207,25 +209,29 @@ export function App() {
         <Text>With this purchase, you are supporting a tree!</Text>
       </CalloutBanner>
       <BlockStack spacing="loose" alignment="center">
-        <Layout maxInlineSize={0.7}>
-          <BlockStack spacing="xloose">
+        <Layout
+          media={[
+            { viewportSize: "large", maxInlineSize: 0.7 },
+            { viewportSize: "medium", maxInlineSize: 0.8 },
+            { viewportSize: "small", maxInlineSize: 0.9 },
+          ]}
+        >
+          <BlockStack spacing="loose">
             <TextContainer alignment="center">
               <Heading>How does this work?</Heading>
               <TextBlock>
                 You will be given an impact wallet containing one or more tokens
                 that represents verified environmental restoration impacts. In
                 simpler terms you made it possible that this tree will be able
-                to grow and that a community member was involved in planting.
+                to grow and that a community member was involved in planting. It
+                is <Text emphasized>completely free.</Text> Fill in the form to
+                get a token that represents the tree you are supporting:
               </TextBlock>
-              <TextBlock>
-                Learn more about Greenstand{" "}
+              <TextBlock emphasized>
+                Powered by{" "}
                 <Link external to="https://greenstand.org/">
-                  here.
+                  Greenstand.
                 </Link>
-              </TextBlock>
-              <TextBlock>
-                Fill in the form to get a token that represents the tree you are
-                supporting:
               </TextBlock>
             </TextContainer>
             <Form>
@@ -244,7 +250,7 @@ export function App() {
                 />
               </FormLayout>
             </Form>
-            <BlockStack>
+            <BlockStack spacing="tight">
               <Button
                 submit
                 disabled={disabled}
