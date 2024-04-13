@@ -32,6 +32,7 @@ const authenticate = async () => {
 };
 
 // Complete unit testing for API client
+// The statements should describe everything
 
 describe("API client", () => {
   describe("Check the general API client", () => {
