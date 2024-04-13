@@ -49,6 +49,7 @@ This app combines a number of third party open-source tools:
   - [`@formatjs/intl-localematcher`](https://formatjs.io/docs/polyfills/intl-localematcher/) is used to match the user locale with supported app locales.
   - [`@formatjs/intl-locale`](https://formatjs.io/docs/polyfills/intl-locale) is used as a polyfill for [`Intl.Locale`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/Locale) if necessary.
   - [`@formatjs/intl-pluralrules`](https://formatjs.io/docs/polyfills/intl-pluralrules) is used as a polyfill for [`Intl.PluralRules`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/PluralRules) if necessary.
+  - Jest for testing
 
 The following Shopify tools complement these third-party tools to ease app development:
 
@@ -59,10 +60,9 @@ The following Shopify tools complement these third-party tools to ease app devel
 - [File-based routing](https://github.com/Shopify/shopify-frontend-template-react/blob/main/Routes.jsx) makes creating new pages easier.
 - [`@shopify/i18next-shopify`](https://github.com/Shopify/i18next-shopify) is a plugin for [`i18next`](https://www.i18next.com/) that allows translation files to follow the same JSON schema used by Shopify [app extensions](https://shopify.dev/docs/apps/checkout/best-practices/localizing-ui-extensions#how-it-works) and [themes](https://shopify.dev/docs/themes/architecture/locales/storefront-locale-files#usage).
 
+### User Roles:
 
-### User Roles: 
-
-- Merchant (admin): Backend user of Shopify customizing the checkout process and adding items to the online store. 
+- Merchant (admin): Backend user of Shopify customizing the checkout process and adding items to the online store.
 - Prerequisite (Merchant): Needs to have a designated wallet handle with tokens inside. Or create a new wallet in the app.
 
 ### Users Defined:
@@ -70,15 +70,14 @@ The following Shopify tools complement these third-party tools to ease app devel
 - Consumer: Person buying something on Shop owners (Merchants) Shopify instance
 - Prerequisite (consumer): Needs to go through the cart checkout process and finalize a purchase. Either has an existing wallet (enter wallet name) or gets assigned a new wallet (could be the email address)
 
-### Wallets Defined: 
+### Wallets Defined:
 
-- Greenstand Shopify Master Wallet:  This is the master wallet created on the Greenstand wallet system that enables the shopify App to create more wallets and create trust relationships to receive tokens from the wallet of the shop owner.
+- Greenstand Shopify Master Wallet: This is the master wallet created on the Greenstand wallet system that enables the shopify App to create more wallets and create trust relationships to receive tokens from the wallet of the shop owner.
 
-- Consumer Wallet: A wallet created by the Shopify App (Using the Greenstand Shopify Master Wallet above). This wallet is created with a “trust relationship” that enables the wallet to receive tokens from the shop owner’s wallet. Complication: If the consumer already has created an outside of the shopify app, a new relationship must be established and a trust relationship must be sent (later user stories). 
+- Consumer Wallet: A wallet created by the Shopify App (Using the Greenstand Shopify Master Wallet above). This wallet is created with a “trust relationship” that enables the wallet to receive tokens from the shop owner’s wallet. Complication: If the consumer already has created an outside of the shopify app, a new relationship must be established and a trust relationship must be sent (later user stories).
 
-- Merchant Shop Wallet: This is a wallet that is owned by the merchant and designated as the wallet to draw tokens from on the shop. 
+- Merchant Shop Wallet: This is a wallet that is owned by the merchant and designated as the wallet to draw tokens from on the shop.
 
-### Use case: 
-Consumers buy items in the store and on check out opt in to receive tokens. If no wallet is known a new wallet gets created. The wallet created is fully managed by the Greenstand master account and only has a trust relationship to the “merchants master wallet”. That way tokens can not be transferred back into the merchant's master wallet which increases trust and security. 
+### Use case:
 
-
+Consumers buy items in the store and on check out opt in to receive tokens. If no wallet is known a new wallet gets created. The wallet created is fully managed by the Greenstand master account and only has a trust relationship to the “merchants master wallet”. That way tokens can not be transferred back into the merchant's master wallet which increases trust and security.
