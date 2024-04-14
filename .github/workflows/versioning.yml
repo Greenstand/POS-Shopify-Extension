@@ -1,0 +1,12 @@
+            - name: Semver release @ Huggingface
+  # You may pin to the exact commit or the version.
+  # uses: huggingface/semver-release-action@b4f3cb25076b6c0bf51602289d31fa5ffd6aa400
+  uses: huggingface/semver-release-action@v1.0.0
+  with:
+    # The branches on which releases should happen
+    branches: # default is [main]
+    # The objective of the dry-run mode is to get a preview of the pending release. Dry-run mode skips the following steps: prepare, publish, addChannel, success and fail. In addition to this it prints the next version and release notes to the console.
+    dryRun: # optional, default is false
+    # JSON Options to pass to commit analyzer plugins. See : https://github.com/semantic-release/commit-analyzer#options
+    commitAnalyzerPluginOpts: # optional, default is 
+          
